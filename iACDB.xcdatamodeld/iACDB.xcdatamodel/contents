@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="11759" systemVersion="16D32" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="EntAircraft" representedClassName="EntAircraft" syncable="YES" codeGenerationType="class">
+        <attribute name="acImage" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="acImageAvailable" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="acOperator" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="acRegistration" attributeType="String" syncable="YES"/>
+        <attribute name="acSeries" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="acType" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="EntLocations" representedClassName="EntLocations" syncable="YES" codeGenerationType="class">
+        <attribute name="current" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="freqApproach1" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="freqApproach2" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="freqDirector" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="freqGround" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="freqTower1" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="freqTower2" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="iOS" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="latitude" attributeType="Float" minValueString="-90" maxValueString="90" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="location" attributeType="String" syncable="YES"/>
+        <attribute name="longitude" attributeType="Float" minValueString="-180" maxValueString="180" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <compoundIndexes>
+            <compoundIndex>
+                <index value="location"/>
+            </compoundIndex>
+        </compoundIndexes>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="location"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+    <entity name="EntSpots" representedClassName="EntSpots" syncable="YES" codeGenerationType="class">
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="location" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="registration" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sectionDate" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="status" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="EntAircraft" positionX="-146" positionY="15" width="128" height="135"/>
+        <element name="EntLocations" positionX="-369" positionY="-126" width="128" height="210"/>
+        <element name="EntSpots" positionX="-369" positionY="15" width="128" height="120"/>
+    </elements>
+</model>
