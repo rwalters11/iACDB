@@ -19,6 +19,7 @@ enum spotStatus: Int {
     case Uploaded       = 2
     case UploadFailed   = 3
     case Updating       = 4
+    case Unknown        = -1
 }
 
 // Custom encapsulated class to hold info on an aircraft spotted
@@ -81,6 +82,9 @@ class infoSpot {
             break
         }
         
+        // Update CoreData
+        updateSpot(inSpot: self)
+        
     }
     
     // Set spot registration
@@ -128,9 +132,6 @@ class infoSpot {
                 print("No data returned from async call")
                 self.setStatus(inStatus: .UploadFailed)
             }
-            
-            // Update CoreData
-            updateSpot(inSpot: self)
             
         })
         

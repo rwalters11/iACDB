@@ -533,6 +533,8 @@ class spotListTableViewController: UITableViewController, NSFetchedResultsContro
         // Set upload status icon
         switch stSpot
         {
+        case -1:
+            cell.imgUploaded.image = nil
         case 1:
             cell.imgUploaded.image = #imageLiteral(resourceName: "WaitingToUpload")
         case 2:
@@ -540,14 +542,14 @@ class spotListTableViewController: UITableViewController, NSFetchedResultsContro
         case 3:
             cell.imgUploaded.image = #imageLiteral(resourceName: "UploadFailed")
         case 4:
-            
+            // Updating
             let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
             activityIndicator.hidesWhenStopped = true
             activityIndicator.center = cell.imgUploaded.center
             activityIndicator.startAnimating()
             
         default:
-            cell.imgUploaded.image = nil
+            cell.imgUploaded.image = #imageLiteral(resourceName: "UploadFailed")
         }
     }
     
