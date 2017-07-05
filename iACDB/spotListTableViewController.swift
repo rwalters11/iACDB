@@ -549,7 +549,7 @@ class spotListTableViewController: UITableViewController, NSFetchedResultsContro
             activityIndicator.startAnimating()
             
         default:
-            cell.imgUploaded.image = #imageLiteral(resourceName: "UploadFailed")
+            cell.imgUploaded.image = #imageLiteral(resourceName: "WaitingToUpload")
         }
     }
     
