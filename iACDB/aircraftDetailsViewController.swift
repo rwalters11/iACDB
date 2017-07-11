@@ -65,6 +65,24 @@ class aircraftDetailsViewController: UIViewController, UISearchBarDelegate
         
     }
     
+    // Do the preparation for showing the next view
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if (segue.identifier == "AddSpotFromACDetails") {
+            
+            // Set the class of the details View controller
+            let svc = segue.destination as! addSpotViewController
+            
+            // Pass the registration to the Add Spot view
+            svc.inRegistration = inRegistration!
+            
+            // Set the custom value of the Back Item text to be shown in the Add Spot view
+            let backItem = UIBarButtonItem()
+            backItem.title = "Add"
+            navigationItem.backBarButtonItem = backItem // This will show in the next view controller being pushed
+        }
+    }
+    
     // Function to compile and display the aircraft details - may be more than 1 aircraft with same registration !!
     func showAircraftData(acDetails: [EntAircraft]) {
         

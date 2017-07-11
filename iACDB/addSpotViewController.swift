@@ -25,6 +25,9 @@ class addSpotViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     // Create a reference to the Phone Location Manager
     let locationManager = CLLocationManager()
     
+    // Value for string passed in by segue from Details View
+    var inRegistration: String!
+    
     var nearestLocation = ""
     
     var returnSpot: infoSpot = infoSpot(inStatus: spotStatus.Placeholder)
@@ -132,6 +135,17 @@ class addSpotViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         
         // Set focus to Registration field
         txtRegistration.becomeFirstResponder()
+        
+        // Populate the Registration field if value passed in
+        if (!(inRegistration.isEmpty)) {
+            
+            txtRegistration.text = inRegistration
+            
+            // Remove focus from registration field
+            txtRegistration.resignFirstResponder()
+            
+            getAircraftDetails()
+        }
         
         // Populate picker with list of valid locations from the CoreData cache
         
