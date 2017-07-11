@@ -14,7 +14,8 @@ class registrationValidator {
     
     // MARK: Properties
     
-    static var vPrefixes = [_ICAOPrefix]()                      // Registration prefix data
+    static var vPrefixes = [_ICAOPrefix]()                      // Civil Registration prefix data
+    static var vMilitary = [_MilData]()                         // Military Registration pattern data
     
     typealias rv = registrationValidator                        // Create a shorthand for this class name
     
@@ -388,10 +389,27 @@ class registrationValidator {
         // Populate the array with data
         rv.vPrefixes = data
         
-        debugPrint("Registration Validator loaded with \(rv.vPrefixes.count) entries")
-    }
+        debugPrint("Registration Validator loaded with \(rv.vPrefixes.count) civil entries")
+        
+        let mdata = [
+            
+            _MilData(Country: "UK Royal Air Force", Pattern: ""),
+            _MilData(Country: "USAF",               Pattern: ""),
+            _MilData(Country: "United States Navy", Pattern: "")
+        
+        ]
+        
+        rv.vMilitary = mdata
+        
+        debugPrint("Registration Validator loaded with \(rv.vMilitary.count) military entries")    }
     
     
+}
+
+struct _MilData {
+    
+    let Country:        String                  // Country to whom pattern belongs
+    let Pattern:        String                  // Regex pattern for checking validity
 }
 
 struct _ICAOPrefix {
