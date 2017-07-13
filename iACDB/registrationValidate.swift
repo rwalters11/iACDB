@@ -44,7 +44,7 @@ class registrationValidator {
         // Default return string
         retResult.vReturn = trimmedRegistration!
         
-        // Loop through array of ICAO prefixes
+        // Loop through array of ICAO Civil prefixes
         for rvp in rv.vPrefixes {
             
             // Get regex to use
@@ -59,6 +59,29 @@ class registrationValidator {
                 retResult.vValid = true
                 
                 debugPrint("Reg: \(trimmedRegistration!) matched to: \(rvp.Country)")
+                
+                return retResult
+            }
+        }
+        
+        // Loop through array of Military prefixes
+        for rvp in rv.vMilitary {
+            
+            // Get regex to use
+            let regex = try! NSRegularExpression(pattern: rvp.Pattern , options: [])
+            
+            // Get the number of matches
+            let matches = regex.matches(in: trimmedRegistration!, options: [], range: NSRange(location: 0, length: (trimmedRegistration?.characters.count)!))
+            
+            // If positive we have a match
+            if matches.count > 0
+            {
+                retResult.vValid = true
+                
+                debugPrint("Reg: \(trimmedRegistration!) matched to: \(rvp.Country)")
+                
+                // if match break out of For and return
+                return retResult
             }
         }
         
@@ -393,9 +416,9 @@ class registrationValidator {
         
         let mdata = [
             
-            _MilData(Country: "UK Royal Air Force", Pattern: ""),
-            _MilData(Country: "USAF",               Pattern: ""),
-            _MilData(Country: "United States Navy", Pattern: "")
+            _MilData(Country: "UK Royal Air Force", Pattern: "^[A-Z]{2}[0-9]{3}$"),
+            _MilData(Country: "USAF",               Pattern: "^[0-9]{2}-[0-9]{4,6}$"),
+            _MilData(Country: "United States Navy", Pattern: "^[0-9]{6}$")
         
         ]
         

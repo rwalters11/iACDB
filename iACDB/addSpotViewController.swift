@@ -137,7 +137,8 @@ class addSpotViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         txtRegistration.becomeFirstResponder()
         
         // Populate the Registration field if value passed in
-        if (!(inRegistration.isEmpty)) {
+        guard inRegistration == nil else {
+        // if (!(inRegistration.isEmpty)) {
             
             txtRegistration.text = inRegistration
             
@@ -145,6 +146,8 @@ class addSpotViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
             txtRegistration.resignFirstResponder()
             
             getAircraftDetails()
+            
+            return
         }
         
         // Populate picker with list of valid locations from the CoreData cache
