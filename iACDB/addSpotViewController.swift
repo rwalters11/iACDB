@@ -45,6 +45,7 @@ class addSpotViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     @IBOutlet weak var lblTypeSeries:   UILabel!
     @IBOutlet weak var lblOperator:     UILabel!
     @IBOutlet weak var locationPicker:  UIPickerView!
+    @IBOutlet weak var txtNotes:        UITextView!
     
     static var locationPickerData: [String]=[String]()
     
@@ -67,7 +68,7 @@ class addSpotViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         
         if (regText?.isEmpty)! { errorCheck = true }
         
-        // Validation
+        // MARK: - Validation
         
         // Perform validation if switched on
         if defaults.bool(forKey: "validateRegistrations") {
@@ -130,6 +131,11 @@ class addSpotViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         
         swShowDetails.setOn(defaults.bool(forKey: "showAircraftDetails"), animated: true)
         
+        let color = UIColor.lightGray.cgColor
+        txtNotes.layer.borderColor = color
+        txtNotes.layer.borderWidth = 0.5
+        txtNotes.layer.cornerRadius = 5
+        
         // Hide the pickerView
         locationPicker.isHidden = true
         
@@ -138,25 +144,13 @@ class addSpotViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         locationPicker.dataSource=self
         
         txtLocation.delegate = self
+        //txtLocation.inputView = locationPicker
+        
+        txtRegistration.delegate = self
         
         txtRegistration.returnKeyType = .done
         
-        // Set focus to Registration field
-        txtRegistration.becomeFirstResponder()
-        
-        // Populate the Registration field if value passed in
-        guard inRegistration == nil else {
-        // if (!(inRegistration.isEmpty)) {
-            
-            txtRegistration.text = inRegistration
-            
-            // Remove focus from registration field
-            txtRegistration.resignFirstResponder()
-            
-            getAircraftDetails()
-            
-            return
-        }
+        self.txtNotes.isEditable = false
         
         // Populate picker with list of valid locations from the CoreData cache
         
@@ -219,6 +213,21 @@ class addSpotViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
             
         }
         
+        // Set focus to Registration field
+        txtRegistration.becomeFirstResponder()
+        
+        // Populate the Registration field if value passed in
+        guard inRegistration == nil else {
+            
+            txtRegistration.text = inRegistration
+            
+            // Remove focus from registration field
+            txtRegistration.resignFirstResponder()
+            
+            getAircraftDetails()
+            
+            return
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -235,6 +244,8 @@ class addSpotViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
             setPicker2Index(inLocation: currentLocation, sender: "Did Appear")
         }
         
+        // Set focus to Registration field
+        txtRegistration.becomeFirstResponder()
     }
     
     // Delegate function for passing back data from getCameraView
@@ -345,7 +356,7 @@ class addSpotViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
     {
         txtLocation.text = addSpotViewController.locationPickerData[row]
-        locationPicker.isHidden = true
+        //locationPicker.isHidden = true
     }
     
     // MARK: - UITextField Delegates
@@ -372,11 +383,11 @@ class addSpotViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
             case 2:
                 locationPicker.isHidden = false
             
+            
             default: break
         }
         
-        textField.resignFirstResponder()
-        return false;
+        return true;
     }
     func textFieldShouldClear(_ textField: UITextField) -> Bool {
         

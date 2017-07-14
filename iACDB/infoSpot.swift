@@ -31,8 +31,9 @@ class infoSpot {
     private var acRegistration:     String?                     // Registration
     private var spLocation:         String?                     // Location
     private var spStatus:           spotStatus                  // Status of upload to server
-    private var spDateTime:         Date                      // Date and time at moment of instaniation
+    private var spDateTime:         Date                        // Date and time at moment of instaniation
     private var spName:             String?                     // Name
+    private var spNotes:            String?                     // Notes
     
     // MARK: Initialisation
     
@@ -45,6 +46,7 @@ class infoSpot {
         self.spStatus = .Waiting
         self.spDateTime = Date()                  // Now
         self.spName = "Jason"
+        self.spNotes = ""
         
         upload2Server()
     
@@ -57,7 +59,7 @@ class infoSpot {
         self.spLocation = nil
         self.spDateTime = Date()                  // Now
         self.spName = "Jason"
-        
+        self.spNotes = ""
         self.spStatus = inStatus
     }
     
@@ -69,6 +71,9 @@ class infoSpot {
     
     // Get spot status
     public func getStatus() -> spotStatus { return spStatus }
+    
+    // Get notes
+    public func getNotes() -> String? { return spNotes }
     
     // Set spot status
     public func setStatus(inStatus: spotStatus)
@@ -103,6 +108,12 @@ class infoSpot {
     public func setName(inName: String)
     {
         spName = inName
+    }
+    
+    // Set notes
+    public func setNotes(inNotes: String)
+    {
+        spNotes = inNotes
     }
     
     // Function to request upload spot to server
