@@ -416,10 +416,13 @@ class registrationValidator {
         
         let mdata = [
             
+            _MilData(Country: "Belgian Air Force",  Pattern: "^[A-Z]{2}-[0-9]{2}$"),
+            _MilData(Country: "Luftwaffe",          Pattern: "^[0-9]{2}\\+[0-9]{2}$"),
             _MilData(Country: "UK Royal Air Force", Pattern: "^[A-Z]{2}[0-9]{3}$"),
             _MilData(Country: "USAF",               Pattern: "^[0-9]{2}-[0-9]{4,6}$"),
             _MilData(Country: "United States Navy", Pattern: "^[0-9]{6}$")
-        
+            
+            
         ]
         
         rv.vMilitary = mdata

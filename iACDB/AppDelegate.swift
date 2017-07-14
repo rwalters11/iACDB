@@ -74,7 +74,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             "loadAircraftCacheOnStartup":true,
             "cacheLoadWiFiOnly":true,
             "showAircraftDetails":true,
-            "imageLoadWiFiOnly":false
+            "imageLoadWiFiOnly":false,
+            "validateRegistrations":true
             
             ] as [String : Any]
         

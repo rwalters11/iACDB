@@ -22,6 +22,7 @@ class SettingsTableViewController: UITableViewController, UITextFieldDelegate {
     @IBOutlet weak var swAircraftCache:     UISwitch!
     @IBOutlet weak var swUseNearestLocation:UISwitch!
     @IBOutlet weak var swImagesViaMobileData: UISwitch!
+    @IBOutlet weak var swValidateRegistrations: UISwitch!
     
     // Actions
     
@@ -48,6 +49,11 @@ class SettingsTableViewController: UITableViewController, UITextFieldDelegate {
     @IBAction func userName(_ sender: UITextField) {
         
         defaults.set(sender.text, forKey: "name")
+    }
+    
+    @IBAction func swValidateRegistrations(_ sender: UISwitch) {
+        
+        defaults.set(sender.isOn, forKey: "validateRegistrations")
     }
     
     @IBAction func btnReset(_ sender: UIBarButtonItem) {
@@ -104,6 +110,8 @@ class SettingsTableViewController: UITableViewController, UITextFieldDelegate {
         swUseNearestLocation.setOn(defaults.bool(forKey: "useNearestLocation"), animated: true)
         
         swImagesViaMobileData.setOn(defaults.bool(forKey: "imageLoadWiFiOnly"), animated: true)
+        
+        swValidateRegistrations.setOn(defaults.bool(forKey: "validateRegistrations"), animated: true)
 
     }
 
