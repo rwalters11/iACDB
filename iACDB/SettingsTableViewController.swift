@@ -11,7 +11,6 @@ import UIKit
 class SettingsTableViewController: UITableViewController, UITextFieldDelegate {
     
     // Seup our User Defaults instance
-    //let defaults = tbgUserDefaults.sharedInstance
     let defaults = UserDefaults.standard
     
     // Outlets

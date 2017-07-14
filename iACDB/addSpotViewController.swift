@@ -19,7 +19,6 @@ import SwiftyJSON
 class addSpotViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate, CLLocationManagerDelegate, getCameraReturnProtocol  {
     
     // Seup our User Defaults instance
-    //let defaults = tbgUserDefaults.sharedInstance
     let defaults = UserDefaults.standard
     
     // Create a reference to the Phone Location Manager
@@ -69,16 +68,25 @@ class addSpotViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         if (regText?.isEmpty)! { errorCheck = true }
         
         // Validation
-        let validatedReg = rv.validateRegistration(unvRegistration: regText!) as _ICAOValidationResult
-        returnSpot.setRegistration(inRegistration: validatedReg.vReturn)
         
-        // Reg fails validation so error's - except when  reg field is blank
-        if (validatedReg.vValid == false && regText?.isEmpty == false)
+        // Perform validation if switched on
+        if defaults.bool(forKey: "validateRegistrations") {
+        
+            let validatedReg = rv.validateRegistration(unvRegistration: regText!) as _ICAOValidationResult
+            returnSpot.setRegistration(inRegistration: validatedReg.vReturn)
+            
+            // Reg fails validation so error's - except when  reg field is blank
+            if (validatedReg.vValid == false && regText?.isEmpty == false)
             {
                 errorCheck = true
                 
                 showAlert(inTitle: "iACDB Error", inMessage: "Invalid registration", inViewController: self)
             }
+            
+        }else{
+            // Use unvalidated registration
+            returnSpot.setRegistration(inRegistration: regText!)
+        }
         
         // If errors are false update status so it gets added as a spot
         if (errorCheck == false)
