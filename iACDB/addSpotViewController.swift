@@ -144,7 +144,6 @@ class addSpotViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         locationPicker.dataSource=self
         
         txtLocation.delegate = self
-        //txtLocation.inputView = locationPicker
         
         txtRegistration.delegate = self
         
@@ -356,7 +355,7 @@ class addSpotViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
     {
         txtLocation.text = addSpotViewController.locationPickerData[row]
-        //locationPicker.isHidden = true
+        locationPicker.isHidden = true
     }
     
     // MARK: - UITextField Delegates
@@ -378,16 +377,16 @@ class addSpotViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
             // Registration
             case 1:
                 locationPicker.isHidden = true
+            return true
             
             // Location
             case 2:
                 locationPicker.isHidden = false
-            
+                return false
             
             default: break
         }
-        
-        return true;
+        return false
     }
     func textFieldShouldClear(_ textField: UITextField) -> Bool {
         
