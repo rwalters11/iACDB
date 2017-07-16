@@ -78,6 +78,10 @@ class infoSpot {
     // Set spot status
     public func setStatus(inStatus: spotStatus)
     {
+        // Assign status
+        spStatus = inStatus
+        
+        // Take any actions
         switch inStatus {
             
         case .Waiting:                                      // Setting the status to waiting triggers the upload to the TBG server

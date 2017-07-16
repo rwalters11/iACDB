@@ -42,7 +42,7 @@ class SettingsTableViewController: UITableViewController, UITextFieldDelegate {
     
     @IBAction func swImagesViaMobileData(_ sender: UISwitch) {
         
-        defaults.set(sender.isOn, forKey: "imageLoadWiFiOnly")
+        defaults.set(!sender.isOn, forKey: "imageLoadWiFiOnly")
     }
     
     @IBAction func userName(_ sender: UITextField) {
@@ -108,7 +108,7 @@ class SettingsTableViewController: UITableViewController, UITextFieldDelegate {
         
         swUseNearestLocation.setOn(defaults.bool(forKey: "useNearestLocation"), animated: true)
         
-        swImagesViaMobileData.setOn(defaults.bool(forKey: "imageLoadWiFiOnly"), animated: true)
+        swImagesViaMobileData.setOn(!defaults.bool(forKey: "imageLoadWiFiOnly"), animated: true)
         
         swValidateRegistrations.setOn(defaults.bool(forKey: "validateRegistrations"), animated: true)
 

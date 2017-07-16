@@ -248,8 +248,15 @@ class aircraftTableViewController: UITableViewController, NSFetchedResultsContro
         // Check network connection
         let netStatus = currentReachabilityStatus()
         
+        switch netStatus {
+            
+        case .notReachable:
+            return cell
+            
+        case .reachableViaWiFi, .reachableViaWWAN:
+        
         // Check for WiFi connection & User wants images via WiFi only
-        if netStatus != .reachableViaWiFi && defaults.bool(forKey: "imageLoadWiFiOnly") { return cell }
+            if netStatus != .reachableViaWiFi && defaults.bool(forKey: "imageLoadWiFiOnly") { return cell }
         
             // Make call to server if current image is nil and image available for registration
             if aircraft.acImageAvailable
@@ -272,6 +279,8 @@ class aircraftTableViewController: UITableViewController, NSFetchedResultsContro
         
             // Return the updated cell
             return cell
+            
+        }
     }
     
     

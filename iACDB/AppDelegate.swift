@@ -72,7 +72,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             "useNearestLocation":true,
             "loadLocationsCacheOnStartup":true,
             "loadAircraftCacheOnStartup":true,
-            "cacheLoadWiFiOnly":true,
+            "cacheLoadWiFiOnly":false,
             "showAircraftDetails":true,
             "imageLoadWiFiOnly":false,
             "validateRegistrations":true

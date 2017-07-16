@@ -21,12 +21,19 @@ class aircraftDetailsViewController: UIViewController, UISearchBarDelegate
     @IBOutlet weak var lblTypeSeries: UILabel!
     @IBOutlet weak var imgAircraft: UIImageView!
     
-    // Value for string passed in by segue
+    // Values passed in by segue
     var inRegistration: String!
+    var inMenuSpot: Bool = true
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Hide the RH bar button 'Spot' if details shown from existing spot
+        if !inMenuSpot {
+            
+            navigationItem.rightBarButtonItem = nil
+        }
         
         lblRegistration.text = inRegistration
         
