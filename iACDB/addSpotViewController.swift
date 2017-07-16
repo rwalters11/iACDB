@@ -129,8 +129,10 @@ class addSpotViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         
         super.viewDidLoad()
         
+        // Position switch
         swShowDetails.setOn(defaults.bool(forKey: "showAircraftDetails"), animated: true)
         
+        // Add border to notes field
         let color = UIColor.lightGray.cgColor
         txtNotes.layer.borderColor = color
         txtNotes.layer.borderWidth = 0.5
@@ -148,8 +150,6 @@ class addSpotViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         txtRegistration.delegate = self
         
         txtRegistration.returnKeyType = .done
-        
-        self.txtNotes.isEditable = false
         
         // Populate picker with list of valid locations from the CoreData cache
         

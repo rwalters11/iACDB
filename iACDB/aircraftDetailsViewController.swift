@@ -17,9 +17,11 @@ import SwiftyJSON
 class aircraftDetailsViewController: UIViewController, UISearchBarDelegate
 {
     
-    @IBOutlet weak var lblRegistration: UILabel!
-    @IBOutlet weak var lblTypeSeries: UILabel!
-    @IBOutlet weak var imgAircraft: UIImageView!
+    @IBOutlet weak var lblRegistration:     UILabel!
+    @IBOutlet weak var lblTypeSeries:       UILabel!
+    @IBOutlet weak var imgAircraft:         UIImageView!
+    @IBOutlet weak var lbl4lblTypeSeries:   UILabel!
+    @IBOutlet weak var txtViewNotes:        UITextView!
     
     // Values passed in by segue
     var inRegistration: String!
@@ -33,9 +35,16 @@ class aircraftDetailsViewController: UIViewController, UISearchBarDelegate
         if !inMenuSpot {
             
             navigationItem.rightBarButtonItem = nil
+            
         }
         
         lblRegistration.text = inRegistration
+        
+        // Add border to notes field
+        let color = UIColor.lightGray.cgColor
+        txtViewNotes.layer.borderColor = color
+        txtViewNotes.layer.borderWidth = 0.5
+        txtViewNotes.layer.cornerRadius = 5
         
         // Test for ""
         if !inRegistration.isEmpty {
@@ -96,6 +105,11 @@ class aircraftDetailsViewController: UIViewController, UISearchBarDelegate
         // Check for empty array - New A/C
         if acDetails.isEmpty
         {
+            // Hide empty fields
+            lbl4lblTypeSeries.isHidden = true
+            lblTypeSeries.isHidden = true
+            imgAircraft.isHidden = true
+            
             return
         }
     
