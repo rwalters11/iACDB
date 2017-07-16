@@ -81,6 +81,11 @@ class aircraftDetailsViewController: UIViewController, UISearchBarDelegate
         
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        
+        //moveTextField(txtViewNotes, moveDistance: -250, up: true)
+    }
+    
     // Do the preparation for showing the next view
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
@@ -177,6 +182,18 @@ class aircraftDetailsViewController: UIViewController, UISearchBarDelegate
                 completionHandler(responseImage)
         }
         
+    }
+    
+    // Move the text field in a pretty animation!
+    func moveTextField(_ textField: UITextView, moveDistance: Int, up: Bool) {
+        let moveDuration = 0.3
+        let movement: CGFloat = CGFloat(up ? moveDistance : -moveDistance)
+        
+        UIView.beginAnimations("animateTextField", context: nil)
+        UIView.setAnimationBeginsFromCurrentState(true)
+        UIView.setAnimationDuration(moveDuration)
+        self.view.frame = self.view.frame.offsetBy(dx: 0, dy: movement)
+        UIView.commitAnimations()
     }
 }
 
