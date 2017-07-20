@@ -352,6 +352,7 @@ func saveSpot(spot: infoSpot) {
     newSpot.status=Int16(spot.getStatus().rawValue)             // Status as it's enum integer value
     newSpot.date=Date() as NSDate?                              // Date/Time
     newSpot.sectionDate=Date().toiACDBDateString()              // Date in dd-mm-yyyy string format for section headers
+    newSpot.notes = spot.getNotes()                             // Notes
     
     // Save the values
     do {

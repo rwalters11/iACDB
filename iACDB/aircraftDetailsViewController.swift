@@ -97,7 +97,7 @@ class aircraftDetailsViewController: UIViewController, UISearchBarDelegate
                 if let notesResult = try moc.fetch(notesFetchRequest) as? [EntSpots] {
                     
                     // Display the Notes
-                    txtViewNotes.text = notesResult[0].notes ?? ""
+                    txtViewNotes.text = notesResult[0].notes
                     
                 }
                 

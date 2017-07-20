@@ -81,6 +81,9 @@ class infoSpot {
         // Assign status
         spStatus = inStatus
         
+        // Update CoreData
+        updateSpot(inSpot: self)
+        
         // Take any actions
         switch inStatus {
             
@@ -90,9 +93,6 @@ class infoSpot {
             default:
                 break
         }
-        
-        // Update CoreData
-        updateSpot(inSpot: self)
         
     }
     
