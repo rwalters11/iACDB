@@ -38,13 +38,25 @@ class infoSpot {
     // MARK: Initialisation
     
     // Constructor - Registration only
-    init(inRegistration: String, inLocation: String?) {
+    init(inRegistration: String) {
         
         self.acRegistration = inRegistration        // Assign registration
         
-        self.spLocation = inLocation
+        self.spLocation = nil
+        self.spDateTime = Date()                    // Now
+        self.spStatus   = .Unknown
+        self.spName     = "Jason"
+        self.spNotes    = ""
+    }
+    
+    // Constructor - Registration & Location
+    init(inRegistration: String, inLocation: String?) {
+        
+        self.acRegistration = inRegistration        // Assign registration
+        self.spLocation = inLocation                // Assign location
+        
         self.spStatus = .Waiting
-        self.spDateTime = Date()                  // Now
+        self.spDateTime = Date()                    // Now
         self.spName = "Jason"
         self.spNotes = ""
         
@@ -57,7 +69,7 @@ class infoSpot {
         
         self.acRegistration = nil
         self.spLocation = nil
-        self.spDateTime = Date()                  // Now
+        self.spDateTime = Date()                    // Now
         self.spName = "Jason"
         self.spNotes = ""
         self.spStatus = inStatus

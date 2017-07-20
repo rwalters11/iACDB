@@ -14,7 +14,7 @@ import Alamofire
 import AlamofireImage
 import SwiftyJSON
 
-class aircraftDetailsViewController: UIViewController, UISearchBarDelegate
+class aircraftDetailsViewController: UIViewController, UISearchBarDelegate, UITextViewDelegate
 {
     
     @IBOutlet weak var lblRegistration:     UILabel!
@@ -27,7 +27,6 @@ class aircraftDetailsViewController: UIViewController, UISearchBarDelegate
     var inRegistration: String!
     var inMenuSpot: Bool = true
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -45,6 +44,9 @@ class aircraftDetailsViewController: UIViewController, UISearchBarDelegate
         txtViewNotes.layer.borderColor = color
         txtViewNotes.layer.borderWidth = 0.5
         txtViewNotes.layer.cornerRadius = 5
+        
+        // Set textView delegate
+        txtViewNotes.delegate = self
         
         // Test for ""
         if !inRegistration.isEmpty {
@@ -117,8 +119,8 @@ class aircraftDetailsViewController: UIViewController, UISearchBarDelegate
     // Do the preparation for showing the next view
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        if (segue.identifier == "AddSpotFromACDetails") {
-            
+        if (segue.identifier == "AddSpotFromACDetails")
+        {
             // Set the class of the details View controller
             let svc = segue.destination as! addSpotViewController
             
@@ -130,6 +132,16 @@ class aircraftDetailsViewController: UIViewController, UISearchBarDelegate
             backItem.title = "Add"
             navigationItem.backBarButtonItem = backItem // This will show in the next view controller being pushed
         }
+    }
+    
+    // Do updates after editing Notes textView
+    func textViewDidEndEditing(_ textView: UITextView) {
+        
+        let notes4Spot: infoSpot = infoSpot(inRegistration: inRegistration)
+        
+        notes4Spot.setNotes(inNotes: txtViewNotes.text)
+        
+        updateSpot(inSpot: notes4Spot)
     }
     
     // Function to compile and display the aircraft details - may be more than 1 aircraft with same registration !!
@@ -161,8 +173,6 @@ class aircraftDetailsViewController: UIViewController, UISearchBarDelegate
                 self.imgAircraft.image = imageFromServer
 
             })
-            
-            
         }
     }
     

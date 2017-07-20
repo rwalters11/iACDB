@@ -63,6 +63,9 @@ class addSpotViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     // Handle Switch changes by user
     @IBAction func swShowDetailsChange(_ sender: UISwitch) {
         
+        // Save the setting of the switch
+        defaults.set(sender.isOn, forKey: "showAircraftDetails")
+        
         if swShowDetails.isOn == true {
             
             getAircraftDetails()
@@ -73,8 +76,6 @@ class addSpotViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
             lblOperator.text = ""
         }
         
-        // Save the setting of the switch
-        defaults.set(sender.isOn, forKey: "showAircraftDetails")
     }
     
     // Instantiate registration validator
@@ -211,8 +212,8 @@ class addSpotViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     }
     
     // Do the preparation for showing the next view (going forwards)
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
         switch segue.identifier!
         {
             
@@ -228,7 +229,7 @@ class addSpotViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
             backItem.title = "Scan"
             navigationItem.backBarButtonItem = backItem // This will show in the next view controller being pushed
             
-            // Unwind segue to Spot List adding spot from Add button
+            // Unwind segue from Add button to Spot List adding spot
         case "unwind2AddSpot":
             
             let regText: String? = txtRegistration.text
