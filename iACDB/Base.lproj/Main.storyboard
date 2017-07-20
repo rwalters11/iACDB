@@ -290,6 +290,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Add Spot" id="gCM-pF-wRa">
+                        <barButtonItem key="leftBarButtonItem" title="Add" id="iOL-1d-D9N">
+                            <connections>
+                                <segue destination="5lI-77-xEn" kind="unwind" identifier="unwind2AddSpot" unwindAction="btnAddWithSegue:" id="K7e-kE-dNY"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="yvf-OV-zhK">
                             <connections>
                                 <action selector="btnCancelAdd:" destination="sR2-ZU-5UN" id="g4E-KN-sOa"/>
@@ -1150,6 +1155,30 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
+                            <tableViewSection headerTitle="Spot Data" id="ifU-tT-WH8">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="8rR-Ts-eiV">
+                                        <rect key="frame" x="0.0" y="488" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8rR-Ts-eiV" id="B9P-wg-9nZ">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vWM-3A-q7g">
+                                                    <rect key="frame" x="8" y="5" width="102" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <state key="normal" title="Clear">
+                                                        <color key="titleColor" red="1" green="0.125468935" blue="0.1100421815" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="btnClearSpotData:" destination="zEq-pj-z2P" eventType="touchUpInside" id="1aZ-RL-cBe"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
                         </sections>
                         <connections>
                             <outlet property="dataSource" destination="zEq-pj-z2P" id="aqY-8z-qlb"/>
@@ -1164,6 +1193,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="btnClearSpotData" destination="vWM-3A-q7g" id="YZI-TW-NOZ"/>
                         <outlet property="swAircraftCache" destination="rja-Kg-Oax" id="D3P-f1-ph9"/>
                         <outlet property="swImagesViaMobileData" destination="tLh-Ht-OyP" id="wqk-NW-xDa"/>
                         <outlet property="swLocationsCache" destination="fUJ-IL-DRg" id="LIY-4Y-cf1"/>
@@ -1334,8 +1364,8 @@
         <image name="Settings" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="XEd-7w-BFi"/>
-        <segue reference="1vI-sF-6v9"/>
         <segue reference="zyx-d1-Ur6"/>
+        <segue reference="Fqt-fW-Phu"/>
+        <segue reference="nnw-Ps-yhu"/>
     </inferredMetricsTieBreakers>
 </document>

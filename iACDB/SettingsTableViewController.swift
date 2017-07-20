@@ -15,13 +15,14 @@ class SettingsTableViewController: UITableViewController, UITextFieldDelegate {
     
     // Outlets
     
-    @IBOutlet weak var userName:            UITextField!
+    @IBOutlet weak var userName:                UITextField!
     
-    @IBOutlet weak var swLocationsCache:    UISwitch!
-    @IBOutlet weak var swAircraftCache:     UISwitch!
-    @IBOutlet weak var swUseNearestLocation:UISwitch!
-    @IBOutlet weak var swImagesViaMobileData: UISwitch!
+    @IBOutlet weak var swLocationsCache:        UISwitch!
+    @IBOutlet weak var swAircraftCache:         UISwitch!
+    @IBOutlet weak var swUseNearestLocation:    UISwitch!
+    @IBOutlet weak var swImagesViaMobileData:   UISwitch!
     @IBOutlet weak var swValidateRegistrations: UISwitch!
+    @IBOutlet weak var btnClearSpotData:        UIButton!
     
     // Actions
     
@@ -41,6 +42,7 @@ class SettingsTableViewController: UITableViewController, UITextFieldDelegate {
     }
     
     @IBAction func swImagesViaMobileData(_ sender: UISwitch) {
+        
         
         defaults.set(!sender.isOn, forKey: "imageLoadWiFiOnly")
     }
@@ -82,6 +84,12 @@ class SettingsTableViewController: UITableViewController, UITextFieldDelegate {
         alertController.addAction(noAction)
         
         present(alertController, animated: true, completion: nil)
+        
+    }
+    
+    @IBAction func btnClearSpotData(_ sender: Any) {
+        
+        resetSpotData()
         
     }
     
@@ -210,5 +218,32 @@ class SettingsTableViewController: UITableViewController, UITextFieldDelegate {
         userName.resignFirstResponder();
         
         return true;
+    }
+    
+    // Function to empty the CoreData store of all spot entries
+    func resetSpotData()
+    {
+        let refreshAlert = UIAlertController(title: "Reset", message: "All spot data will be lost.", preferredStyle: UIAlertControllerStyle.actionSheet)
+        
+        refreshAlert.addAction(UIAlertAction(title: "Ok", style: .destructive, handler: { (action: UIAlertAction!) in
+            
+            // Call function to delete the CoreData table contents
+            _ = entityDeleteAllData (inEntity: "EntSpots")
+            
+            // Get the container context
+            let moc = getContext()
+            
+            // Reset the Managed Object context after deleting the data
+            moc.reset()
+            
+            // Reload the tableView
+            self.tableView.reloadData()
+        }))
+        
+        refreshAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
+            // do nothing
+        }))
+        
+        present(refreshAlert, animated: true, completion: nil)
     }
 }

@@ -84,11 +84,11 @@ class infoSpot {
         // Take any actions
         switch inStatus {
             
-        case .Waiting:                                      // Setting the status to waiting triggers the upload to the TBG server
-            upload2Server()
+            case .Waiting:                                      // Setting the status to waiting triggers the upload to the TBG server
+                upload2Server()
             
-        default:
-            break
+            default:
+                break
         }
         
         // Update CoreData
@@ -119,7 +119,7 @@ class infoSpot {
     {
         spNotes = inNotes
     }
-    
+
     // Function to request upload spot to server
     public func upload2Server()
     {

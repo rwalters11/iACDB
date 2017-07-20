@@ -19,7 +19,6 @@ class spotListTableViewController: UITableViewController, NSFetchedResultsContro
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     // Seup our User Defaults instance
-    //let defaults = tbgUserDefaults.sharedInstance
     let defaults = UserDefaults.standard
     
     // View which contains the loading text and the spinner
@@ -36,14 +35,14 @@ class spotListTableViewController: UITableViewController, NSFetchedResultsContro
     // Tap status image to trigger retry of upload to server
     @IBAction func tapCellStatusImage(_ sender: UITapGestureRecognizer) {
         
-        let touchPoint = tapCellStatusImage.location(in: self.view)
-        let indexPath = tableView.indexPathForRow(at: touchPoint)
+        //let touchPoint = tapCellStatusImage.location(in: self.view)
+        //let indexPath = tableView.indexPathForRow(at: touchPoint)
         
         // Get the spot data
         
         
         // Create an empty spot object
-        var returnSpot: infoSpot = infoSpot(inStatus: spotStatus.Placeholder)
+        //var returnSpot: infoSpot = infoSpot(inStatus: spotStatus.Placeholder)
         
         // Populate the spot
         
@@ -92,8 +91,13 @@ class spotListTableViewController: UITableViewController, NSFetchedResultsContro
         sortFRC(inSegment: segControl.selectedSegmentIndex)
     }
     
-    // Unwind segue from Add Spot Screen
+    // Unwind segue from Add Spot Screen - Cancel
     @IBAction func btnCancel(segue: UIStoryboardSegue) {
+        
+    }
+    
+    // Unwind segue from Add Spot Screen - Add
+    @IBAction func btnAdd (segue: UIStoryboardSegue) {
         
     }
     
@@ -210,6 +214,8 @@ class spotListTableViewController: UITableViewController, NSFetchedResultsContro
     
     override func viewWillAppear(_ animated: Bool) {
         
+        // Refresh the tableView when navigating back to view
+        self.tableView.reloadData()
     }
     
     
@@ -577,43 +583,16 @@ class spotListTableViewController: UITableViewController, NSFetchedResultsContro
             // Hide the Add Spot RH menu bar item
             svc.inMenuSpot = false
             
-        case "addSpot":
+        // case "addSpot":
             
             // Set the custom value of the Back Item text to be shown in the Add Spot view
-            let backItem = UIBarButtonItem()
-            backItem.title = "Add"
-            navigationItem.backBarButtonItem = backItem // This will show in the next view controller being pushed
+            // let backItem = UIBarButtonItem()
+            // backItem.title = "Add"
+            // navigationItem.backBarButtonItem = backItem // This will show in the next view controller being pushed
             
         default: break
             // Do nothing
         }
-    }
-    
-    // Function to empty the CoreData store of all spot entries
-    func resetSpotData()
-    {
-        let refreshAlert = UIAlertController(title: "Reset", message: "All data will be lost.", preferredStyle: UIAlertControllerStyle.alert)
-        
-        refreshAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action: UIAlertAction!) in
-            
-            // Call function to delete the CoreData table contents
-            _ = entityDeleteAllData (inEntity: "EntSpots")
-            
-            // Get the container context
-            let moc = getContext()
-            
-            // Reset the Managed Object context after deleting the data
-            moc.reset()
-            
-            // Reload the tableView
-            self.tableView.reloadData()
-        }))
-        
-        refreshAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
-            // do nothing
-        }))
-        
-        present(refreshAlert, animated: true, completion: nil)
     }
     
     // Set the activity indicator into the main view

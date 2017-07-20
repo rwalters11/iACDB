@@ -52,6 +52,8 @@ class aircraftDetailsViewController: UIViewController, UISearchBarDelegate
             // Get context for CoreData
             let moc = getContext()
             
+            // Get Aircraft details from CoreData
+            
             // Setup NSFetchResultController for table (entity)
             let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "EntAircraft")
             
@@ -75,7 +77,33 @@ class aircraftDetailsViewController: UIViewController, UISearchBarDelegate
             }catch let error as NSError {
                 rwPrint(inFunction: #function, inMessage:"Unable to perform fetch of Aircraft details: \(error.localizedDescription)")
             }
-
+            
+            // Get Notes from CoreData
+            
+            // Setup NSFetchResultController for table (entity)
+            let notesFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "EntSpots")
+            
+            // Setup sorts
+            let notesFetchSort = NSSortDescriptor(key: "registration", ascending: true)
+            notesFetchRequest.sortDescriptors = [notesFetchSort]
+            
+            // Setup predicate
+            let notesPredicate = NSPredicate(format: "registration == %@", inRegistration)
+            notesFetchRequest.predicate = notesPredicate
+            
+            // Perform the fetch
+            do {
+                // Test for empty array
+                if let notesResult = try moc.fetch(notesFetchRequest) as? [EntSpots] {
+                    
+                    // Display the Notes
+                    txtViewNotes.text = notesResult[0].notes ?? ""
+                    
+                }
+                
+            }catch let error as NSError {
+                rwPrint(inFunction: #function, inMessage:"Unable to perform fetch of Spot details: \(error.localizedDescription)")
+            }
             
         }
         

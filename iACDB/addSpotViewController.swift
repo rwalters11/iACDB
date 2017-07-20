@@ -58,51 +58,7 @@ class addSpotViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     // Focus moves away from Registration field
     @IBAction func txtRegistration(_ sender: Any) {
         
-        let regText: String? = txtRegistration.text
-        var errorCheck = false
-        
-        // Remove focus from registration field
-        txtRegistration.resignFirstResponder()
-        
-        // Error checking
-        
-        if (regText?.isEmpty)! { errorCheck = true }
-        
-        // MARK: - Validation
-        
-        // Perform validation if switched on
-        if defaults.bool(forKey: "validateRegistrations") {
-        
-            let validatedReg = rv.validateRegistration(unvRegistration: regText!) as _ICAOValidationResult
-            returnSpot.setRegistration(inRegistration: validatedReg.vReturn)
-            
-            // Reg fails validation so error's - except when  reg field is blank
-            if (validatedReg.vValid == false && regText?.isEmpty == false)
-            {
-                errorCheck = true
-                
-                showAlert(inTitle: "iACDB Error", inMessage: "Invalid registration", inViewController: self)
             }
-            
-        }else{
-            // Use unvalidated registration
-            returnSpot.setRegistration(inRegistration: regText!)
-        }
-        
-        // If errors are false update status so it gets added as a spot
-        if (errorCheck == false)
-            {
-                // Add location and user name to Spot
-                returnSpot.setLocation(inLocation: txtLocation.text!)
-                returnSpot.setName(inName: defaults.string(forKey: "name")!)
-                
-                // Move status on to show ready for further processing
-                 returnSpot.setStatus(inStatus: .Waiting)
-                
-                // Add Spot to CoreData
-                saveSpot(spot: returnSpot)
-        }
-    }
     
     // Handle Switch changes by user
     @IBAction func swShowDetailsChange(_ sender: UISwitch) {
@@ -260,16 +216,70 @@ class addSpotViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         switch segue.identifier!
         {
             
+            // Segue to Camera View
         case "getImage4Reg":
             
             // Setup the delegation for the return of data from the camera View
             let svc = segue.destination as! getCameraViewController
             svc.delegate = self
             
-            // Set the custom value of the Back Item text to be shown in the details view
+            // Set the custom value of the Back Item text to be shown in the camera view
             let backItem = UIBarButtonItem()
             backItem.title = "Scan"
             navigationItem.backBarButtonItem = backItem // This will show in the next view controller being pushed
+            
+            // Unwind segue to Spot List adding spot from Add button
+        case "unwind2AddSpot":
+            
+            let regText: String? = txtRegistration.text
+            var errorCheck = false
+            
+            // Remove focus from registration field
+            txtRegistration.resignFirstResponder()
+            
+            // Error checking
+            
+            if (regText?.isEmpty)! { errorCheck = true }
+            
+            // MARK: - Validation
+            
+            // Perform validation if switched on
+            if defaults.bool(forKey: "validateRegistrations") {
+                
+                let validatedReg = rv.validateRegistration(unvRegistration: regText!) as _ICAOValidationResult
+                returnSpot.setRegistration(inRegistration: validatedReg.vReturn)
+                
+                // Reg fails validation so error's - except when  reg field is blank
+                if (validatedReg.vValid == false && regText?.isEmpty == false)
+                {
+                    errorCheck = true
+                    
+                    showAlert(inTitle: "iACDB Error", inMessage: "Invalid registration", inViewController: self)
+                }
+                
+            }else{
+                // Use unvalidated registration
+                returnSpot.setRegistration(inRegistration: regText!)
+            }
+            
+            // If errors are false update status so it gets added as a spot
+            if (errorCheck == false)
+            {
+                // Add data from fields to Spot
+                returnSpot.setLocation(inLocation: txtLocation.text!)
+                returnSpot.setName(inName: defaults.string(forKey: "name")!)
+                returnSpot.setNotes(inNotes: txtNotes.text)
+                
+                // Move status on to show ready for further processing
+                returnSpot.setStatus(inStatus: .Waiting)
+                
+                // Add Spot to CoreData
+                saveSpot(spot: returnSpot)
+            }
+            
+            // Unwind segue to Spot List from Cancel button
+        case "unwind2SpotList": break
+            // Do nothing
             
         default: break
             // Do nothing
