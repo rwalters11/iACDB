@@ -86,7 +86,7 @@ class addSpotViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         
         super.viewDidLoad()
         
-        // Position switch
+        // Set switch
         swShowDetails.setOn(defaults.bool(forKey: "showAircraftDetails"), animated: true)
         
         // Add border to notes field
@@ -169,6 +169,18 @@ class addSpotViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
             
         }
         
+        // Add custom accessory on top of system keyboard for Registration field
+        let toolbar = UIToolbar()
+        toolbar.barStyle = UIBarStyle.default
+        toolbar.sizeToFit()
+        let dashButton = UIBarButtonItem(title: "\"-\"", style: UIBarButtonItemStyle.plain, target: self, action: #selector(self.dashButtonTapped(button:)))
+        dashButton.width = 75
+        
+        let plusButton = UIBarButtonItem(title: "\"+\"", style: UIBarButtonItemStyle.plain, target: self, action: #selector(self.plusButtonTapped(button:)))
+        toolbar.setItems([dashButton, plusButton], animated: true)
+        
+        txtRegistration.inputAccessoryView = toolbar
+        
         // Set focus to Registration field
         txtRegistration.becomeFirstResponder()
         
@@ -184,6 +196,24 @@ class addSpotViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
             
             return
         }
+    }
+    
+    // Function to add dash character to Registration field when accessoryView tapped
+    func dashButtonTapped(button:UIBarButtonItem) {
+        
+        // Dash cannot start an ICAO registration
+        if txtRegistration.text?.characters.count == 0 { return }
+        
+        txtRegistration.text = txtRegistration.text! + "-"
+    }
+    
+    // Function to add plus character to Registration field when accessoryView tapped
+    func plusButtonTapped(button:UIBarButtonItem) {
+        
+        // Plus cannot start an ICAO or military registration
+        if txtRegistration.text?.characters.count == 0 { return }
+        
+        txtRegistration.text = txtRegistration.text! + "+"
     }
     
     override func viewDidAppear(_ animated: Bool) {

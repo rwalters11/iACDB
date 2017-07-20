@@ -583,13 +583,6 @@ class spotListTableViewController: UITableViewController, NSFetchedResultsContro
             // Hide the Add Spot RH menu bar item
             svc.inMenuSpot = false
             
-        // case "addSpot":
-            
-            // Set the custom value of the Back Item text to be shown in the Add Spot view
-            // let backItem = UIBarButtonItem()
-            // backItem.title = "Add"
-            // navigationItem.backBarButtonItem = backItem // This will show in the next view controller being pushed
-            
         default: break
             // Do nothing
         }
