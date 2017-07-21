@@ -313,7 +313,6 @@ func updateSpot(inSpot: infoSpot)
             rwPrint(inFunction: #function, inMessage:"Fetched spot for: \(String(describing: fetchedSpot.registration )).")
             
             // Update the spot status
-            // fetchedSpot.status = Int16(spotStatus.Uploaded.rawValue)
             fetchedSpot.status = Int16(inSpot.getStatus().rawValue)
             
             // Update the Spot notes

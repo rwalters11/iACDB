@@ -30,28 +30,6 @@ class spotListTableViewController: UITableViewController, NSFetchedResultsContro
     // Text shown during load
     let loadingLabel = UILabel()
     
-    @IBOutlet var tapCellStatusImage: UITapGestureRecognizer!
-    
-    // Tap status image to trigger retry of upload to server
-    @IBAction func tapCellStatusImage(_ sender: UITapGestureRecognizer) {
-        
-        //let touchPoint = tapCellStatusImage.location(in: self.view)
-        //let indexPath = tableView.indexPathForRow(at: touchPoint)
-        
-        // Get the spot data
-        
-        
-        // Create an empty spot object
-        //var returnSpot: infoSpot = infoSpot(inStatus: spotStatus.Placeholder)
-        
-        // Populate the spot
-        
-        // Trigger the upload
-        // returnSpot.upload2Server()
-        
-        
-    }
-    
     // Clear button action
     @IBAction func resetButton(_ sender: Any) {
         
@@ -148,9 +126,46 @@ class spotListTableViewController: UITableViewController, NSFetchedResultsContro
             }
         }
         
-        // Setupr the initial sort & display order for the FRC
+        // Setup the initial sort & display order for the FRC
         sortFRC(inSegment: 0)
         
+        // Add a gesture recognizer to trigger retry of uploads
+        let recognizer = UILongPressGestureRecognizer(target: self, action: #selector(spotListTableViewController.retryUpload))
+        self.tableView.addGestureRecognizer(recognizer)
+        
+    }
+    
+    // Function to retry upload of Spot in response to gesture
+    func retryUpload(recognizer: UILongPressGestureRecognizer) {
+        
+        if recognizer.state == UIGestureRecognizerState.ended {
+            
+            // Identify cell
+            let pressLocation = recognizer.location(in: self.tableView)
+            if let pressedIndexPath = tableView.indexPathForRow(at: pressLocation) {
+                
+                // Get cell
+                if let pressedCell = self.tableView.cellForRow(at: pressedIndexPath) as? spotInfoTableViewCell {
+                    
+                    // Get values
+                    let tapRegistration = pressedCell.lblRegistration.text
+                    let tapLocation = pressedCell.lblLocation.text
+                    let tapDate = pressedCell.lblDayDate.text
+                    
+                    // Instantiate Spot using Registration
+                    let retrySpot: infoSpot = infoSpot(inRegistration: tapRegistration!)
+                    
+                    // Assign values
+                    retrySpot.setLocation(inLocation: tapLocation!)
+                    retrySpot.setName(inName: defaults.string(forKey: "name")!)
+                    retrySpot.setDate(inDate: tapDate!)
+                    
+                    // Move status on to show ready for further processing
+                    retrySpot.setStatus(inStatus: .Waiting)
+                    
+                }
+            }
+        }
     }
     
     // MARK: Fetched Results Controller Display Sorting & Grouping
@@ -540,7 +555,7 @@ class spotListTableViewController: UITableViewController, NSFetchedResultsContro
         switch stSpot
         {
         case -1:
-            cell.imgUploaded.image = nil
+            cell.imgUploaded.image = #imageLiteral(resourceName: "Unknown")
         case 1:
             cell.imgUploaded.image = #imageLiteral(resourceName: "WaitingToUpload")
         case 2:
@@ -549,6 +564,8 @@ class spotListTableViewController: UITableViewController, NSFetchedResultsContro
             cell.imgUploaded.image = #imageLiteral(resourceName: "UploadFailed")
         case 4:
             // Updating
+            cell.imgUploaded.image = #imageLiteral(resourceName: "Updating")
+            
             let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
             activityIndicator.hidesWhenStopped = true
             activityIndicator.center = cell.imgUploaded.center

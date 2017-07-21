@@ -126,10 +126,16 @@ class infoSpot {
         spName = inName
     }
     
-    // Set notes
+    // Set Notes
     public func setNotes(inNotes: String)
     {
         spNotes = inNotes
+    }
+    
+    // Set Date
+    public func setDate(inDate: String)
+    {
+        
     }
 
     // Function to request upload spot to server

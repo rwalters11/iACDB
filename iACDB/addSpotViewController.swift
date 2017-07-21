@@ -247,7 +247,7 @@ class addSpotViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         switch segue.identifier!
         {
             
-            // Segue to Camera View
+        // Segue to Camera View
         case "getImage4Reg":
             
             // Setup the delegation for the return of data from the camera View
@@ -259,7 +259,7 @@ class addSpotViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
             backItem.title = "Scan"
             navigationItem.backBarButtonItem = backItem // This will show in the next view controller being pushed
             
-            // Unwind segue from Add button to Spot List adding spot
+        // Unwind segue from Add button to Spot List adding spot
         case "unwind2AddSpot":
             
             let regText: String? = txtRegistration.text
@@ -301,11 +301,11 @@ class addSpotViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
                 returnSpot.setName(inName: defaults.string(forKey: "name")!)
                 returnSpot.setNotes(inNotes: txtNotes.text)
                 
-                // Move status on to show ready for further processing
-                returnSpot.setStatus(inStatus: .Waiting)
-                
                 // Add Spot to CoreData
                 saveSpot(spot: returnSpot)
+                
+                // Move status on to show ready for further processing
+                returnSpot.setStatus(inStatus: .Waiting)
             }
             
             // Unwind segue to Spot List from Cancel button
