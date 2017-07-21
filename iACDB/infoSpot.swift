@@ -135,7 +135,13 @@ class infoSpot {
     // Set Date
     public func setDate(inDate: String)
     {
+        // Convert string to type Date
+        let formatter = DateFormatter()
+        formatter.dateFormat = "EEEE, dd-MM-yyyy"
         
+        let date = formatter.date(from: inDate)
+        
+        spDateTime = date!
     }
 
     // Function to request upload spot to server

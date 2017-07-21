@@ -147,21 +147,39 @@ class spotListTableViewController: UITableViewController, NSFetchedResultsContro
                 // Get cell
                 if let pressedCell = self.tableView.cellForRow(at: pressedIndexPath) as? spotInfoTableViewCell {
                     
-                    // Get values
-                    let tapRegistration = pressedCell.lblRegistration.text
-                    let tapLocation = pressedCell.lblLocation.text
-                    let tapDate = pressedCell.lblDayDate.text
-                    
-                    // Instantiate Spot using Registration
-                    let retrySpot: infoSpot = infoSpot(inRegistration: tapRegistration!)
-                    
-                    // Assign values
-                    retrySpot.setLocation(inLocation: tapLocation!)
-                    retrySpot.setName(inName: defaults.string(forKey: "name")!)
-                    retrySpot.setDate(inDate: tapDate!)
-                    
-                    // Move status on to show ready for further processing
-                    retrySpot.setStatus(inStatus: .Waiting)
+                    // Using the accessibilityLabel as a holder for the status numeric value
+                    let spStatus = Int(pressedCell.imgUploaded.accessibilityLabel!) ?? 0
+    
+                    // Start retry depending on status
+                    switch spStatus
+                    {
+                        // Waiting, unknown or failed
+                        case -1, 1, 3:
+                        
+                        // Get values
+                        let tapRegistration = pressedCell.lblRegistration.text
+                        let tapLocation = pressedCell.lblLocation.text
+                        let tapDate = pressedCell.lblDayDate.text
+                        
+                        // Instantiate Spot using Registration
+                        let retrySpot: infoSpot = infoSpot(inRegistration: tapRegistration!)
+                        
+                        // Assign values
+                        retrySpot.setLocation(inLocation: tapLocation!)
+                        retrySpot.setName(inName: defaults.string(forKey: "name")!)
+                        retrySpot.setDate(inDate: tapDate!)
+                        
+                        // Move status on to show ready for further processing
+                        retrySpot.setStatus(inStatus: .Waiting)
+                        
+                        // Placeholder, uploaded, uploading
+                        case 0,2,4:
+                            break
+                        
+                        default:
+                            break
+                        
+                    }
                     
                 }
             }
@@ -550,6 +568,9 @@ class spotListTableViewController: UITableViewController, NSFetchedResultsContro
         }
         
         let stSpot: Int = Int(nsfSpot.status)
+        
+        // Using the accessibilityLabel as a holder for the status numeric value
+        cell.imgUploaded.accessibilityLabel = String(stSpot)
         
         // Set upload status icon
         switch stSpot
