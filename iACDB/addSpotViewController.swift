@@ -304,7 +304,7 @@ class addSpotViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
                 // Add Spot to CoreData
                 saveSpot(spot: returnSpot)
                 
-                // Move status on to show ready for further processing
+                // Move status to 'Waiting' which triggers upload to server
                 returnSpot.setStatus(inStatus: .Waiting)
             }
             

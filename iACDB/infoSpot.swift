@@ -147,32 +147,44 @@ class infoSpot {
     // Function to request upload spot to server
     public func upload2Server()
     {
-        self.setStatus(inStatus: .Updating)
+        // Check network connection
+        let netStatus = currentReachabilityStatus()
         
-        // Upload the spot to the server passing in delegate completion handler to function
-        afPostSpot2Server(completionHandler: { success, json -> Void in
+        switch netStatus {
             
-            if (success) {
+            case .notReachable:
+                self.setStatus(inStatus: .Waiting)
                 
-                debugPrint ("Spot upload returned successfully from async call")
+            case .reachableViaWiFi, .reachableViaWWAN:
                 
-                // Assign returned data to SwiftyJSON object ( an integer 0 or 1 )
-                let data = JSON(json!)
+                self.setStatus(inStatus: .Updating)
                 
-                if data > 0
-                {
-                    // Change the status of the spot
-                    self.setStatus(inStatus: .Uploaded)
-                
-                }
-                
-            } else
-            {
-                print("No data returned from async call")
-                self.setStatus(inStatus: .UploadFailed)
-            }
-            
-        })
+                // Upload the spot to the server passing in delegate completion handler to function
+                afPostSpot2Server(completionHandler: { success, json -> Void in
+                    
+                    if (success)
+                    {
+                        
+                        debugPrint ("Spot upload returned successfully from async call")
+                        
+                        // Assign returned data to SwiftyJSON object ( an integer 0 or 1 )
+                        let data = JSON(json!)
+                        
+                        if data > 0
+                        {
+                            // Change the status of the spot
+                            self.setStatus(inStatus: .Uploaded)
+                        
+                        }
+                        
+                    } else
+                    {
+                        print("No data returned from async call")
+                        self.setStatus(inStatus: .UploadFailed)
+                    }
+                    
+                })
+        }
         
     }
     

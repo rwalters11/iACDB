@@ -129,13 +129,13 @@ class spotListTableViewController: UITableViewController, NSFetchedResultsContro
         // Setup the initial sort & display order for the FRC
         sortFRC(inSegment: 0)
         
-        // Add a gesture recognizer to trigger retry of uploads
+        // Add a long press gesture recognizer to trigger retry of uploads
         let recognizer = UILongPressGestureRecognizer(target: self, action: #selector(spotListTableViewController.retryUpload))
         self.tableView.addGestureRecognizer(recognizer)
         
     }
     
-    // Function to retry upload of Spot in response to gesture
+    // Function to retry upload of Spot in response to long press gesture
     func retryUpload(recognizer: UILongPressGestureRecognizer) {
         
         if recognizer.state == UIGestureRecognizerState.ended {
