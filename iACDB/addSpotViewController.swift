@@ -195,7 +195,7 @@ class addSpotViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         }
         
         // Add custom accessory on top of system keyboard for Registration field
-        let toolbar = UIToolbar()
+        let toolbar = addSpot_ToolbarSubClass()
         toolbar.barStyle = UIBarStyle.default
         toolbar.sizeToFit()
         
@@ -236,6 +236,7 @@ class addSpotViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         if txtRegistration.text?.characters.count == 0 { return }
         
         txtRegistration.text = txtRegistration.text! + "-"
+        UIDevice.current.playInputClick()
     }
     
     // Function to add plus character to Registration field when accessoryView tapped
@@ -245,6 +246,7 @@ class addSpotViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         if txtRegistration.text?.characters.count == 0 { return }
         
         txtRegistration.text = txtRegistration.text! + "+"
+        UIDevice.current.playInputClick()
     }
     
     // Function to add G- characters to Registration field when accessoryView tapped
@@ -254,7 +256,9 @@ class addSpotViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         if (txtRegistration.text?.characters.count)! > 0 { return }
         
         txtRegistration.text = txtRegistration.text! + "G-"
+        UIDevice.current.playInputClick()
     }
+    
     override func viewDidAppear(_ animated: Bool) {
         
         // Override the nearest location to use the current location in use (usually the last used) if the 'Use Nearest Location' setting is false
