@@ -12,6 +12,9 @@ import MapKit
 
 class locationDetailViewController: UIViewController, MKMapViewDelegate {
     
+    // Create a reference to the Phone Location Manager
+    let locationManager = CLLocationManager()
+    
     @IBOutlet weak var mapView: MKMapView!
     
     // Holder for value passed in by segue
@@ -35,6 +38,17 @@ class locationDetailViewController: UIViewController, MKMapViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Setup the Phone Location Manager
+        locationManager.requestAlwaysAuthorization()
+        
+        // Test for Location Services turned on
+        if CLLocationManager.locationServicesEnabled() {
+            
+            // Assign delegate
+            locationManager.delegate = self as? CLLocationManagerDelegate
+            
+        }
         
         mapView.delegate = self
         

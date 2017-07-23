@@ -41,13 +41,20 @@ class addSpotViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     
     @IBOutlet weak var txtRegistration: UITextField!
     @IBOutlet weak var swShowDetails:   UISwitch!
-    @IBOutlet weak var txtLocation:     UITextField!
+    @IBOutlet weak var lblLocation:     UILabel!
     @IBOutlet weak var lblTypeSeries:   UILabel!
     @IBOutlet weak var lblOperator:     UILabel!
     @IBOutlet weak var locationPicker:  UIPickerView!
     @IBOutlet weak var txtNotes:        UITextView!
+    @IBOutlet weak var datePicker:      UIDatePicker!
+    @IBOutlet weak var lblDate:         UILabel!
     
     static var locationPickerData: [String]=[String]()
+    
+    @IBAction func datePicker(_ sender: UIDatePicker) {
+        
+        setDateFromPicker()
+    }
     
     // Registration field text changes
     @IBAction func txtRegistrationChange(_ sender: UITextField) {
@@ -89,24 +96,42 @@ class addSpotViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         // Set switch
         swShowDetails.setOn(defaults.bool(forKey: "showAircraftDetails"), animated: true)
         
-        // Add border to notes field
+        // Add borders to fields
         let color = UIColor.lightGray.cgColor
+        
         txtNotes.layer.borderColor = color
         txtNotes.layer.borderWidth = 0.5
         txtNotes.layer.cornerRadius = 5
         
-        // Hide the pickerView
-        locationPicker.isHidden = true
+        lblLocation.layer.borderColor = color
+        lblLocation.layer.borderWidth = 0.5
+        lblLocation.layer.cornerRadius = 5
         
-        // Connect data
+        lblDate.layer.borderColor = color
+        lblDate.layer.borderWidth = 0.5
+        lblDate.layer.cornerRadius = 5
+        
+        // Setup the Location pickerView
+        locationPicker.isHidden = true
         locationPicker.delegate=self
         locationPicker.dataSource=self
         
-        txtLocation.delegate = self
-        
         txtRegistration.delegate = self
-        
         txtRegistration.returnKeyType = .done
+        
+        // Setup the DatePicker with today as default and as maximum
+        let date = Date()
+        datePicker.setDate(date, animated: false)
+        datePicker.maximumDate = Date()
+        datePicker.isHidden = true
+        
+        setDateFromPicker()
+        
+        let tapLblDate = UITapGestureRecognizer(target: self, action: #selector(addSpotViewController.tapLblDate))
+        lblDate.addGestureRecognizer(tapLblDate)
+        
+        let tapLblLocation = UITapGestureRecognizer(target: self, action: #selector(addSpotViewController.tapLblLocation))
+        lblLocation.addGestureRecognizer(tapLblLocation)
         
         // Populate picker with list of valid locations from the CoreData cache
         
@@ -173,11 +198,17 @@ class addSpotViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         let toolbar = UIToolbar()
         toolbar.barStyle = UIBarStyle.default
         toolbar.sizeToFit()
+        
         let dashButton = UIBarButtonItem(title: "\"-\"", style: UIBarButtonItemStyle.plain, target: self, action: #selector(self.dashButtonTapped(button:)))
         dashButton.width = 75
         
         let plusButton = UIBarButtonItem(title: "\"+\"", style: UIBarButtonItemStyle.plain, target: self, action: #selector(self.plusButtonTapped(button:)))
-        toolbar.setItems([dashButton, plusButton], animated: true)
+        plusButton.width = 75
+        
+        let gDashButton = UIBarButtonItem(title: "\"G-\"", style: UIBarButtonItemStyle.plain, target: self, action: #selector(self.gDashButtonTapped(button:)))
+        gDashButton.width = 75
+        
+        toolbar.setItems([dashButton, plusButton, gDashButton], animated: true)
         
         txtRegistration.inputAccessoryView = toolbar
         
@@ -216,6 +247,14 @@ class addSpotViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         txtRegistration.text = txtRegistration.text! + "+"
     }
     
+    // Function to add G- characters to Registration field when accessoryView tapped
+    func gDashButtonTapped(button:UIBarButtonItem) {
+        
+        // G- must start an ICAO registration for the UK
+        if (txtRegistration.text?.characters.count)! > 0 { return }
+        
+        txtRegistration.text = txtRegistration.text! + "G-"
+    }
     override func viewDidAppear(_ animated: Bool) {
         
         // Override the nearest location to use the current location in use (usually the last used) if the 'Use Nearest Location' setting is false
@@ -225,13 +264,14 @@ class addSpotViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         // Get the current location (if set)
         let currentLocation = getCurrentLocation()
         
-        if (!(txtLocation.text?.isEmpty)!) {
+        if (!(lblLocation.text?.isEmpty)!) {
         
             setPicker2Index(inLocation: currentLocation, sender: "Did Appear")
         }
         
         // Set focus to Registration field
         txtRegistration.becomeFirstResponder()
+        
     }
     
     // Delegate function for passing back data from getCameraView
@@ -297,7 +337,7 @@ class addSpotViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
             if (errorCheck == false)
             {
                 // Add data from fields to Spot
-                returnSpot.setLocation(inLocation: txtLocation.text!)
+                returnSpot.setLocation(inLocation: lblLocation.text!)
                 returnSpot.setName(inName: defaults.string(forKey: "name")!)
                 returnSpot.setNotes(inNotes: txtNotes.text)
                 
@@ -367,7 +407,7 @@ class addSpotViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         // Set the location text field
         DispatchQueue.main.async{
             
-            self.txtLocation.text = inLocation
+            self.lblLocation.text = inLocation
         }
         
         rwPrint(inFunction: #function, inMessage: sender)
@@ -395,8 +435,8 @@ class addSpotViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
     {
-        txtLocation.text = addSpotViewController.locationPickerData[row]
-        locationPicker.isHidden = true
+        lblLocation.text = addSpotViewController.locationPickerData[row]
+        //locationPicker.isHidden = true
     }
     
     // MARK: - UITextField Delegates
@@ -418,12 +458,8 @@ class addSpotViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
             // Registration
             case 1:
                 locationPicker.isHidden = true
-            return true
-            
-            // Location
-            case 2:
-                locationPicker.isHidden = false
-                return false
+                datePicker.isHidden = true
+                return true
             
             default: break
         }
@@ -442,11 +478,6 @@ class addSpotViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
             
             // Get & display the aircraft details if selected
             getAircraftDetails()
-            
-        // Location
-        case 2:
-            
-            locationPicker.isHidden = true
             
         default: break
         }
@@ -483,5 +514,34 @@ class addSpotViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         }
     }
     
+    // Function to populate date label with formatted date from Picker
+    func setDateFromPicker() {
+        
+        // Get date from picker and display in Date Label
+        let formatter = DateFormatter()
+        formatter.dateFormat = "EEEE, dd-MM-yyyy"
+        
+        let strDate = formatter.string(from: datePicker.date)
+        lblDate.text = strDate
+        
+        //datePicker.isHidden = true
+    }
+    
+    func tapLblDate() {
+        
+        // Disable text fields & hide location picker
+        txtRegistration.resignFirstResponder()
+        txtNotes.resignFirstResponder()
+        locationPicker.isHidden = true
+        
+        datePicker.isHidden = false    }
 
+    func tapLblLocation() {
+        
+        // Disable text fields & hide date picker
+        txtRegistration.resignFirstResponder()
+        txtNotes.resignFirstResponder()
+        datePicker.isHidden = true
+        
+        locationPicker.isHidden = false    }
 }
