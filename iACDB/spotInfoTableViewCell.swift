@@ -22,6 +22,8 @@ class spotInfoTableViewCell: UITableViewCell {
     
     @IBOutlet weak var imgUploaded: UIImageView!
     
+    @IBOutlet weak var lblOperator: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

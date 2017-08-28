@@ -18,6 +18,8 @@ import SwiftyJSON
 
 class addSpotViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate, CLLocationManagerDelegate, getCameraReturnProtocol  {
     
+    // MARK: - Properties
+    
     // Seup our User Defaults instance
     let defaults = UserDefaults.standard
     
@@ -33,6 +35,11 @@ class addSpotViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     
     // Holder for value passed back from getCameraView
     var regFromCamera: String?
+    
+    // Instantiate registration validator
+    let rv = registrationValidator()
+    
+    // MARK: - IB Actions & Outlets
     
     @IBAction func btnCamera(_ sender: Any)
     {
@@ -85,8 +92,7 @@ class addSpotViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         
     }
     
-    // Instantiate registration validator
-    let rv = registrationValidator()
+    // MARK: - Overrides
     
     override func viewDidLoad()
     {
@@ -278,13 +284,6 @@ class addSpotViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         
     }
     
-    // Delegate function for passing back data from getCameraView
-    func setCameraRegistration(valueSent: String)
-    {
-        // Set the registration field to the return value from the camera
-        txtRegistration.text = valueSent
-    }
-    
     // Do the preparation for showing the next view (going forwards)
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
@@ -388,6 +387,19 @@ class addSpotViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         rwPrint(inFunction: #function, inMessage:"Error while updating location " + error.localizedDescription)
     }
     
+    // MARK: - PickerView Delegates & Functions    
+    
+    // Function to populate date label with formatted date from Picker
+    func setDateFromPicker() {
+        
+        // Get date from picker and display in Date Label
+        let formatter = DateFormatter()
+        formatter.dateFormat = "EEEE, dd-MM-yyyy"
+        
+        let strDate = formatter.string(from: datePicker.date)
+        lblDate.text = strDate
+    }
+    
     /*
      *
      * Function to set the pickerView to a matching location
@@ -416,8 +428,6 @@ class addSpotViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         
         rwPrint(inFunction: #function, inMessage: sender)
     }
-    
-    // MARK: - PickerView delegates
     
     // The number of columns of data
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -500,6 +510,16 @@ class addSpotViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         return true
     }
     
+    // MARK: - Custom Functions
+    
+    // Delegate function for passing back data from getCameraView
+    func setCameraRegistration(valueSent: String)
+    {
+        // Set the registration field to the return value from the camera
+        txtRegistration.text = valueSent
+    }
+    
+    
     func getAircraftDetails() {
         
         if !self.defaults.bool(forKey: "showAircraftDetails") { return }
@@ -516,19 +536,6 @@ class addSpotViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
             lblOperator.text = ""
             lblTypeSeries.text = ""
         }
-    }
-    
-    // Function to populate date label with formatted date from Picker
-    func setDateFromPicker() {
-        
-        // Get date from picker and display in Date Label
-        let formatter = DateFormatter()
-        formatter.dateFormat = "EEEE, dd-MM-yyyy"
-        
-        let strDate = formatter.string(from: datePicker.date)
-        lblDate.text = strDate
-        
-        //datePicker.isHidden = true
     }
     
     func tapLblDate() {

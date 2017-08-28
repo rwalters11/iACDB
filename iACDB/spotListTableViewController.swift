@@ -558,12 +558,14 @@ class spotListTableViewController: UITableViewController, NSFetchedResultsContro
             // Aircraft exists in cache
             cell.lblTypeSeries.text = aircraftDetails.acType + "-" + aircraftDetails.acSeries
             cell.lblTypeSeries.textColor = UIColor.darkGray
+            cell.lblOperator.text = aircraftDetails.acOperator
             
         }else{
             
             // New
             cell.lblTypeSeries.text = "New"
             cell.lblTypeSeries.textColor = UIColor.green
+            cell.lblOperator.text = ""
             cell.accessoryType = UITableViewCellAccessoryType.none
         }
         

@@ -34,7 +34,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Type - Series" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="345-Vk-5aK">
-                                            <rect key="frame" x="130" y="2" width="137" height="21"/>
+                                            <rect key="frame" x="130" y="2" width="92" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -59,6 +59,13 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <gestureRecognizers/>
                                         </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Operator" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ugm-o0-ycJ">
+                                            <rect key="frame" x="230" y="1" width="119" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                 </tableViewCellContentView>
                                 <gestureRecognizers/>
@@ -66,6 +73,7 @@
                                     <outlet property="imgUploaded" destination="eJ6-4J-VZH" id="YqA-Kh-Cbn"/>
                                     <outlet property="lblDayDate" destination="MnT-kc-QMl" id="5Ju-Wf-6dB"/>
                                     <outlet property="lblLocation" destination="aJo-Ig-sK9" id="gza-fZ-EL0"/>
+                                    <outlet property="lblOperator" destination="Ugm-o0-ycJ" id="vV7-9y-Bky"/>
                                     <outlet property="lblRegistration" destination="THo-QR-Tmi" id="Gk1-0V-LOb"/>
                                     <outlet property="lblTypeSeries" destination="345-Vk-5aK" id="kJS-q2-yCv"/>
                                     <segue destination="696-3L-G9K" kind="show" identifier="spotShowDetails" id="nnw-Ps-yhu"/>
@@ -105,7 +113,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4852.5" y="-952.81690140845069"/>
+            <point key="canvasLocation" x="4852" y="-953.07346326836591"/>
         </scene>
         <!--addSpotViewController-->
         <scene sceneID="1hG-OS-gUe">
