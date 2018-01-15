@@ -239,7 +239,7 @@ class addSpotViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     func dashButtonTapped(button:UIBarButtonItem) {
         
         // Dash cannot start an ICAO registration
-        if txtRegistration.text?.characters.count == 0 { return }
+        if txtRegistration.text?.count == 0 { return }
         
         txtRegistration.text = txtRegistration.text! + "-"
         UIDevice.current.playInputClick()
@@ -249,7 +249,7 @@ class addSpotViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     func plusButtonTapped(button:UIBarButtonItem) {
         
         // Plus cannot start an ICAO or military registration
-        if txtRegistration.text?.characters.count == 0 { return }
+        if txtRegistration.text?.count == 0 { return }
         
         txtRegistration.text = txtRegistration.text! + "+"
         UIDevice.current.playInputClick()
@@ -259,7 +259,7 @@ class addSpotViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     func gDashButtonTapped(button:UIBarButtonItem) {
         
         // G- must start an ICAO registration for the UK
-        if (txtRegistration.text?.characters.count)! > 0 { return }
+        if (txtRegistration.text?.count)! > 0 { return }
         
         txtRegistration.text = txtRegistration.text! + "G-"
         UIDevice.current.playInputClick()

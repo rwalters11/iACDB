@@ -509,7 +509,7 @@ class addEditLocationViewController: UIViewController, UITextFieldDelegate {
         
         for textField in self.txtFields {
             
-            if textField.text?.characters.first == "0" {
+            if textField.text?.first == "0" {
                 textField.text = ""
             }
         }

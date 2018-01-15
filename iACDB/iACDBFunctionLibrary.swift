@@ -64,7 +64,7 @@ extension String {
         do {
             //let regex = try NSRegularExpression(pattern: pattern, options: NSRegularExpression.Options.caseInsensitive)
             let regex = try NSRegularExpression(pattern: pattern)
-            let range = NSMakeRange(0, self.characters.count)
+            let range = NSMakeRange(0, self.count)
             self = regex.stringByReplacingMatches(in: self, options: [], range: range, withTemplate: replaceWith)
         } catch {
             return

@@ -51,7 +51,7 @@ class registrationValidator {
             let regex = try! NSRegularExpression(pattern: rvp.Pattern , options: [])
             
             // Get the number of matches
-            let matches = regex.matches(in: trimmedRegistration!, options: [], range: NSRange(location: 0, length: (trimmedRegistration?.characters.count)!))
+            let matches = regex.matches(in: trimmedRegistration!, options: [], range: NSRange(location: 0, length: (trimmedRegistration?.count)!))
             
             // If positive we have a match
             if matches.count > 0
@@ -71,7 +71,7 @@ class registrationValidator {
             let regex = try! NSRegularExpression(pattern: rvp.Pattern , options: [])
             
             // Get the number of matches
-            let matches = regex.matches(in: trimmedRegistration!, options: [], range: NSRange(location: 0, length: (trimmedRegistration?.characters.count)!))
+            let matches = regex.matches(in: trimmedRegistration!, options: [], range: NSRange(location: 0, length: (trimmedRegistration?.count)!))
             
             // If positive we have a match
             if matches.count > 0
