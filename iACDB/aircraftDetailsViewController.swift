@@ -13,6 +13,7 @@ import CoreData
 import Alamofire
 import AlamofireImage
 import SwiftyJSON
+import Kingfisher
 
 class aircraftDetailsViewController: UIViewController, UISearchBarDelegate, UITextViewDelegate
 {
@@ -98,9 +99,12 @@ class aircraftDetailsViewController: UIViewController, UISearchBarDelegate, UITe
                 // Test for empty array
                 if let notesResult = try moc.fetch(notesFetchRequest) as? [EntSpots] {
                     
-                    // Display the Notes
-                    txtViewNotes.text = notesResult[0].notes
-                    
+                    if notesResult.count > 0 {
+                        
+                        // Display the Notes
+                        txtViewNotes.text = notesResult[0].notes
+                    }
+                
                 }
                 
             }catch let error as NSError {
@@ -165,61 +169,22 @@ class aircraftDetailsViewController: UIViewController, UISearchBarDelegate, UITe
         // Make call to server if current image is nil and image available for registration
         if aircraft.acImageAvailable
         {
+            // Make sure search string is properly escaped
+            let expectedCharSet = NSCharacterSet.urlQueryAllowed
+            let searchTerm = aircraft.acRegistration?.addingPercentEncoding(withAllowedCharacters: expectedCharSet)
             
-            // Get image asynchronously from server passing in delegate completion handler to function
-            loadImageFromURL(inRegistration: aircraft.acRegistration!, completionHandler: { (imageFromServer) in
-                
-                // Test for cell
-                self.imgAircraft.image = imageFromServer
-
-            })
+            // Set destination url & value to send including requested image width
+            let url = URL(string: "http://tbgweb.dyndns.info/iacdb/iosGetLatestImage.php?registration=" + searchTerm! + "&w=500")!
+            
+            // Setup Kingfisher Image Cacheing & retrieval resource using aircraft registration as the cache key
+            let resource = ImageResource(downloadURL: url, cacheKey: aircraft.acRegistration! + "w500")
+            
+            // Display the image with loading indicator and corner radius
+            let processor = RoundCornerImageProcessor(cornerRadius: 5)
+            
+            self.imgAircraft?.kf.indicatorType = .activity
+            self.imgAircraft?.kf.setImage(with: resource, placeholder: nil, options: [.processor(processor)])
         }
-    }
-    
-    // Fetch an aircraft image from theTBGweb server asynchronously using Alamofire/AlamofireImage
-    func loadImageFromURL(inRegistration: String, completionHandler: @escaping (UIImage?) -> () ){
-        
-        // Set default image to be returned
-        let defaultImage: UIImage? = nil
-        
-        let acRegistration = inRegistration
-        
-        // Make sure search string is properly escaped
-        let expectedCharSet = NSCharacterSet.urlQueryAllowed
-        let searchTerm = acRegistration.addingPercentEncoding(withAllowedCharacters: expectedCharSet)
-        
-        // Set destination url & value to send including requested image width
-        let url: String = "http://tbgweb.dyndns.info/iacdb/iosGetLatestImage.php"
-        let postValues: [String: String] = ["registration": searchTerm!, "w": "500"]
-        
-        // Request the image from the server
-        Alamofire.request(url, method: .get, parameters: postValues)
-            .validate()
-            .responseImage { response in
-                
-                debugPrint(response)
-                
-                // check for errors
-                guard response.result.error == nil else {
-                    // got an error in getting the data, need to handle it
-                    debugPrint("error calling POST on image request")
-                    debugPrint(response.result.error!)
-                    
-                    return
-                }
-                
-                // Check for valid image and return
-                guard let responseImage = response.result.value else
-                {
-                    completionHandler(defaultImage)
-                    return
-                }
-                
-                
-                // Return to completion handler with image
-                completionHandler(responseImage)
-        }
-        
     }
     
     // Move the text field in a pretty animation!

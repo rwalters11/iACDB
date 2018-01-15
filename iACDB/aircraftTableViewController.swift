@@ -11,9 +11,10 @@ import UIKit
 import CoreData
 
 // Import 3rd party frameworks
-import Alamofire
-import AlamofireImage
+// import Alamofire
+// import AlamofireImage
 import SwiftyJSON
+import Kingfisher
 
 class aircraftTableViewController: UITableViewController, NSFetchedResultsControllerDelegate , UISearchResultsUpdating {
     
@@ -121,66 +122,6 @@ class aircraftTableViewController: UITableViewController, NSFetchedResultsContro
         // Refresh the tableView
         self.tableView.reloadData()
     }
-        
-    // Fetch an aircraft image from theTBGweb server asynchronously using Alamofire/AlamofireImage
-    func loadImageFromURL(inRegistration: String, inIndexPath: IndexPath, completionHandler: @escaping (UIImage?, IndexPath) -> () ){
-        
-        // Set default image to be returned
-        let defaultImage: UIImage? = nil
-        
-        let acRegistration = inRegistration
-        
-        // Make sure search string is properly escaped
-        let expectedCharSet = NSCharacterSet.urlQueryAllowed
-        let searchTerm = acRegistration.addingPercentEncoding(withAllowedCharacters: expectedCharSet)
-        
-        // Set destination url & value to send including requested image width
-        let url: String = "http://tbgweb.dyndns.info/iacdb/iosGetLatestImage.php"
-        let postValues: [String: String] = ["registration": searchTerm!, "w": "100"]
-        
-        // Request the image from the server
-        Alamofire.request(url, method: .get, parameters: postValues)
-            .validate()
-            .responseImage { response in
-            
-                debugPrint(response)
-                
-                // check for errors
-                guard response.result.error == nil else {
-                    // got an error in getting the data, need to handle it
-                    debugPrint("error calling POST on image request")
-                    debugPrint(response.result.error!)
-                    
-                    return
-                }
-                
-                // Check for valid image and return
-                guard let responseImage = response.result.value else
-                {
-                    completionHandler(defaultImage, inIndexPath)
-                    return
-                }
-                
-        /* TESTING
-                
-                // Assign image to background array looping through array to match image to correct registration
-                // This caches the image to prevent repetitive calls to server while page scrolls
-                for aircraft in self.acData {
-                    
-                    if aircraft.acRegistration == acRegistration {
-                        
-                        aircraft.setImage(inImage: responseImage)
-                    }
-                    
-                }
- 
-        */
-                
-                // Return to completion handler with image
-                completionHandler(responseImage, inIndexPath)
-        }
-        
-    }
     
     // Do the preparation for showing the next view
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -203,7 +144,7 @@ class aircraftTableViewController: UITableViewController, NSFetchedResultsContro
         }
     }
     
-    // MARK: - Table view data source
+    // MARK: - Tableview Data Source
     
     //Update the number of sections
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -261,20 +202,21 @@ class aircraftTableViewController: UITableViewController, NSFetchedResultsContro
             // Make call to server if current image is nil and image available for registration
             if aircraft.acImageAvailable
                 {
-        
-                    // Get image asynchronously from server passing in delegate completion handler to function
-                        loadImageFromURL(inRegistration: aircraft.acRegistration!, inIndexPath: IndexPath, completionHandler: { (imageFromServer, retIndexPath) in
-                        
-                            // Get path to current cell
-                            let cell2Update: AircraftInfoTableViewCell? = self.tableView?.cellForRow(at: IndexPath) as? AircraftInfoTableViewCell
-                            
-                            // Test for cell
-                            if cell2Update != nil
-                                {
-                                    cell2Update?.imgAircraft?.image = imageFromServer
-                                    cell2Update?.setNeedsLayout()
-                                }
-                        })
+                    // Make sure search string is properly escaped
+                    let expectedCharSet = NSCharacterSet.urlQueryAllowed
+                    let searchTerm = aircraft.acRegistration?.addingPercentEncoding(withAllowedCharacters: expectedCharSet)
+                    
+                    // Set destination url & value to send including requested image width
+                    let url = URL(string: "http://tbgweb.dyndns.info/iacdb/iosGetLatestImage.php?registration=" + searchTerm! + "&w=100")!
+                    
+                    // Setup Kingfisher Image Cacheing & retrieval resource using aircraft registration as the cache key
+                    let resource = ImageResource(downloadURL: url, cacheKey: aircraft.acRegistration! + "w100")
+                    
+                    // Display the image with loading indicator and corner radius
+                    let processor = RoundCornerImageProcessor(cornerRadius: 5)
+                    
+                    cell.imgAircraft?.kf.indicatorType = .activity
+                    cell.imgAircraft?.kf.setImage(with: resource, placeholder: nil, options: [.processor(processor)])
                 }
         
             // Return the updated cell
