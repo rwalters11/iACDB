@@ -16,7 +16,7 @@ import Alamofire
 import AlamofireImage
 import SwiftyJSON
 
-class addSpotViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate, CLLocationManagerDelegate, getCameraReturnProtocol  {
+class addSpotViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate, CLLocationManagerDelegate {
     
     // MARK: - Properties
     
@@ -289,18 +289,6 @@ class addSpotViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     {
         switch segue.identifier!
         {
-            
-        // Segue to Camera View
-        case "getImage4Reg":
-            
-            // Setup the delegation for the return of data from the camera View
-            let svc = segue.destination as! getCameraViewController
-            svc.delegate = self
-            
-            // Set the custom value of the Back Item text to be shown in the camera view
-            let backItem = UIBarButtonItem()
-            backItem.title = "Scan"
-            navigationItem.backBarButtonItem = backItem // This will show in the next view controller being pushed
             
         // Unwind segue from Add button to Spot List adding spot
         case "unwind2AddSpot":

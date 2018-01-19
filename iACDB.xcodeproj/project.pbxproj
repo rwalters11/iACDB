@@ -20,7 +20,6 @@
 		D33A369E1E1701AE00CE7A37 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D33A369D1E1701AE00CE7A37 /* CoreLocation.framework */; };
 		D33A36A01E1701C000CE7A37 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D33A369F1E1701C000CE7A37 /* CoreData.framework */; };
 		D33A36A21E1ADF4600CE7A37 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33A36A11E1ADF4600CE7A37 /* SettingsTableViewController.swift */; };
-		D33A36A41E1AF2F700CE7A37 /* getCameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33A36A31E1AF2F700CE7A37 /* getCameraViewController.swift */; };
 		D357AB161DFFF1E50046427C /* infoSpot.swift in Sources */ = {isa = PBXBuildFile; fileRef = D357AB151DFFF1E50046427C /* infoSpot.swift */; };
 		D357AB181DFFF8680046427C /* spotInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D357AB171DFFF8680046427C /* spotInfoTableViewCell.swift */; };
 		D36896801DF170A200451587 /* aircraftTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D368967F1DF170A200451587 /* aircraftTableViewController.swift */; };
@@ -87,7 +86,6 @@
 		D33A369D1E1701AE00CE7A37 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		D33A369F1E1701C000CE7A37 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		D33A36A11E1ADF4600CE7A37 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
-		D33A36A31E1AF2F700CE7A37 /* getCameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = getCameraViewController.swift; sourceTree = "<group>"; };
 		D357AB151DFFF1E50046427C /* infoSpot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = infoSpot.swift; sourceTree = "<group>"; };
 		D357AB171DFFF8680046427C /* spotInfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = spotInfoTableViewCell.swift; sourceTree = "<group>"; };
 		D368967F1DF170A200451587 /* aircraftTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = aircraftTableViewController.swift; sourceTree = "<group>"; };
@@ -183,7 +181,6 @@
 				D3AEBF2B1DF006C3004FB4A5 /* Assets.xcassets */,
 				D33A36991E1658F500CE7A37 /* CoreDataLibrary.swift */,
 				D3FFEE871DF39180003472AC /* functionLibrary.swift */,
-				D33A36A31E1AF2F700CE7A37 /* getCameraViewController.swift */,
 				D33A369B1E16EC5D00CE7A37 /* iACDBFunctionLibrary.swift */,
 				D331FDE71E32A22900CB20B6 /* iACDBCacheSync.swift */,
 				D3AEBF301DF006C3004FB4A5 /* Info.plist */,
@@ -435,9 +432,7 @@
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
 				"${BUILT_PRODUCTS_DIR}/AlamofireNetworkActivityIndicator/AlamofireNetworkActivityIndicator.framework",
-				"${BUILT_PRODUCTS_DIR}/GPUImage/GPUImage.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftOCR/SwiftOCR.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -445,9 +440,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireNetworkActivityIndicator.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GPUImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftOCR.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -463,7 +456,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D30864921E1FCF460021B6D2 /* locationsTableViewCell.swift in Sources */,
-				D33A36A41E1AF2F700CE7A37 /* getCameraViewController.swift in Sources */,
 				D3FFEE881DF39180003472AC /* functionLibrary.swift in Sources */,
 				D3E101131E11C9C60019707C /* iACDB.xcdatamodeld in Sources */,
 				D36896821DF2A08800451587 /* infoAircraft.swift in Sources */,
@@ -641,7 +633,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8DEBC82F5436DBFA2BB3574D /* Pods-iACDB.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = TT43E74VM4;
 				ENABLE_BITCODE = NO;
@@ -663,7 +655,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7D7D3904CF1D4DEB149662DD /* Pods-iACDB.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = TT43E74VM4;
 				ENABLE_BITCODE = NO;
@@ -685,7 +677,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 405439FF83278C4E365EC385 /* Pods-iACDBTests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = TT43E74VM4;
 				INFOPLIST_FILE = iACDBTests/Info.plist;
@@ -701,7 +693,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3E95CA6A6342D1885A9734BA /* Pods-iACDBTests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = TT43E74VM4;
 				INFOPLIST_FILE = iACDBTests/Info.plist;
