@@ -202,7 +202,7 @@ class infoSpot {
         let mySQLDate = spDateTime.toMySQLString()
         
         // Set destination url & value to send
-        let url: String = "http://tbgweb.dyndns.info/iacdb/iosUploadSpot.php"
+        let url: String = "https://tbgweb.dyndns.info/iacdb/iosUploadSpot.php"
         let postValues: [String: String] = ["registration": searchTerm!, "location": self.spLocation!, "date": mySQLDate, "seenby": self.spName!]
         
         // Do asynchronous call to server using Alamofire library

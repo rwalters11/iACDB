@@ -343,7 +343,7 @@ class addEditLocationViewController: UIViewController, UITextFieldDelegate {
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         
         // Set destination url & value to send
-        let url: String = "http://tbgweb.dyndns.info/iacdb/iosLocationsEditor.php"
+        let url: String = "https://tbgweb.dyndns.info/iacdb/iosLocationsEditor.php"
         
         // Do asynchronous call to server using Alamofire library
         Alamofire.request(url, method: .post, parameters: postValues)

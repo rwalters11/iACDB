@@ -30,7 +30,7 @@ class aircraftTableViewController: UITableViewController, NSFetchedResultsContro
     // For searching our records carried by the FetchedResultsController
     var resultSearchController = UISearchController(searchResultsController: nil)
     
-    // http Server communication
+    // https Server communication
     let defaultSession = URLSession(configuration: URLSessionConfiguration.default)
     
     // On successful load
@@ -207,7 +207,7 @@ class aircraftTableViewController: UITableViewController, NSFetchedResultsContro
                     let searchTerm = aircraft.acRegistration?.addingPercentEncoding(withAllowedCharacters: expectedCharSet)
                     
                     // Set destination url & value to send including requested image width
-                    let url = URL(string: "http://tbgweb.dyndns.info/iacdb/iosGetLatestImage.php?registration=" + searchTerm! + "&w=100")!
+                    let url = URL(string: "https://tbgweb.dyndns.info/iacdb/iosGetLatestImage.php?registration=" + searchTerm! + "&w=100")!
                     
                     // Setup Kingfisher Image Cacheing & retrieval resource using aircraft registration as the cache key
                     let resource = ImageResource(downloadURL: url, cacheKey: aircraft.acRegistration! + "w100")

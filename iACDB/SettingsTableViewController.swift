@@ -25,6 +25,8 @@ class SettingsTableViewController: UITableViewController, UITextFieldDelegate {
     @IBOutlet weak var btnClearSpotData:        UIButton!
     
     // Actions
+    @IBAction func btnAppInfo(_ sender: UIButton) {
+    }
     
     @IBAction func swLocationsCache(_ sender: UISwitch) {
         

@@ -82,7 +82,7 @@ func syncAircraft2RemoteDB(inController: spotListTableViewController) {
     UIApplication.shared.isNetworkActivityIndicatorVisible = true
     
     // Set destination url & value to send
-    let url: String = "http://tbgweb.dyndns.info/iacdb/iosAircraftCount.php"
+    let url: String = "https://tbgweb.dyndns.info/iacdb/iosAircraftCount.php"
     
     // Do asynchronous call to server using Alamofire library
     Alamofire.request(url, method: .post)
@@ -192,7 +192,7 @@ func syncLocations2RemoteDB() {
     UIApplication.shared.isNetworkActivityIndicatorVisible = true
     
     // Set destination url & value to send
-    let url: String = "http://tbgweb.dyndns.info/iacdb/iosLocationCount.php"
+    let url: String = "https://tbgweb.dyndns.info/iacdb/iosLocationCount.php"
     
     // Do asynchronous call to server using Alamofire library
     Alamofire.request(url, method: .post)
@@ -546,7 +546,7 @@ func afPopulateAircraftCache(completionHandler:  @escaping (Bool, [[String: Stri
     UIApplication.shared.isNetworkActivityIndicatorVisible = true
     
     // Set destination url & value to send
-    let url: String = "http://tbgweb.dyndns.info/iacdb/iosLoadAircraftCache.php"
+    let url: String = "https://tbgweb.dyndns.info/iacdb/iosLoadAircraftCache.php"
     
     // Do asynchronous call to server using Alamofire library
     Alamofire.request(url, method: .post)
@@ -592,7 +592,7 @@ func afPopulateLocations(completionHandler:  @escaping (Bool, [[String: String]]
     UIApplication.shared.isNetworkActivityIndicatorVisible = true
     
     // Set destination url & value to send
-    let url: String = "http://tbgweb.dyndns.info/iacdb/iosLoadLocations.php"
+    let url: String = "https://tbgweb.dyndns.info/iacdb/iosLoadLocations.php"
     
     // Do asynchronous call to server using Alamofire library
     Alamofire.request(url, method: .post)
