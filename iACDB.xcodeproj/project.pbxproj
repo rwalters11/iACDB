@@ -38,7 +38,6 @@
 		D3D4913B1E05290100435E7C /* registrationValidate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D4913A1E05290100435E7C /* registrationValidate.swift */; };
 		D3D491511E067C8B00435E7C /* ChangeLog.rtf in Resources */ = {isa = PBXBuildFile; fileRef = D3D491501E067C8B00435E7C /* ChangeLog.rtf */; };
 		D3E101131E11C9C60019707C /* iACDB.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D3E101111E11C9C60019707C /* iACDB.xcdatamodeld */; };
-		D3FAB21E1E1C24F000ABF75A /* tessdata in Resources */ = {isa = PBXBuildFile; fileRef = D3FAB21D1E1C24F000ABF75A /* tessdata */; };
 		D3FFEE881DF39180003472AC /* functionLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FFEE871DF39180003472AC /* functionLibrary.swift */; };
 		FA7D2DD18C73F925684462F4 /* Pods_iACDBTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE12848C5DB11D3FA12DE97E /* Pods_iACDBTests.framework */; };
 /* End PBXBuildFile section */
@@ -107,7 +106,6 @@
 		D3D4913A1E05290100435E7C /* registrationValidate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = registrationValidate.swift; sourceTree = "<group>"; };
 		D3D491501E067C8B00435E7C /* ChangeLog.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = ChangeLog.rtf; sourceTree = "<group>"; };
 		D3E101121E11C9C60019707C /* iACDB.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = iACDB.xcdatamodel; sourceTree = "<group>"; };
-		D3FAB21D1E1C24F000ABF75A /* tessdata */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tessdata; sourceTree = "<group>"; };
 		D3FFEE871DF39180003472AC /* functionLibrary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = functionLibrary.swift; path = ../../Common_Library/functionLibrary.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -148,7 +146,6 @@
 		D3AEBF161DF006C3004FB4A5 = {
 			isa = PBXGroup;
 			children = (
-				D3FAB21D1E1C24F000ABF75A /* tessdata */,
 				D3E101111E11C9C60019707C /* iACDB.xcdatamodeld */,
 				D3AEBF461DF01F46004FB4A5 /* Notes */,
 				D3AEBF211DF006C3004FB4A5 /* iACDB */,
@@ -287,12 +284,12 @@
 					D3AEBF1E1DF006C3004FB4A5 = {
 						CreatedOnToolsVersion = 8.1;
 						DevelopmentTeam = TT43E74VM4;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 					D3AEBF341DF006C3004FB4A5 = {
 						CreatedOnToolsVersion = 8.1;
 						DevelopmentTeam = TT43E74VM4;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 						TestTargetID = D3AEBF1E1DF006C3004FB4A5;
 					};
 				};
@@ -325,7 +322,6 @@
 				D3AEBF2F1DF006C3004FB4A5 /* LaunchScreen.storyboard in Resources */,
 				D3AEBF2C1DF006C3004FB4A5 /* Assets.xcassets in Resources */,
 				D3AEBF481DF01F8B004FB4A5 /* Build Notes.rtf in Resources */,
-				D3FAB21E1E1C24F000ABF75A /* tessdata in Resources */,
 				D3AEBF2A1DF006C3004FB4A5 /* Main.storyboard in Resources */,
 				D3D491511E067C8B00435E7C /* ChangeLog.rtf in Resources */,
 			);
@@ -635,6 +631,8 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = TT43E74VM4;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = iACDB/Info.plist;
@@ -647,6 +645,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = TBGweb.iACDB;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "102ebaf8-93b4-4dde-a4d0-bd4e58ca6256";
+				PROVISIONING_PROFILE_SPECIFIER = "iACDB Development";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -657,6 +657,8 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = TT43E74VM4;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = iACDB/Info.plist;
@@ -669,6 +671,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = TBGweb.iACDB;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "15dcbccc-24a2-421e-8eca-237988bc13b2";
+				PROVISIONING_PROFILE_SPECIFIER = "iACDB Trial Profile 1";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
@@ -679,11 +683,13 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = TT43E74VM4;
 				INFOPLIST_FILE = iACDBTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = TBGweb.iACDBTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iACDB.app/iACDB";
 			};
@@ -695,11 +701,13 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = TT43E74VM4;
 				INFOPLIST_FILE = iACDBTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = TBGweb.iACDBTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iACDB.app/iACDB";
 			};
