@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SafariServices
 
 class SettingsTableViewController: UITableViewController, UITextFieldDelegate {
     
@@ -23,10 +24,21 @@ class SettingsTableViewController: UITableViewController, UITextFieldDelegate {
     @IBOutlet weak var swImagesViaMobileData:   UISwitch!
     @IBOutlet weak var swValidateRegistrations: UISwitch!
     @IBOutlet weak var btnClearSpotData:        UIButton!
-    @IBOutlet weak var btnAboutApp:             UIButton!
+    @IBOutlet weak var btnUpdate:               UIButton!
+    @IBOutlet weak var lblAboutApp:             UILabel!
     
     // Actions
-    @IBAction func btnAppInfo(_ sender: UIButton) {
+    @IBAction func btnUpdate(_ sender: UIButton) {
+        
+        // Open app page in web browser
+        let appHome = URL(string: "https://tbgweb.dyndns.info/wordpress/iosdevelopment/iacdb")!
+        
+        UIApplication.shared.open(appHome, options: [:], completionHandler: {
+            (success) in
+            print("Opened app home page")
+            
+        })
+        
     }
     
     @IBAction func swLocationsCache(_ sender: UISwitch) {
@@ -122,6 +134,8 @@ class SettingsTableViewController: UITableViewController, UITextFieldDelegate {
         swImagesViaMobileData.setOn(!defaults.bool(forKey: "imageLoadWiFiOnly"), animated: true)
         
         swValidateRegistrations.setOn(defaults.bool(forKey: "validateRegistrations"), animated: true)
+        
+        lblAboutApp.text = "TBGweb Solutions v" + (Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String)!
 
     }
 

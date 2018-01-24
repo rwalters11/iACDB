@@ -1128,15 +1128,15 @@
                             </tableViewSection>
                             <tableViewSection headerTitle="Spot Data" id="ifU-tT-WH8">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="8rR-Ts-eiV">
-                                        <rect key="frame" x="0.0" y="487.5" width="375" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="52" id="8rR-Ts-eiV">
+                                        <rect key="frame" x="0.0" y="487.5" width="375" height="52"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8rR-Ts-eiV" id="B9P-wg-9nZ">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="51.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vWM-3A-q7g">
-                                                    <rect key="frame" x="16" y="7" width="70" height="30"/>
+                                                    <rect key="frame" x="16" y="11" width="70" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="70" id="hOL-fL-YCs"/>
                                                     </constraints>
@@ -1160,29 +1160,28 @@
                             <tableViewSection headerTitle="About" id="SEi-Mb-vJ5">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="Tqe-6F-sWB">
-                                        <rect key="frame" x="0.0" y="587.5" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="595.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Tqe-6F-sWB" id="Bmm-WC-h0M">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kIt-mi-wS1">
-                                                    <rect key="frame" x="16" y="5" width="334" height="30"/>
-                                                    <state key="normal" title="TBGweb Solutions">
-                                                        <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    </state>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="TBGweb Solutions v0.0.0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bD7-jb-E1h">
+                                                    <rect key="frame" x="16" y="12" width="235" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ohT-hB-inr">
+                                                    <rect key="frame" x="295" y="7" width="64" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <state key="normal" title="Update"/>
                                                     <connections>
-                                                        <action selector="btnAppInfo:" destination="zEq-pj-z2P" eventType="touchUpInside" id="Uon-RH-FHB"/>
-                                                        <action selector="btnClearSpotData:" destination="zEq-pj-z2P" eventType="touchUpInside" id="8LX-Ej-72y"/>
+                                                        <action selector="btnUpdate:" destination="zEq-pj-z2P" eventType="touchUpInside" id="NPo-F6-iUY"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
-                                            <constraints>
-                                                <constraint firstItem="kIt-mi-wS1" firstAttribute="top" secondItem="Bmm-WC-h0M" secondAttribute="topMargin" constant="-6" id="1p1-Xc-MCs"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="kIt-mi-wS1" secondAttribute="trailing" constant="9" id="WQX-0P-VrJ"/>
-                                                <constraint firstItem="kIt-mi-wS1" firstAttribute="leading" secondItem="Bmm-WC-h0M" secondAttribute="leadingMargin" id="ZoF-Tg-e9q"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="kIt-mi-wS1" secondAttribute="bottom" constant="-2" id="eFs-F5-yOH"/>
-                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
@@ -1201,8 +1200,9 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="btnAboutApp" destination="kIt-mi-wS1" id="Nqh-5s-lQg"/>
                         <outlet property="btnClearSpotData" destination="vWM-3A-q7g" id="YZI-TW-NOZ"/>
+                        <outlet property="btnUpdate" destination="ohT-hB-inr" id="xFe-vp-Bl8"/>
+                        <outlet property="lblAboutApp" destination="bD7-jb-E1h" id="hut-lC-cq9"/>
                         <outlet property="swAircraftCache" destination="rja-Kg-Oax" id="D3P-f1-ph9"/>
                         <outlet property="swImagesViaMobileData" destination="tLh-Ht-OyP" id="wqk-NW-xDa"/>
                         <outlet property="swLocationsCache" destination="fUJ-IL-DRg" id="LIY-4Y-cf1"/>
