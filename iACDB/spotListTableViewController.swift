@@ -136,7 +136,7 @@ class spotListTableViewController: UITableViewController, NSFetchedResultsContro
     }
     
     // Function to retry upload of Spot in response to long press gesture
-    func retryUpload(recognizer: UILongPressGestureRecognizer) {
+    @objc func retryUpload(recognizer: UILongPressGestureRecognizer) {
         
         if recognizer.state == UIGestureRecognizerState.ended {
             

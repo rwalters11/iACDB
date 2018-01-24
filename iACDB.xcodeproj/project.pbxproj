@@ -284,11 +284,13 @@
 					D3AEBF1E1DF006C3004FB4A5 = {
 						CreatedOnToolsVersion = 8.1;
 						DevelopmentTeam = TT43E74VM4;
+						LastSwiftMigration = 0920;
 						ProvisioningStyle = Manual;
 					};
 					D3AEBF341DF006C3004FB4A5 = {
 						CreatedOnToolsVersion = 8.1;
 						DevelopmentTeam = TT43E74VM4;
+						LastSwiftMigration = 0920;
 						ProvisioningStyle = Manual;
 						TestTargetID = D3AEBF1E1DF006C3004FB4A5;
 					};
@@ -647,7 +649,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "102ebaf8-93b4-4dde-a4d0-bd4e58ca6256";
 				PROVISIONING_PROFILE_SPECIFIER = "iACDB Development";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -673,7 +676,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "15dcbccc-24a2-421e-8eca-237988bc13b2";
 				PROVISIONING_PROFILE_SPECIFIER = "iACDB Trial Profile 1";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -690,7 +694,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = TBGweb.iACDBTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iACDB.app/iACDB";
 			};
 			name = Debug;
@@ -708,7 +713,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = TBGweb.iACDBTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iACDB.app/iACDB";
 			};
 			name = Release;

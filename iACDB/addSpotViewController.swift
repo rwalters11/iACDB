@@ -236,7 +236,7 @@ class addSpotViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     }
     
     // Function to add dash character to Registration field when accessoryView tapped
-    func dashButtonTapped(button:UIBarButtonItem) {
+    @objc func dashButtonTapped(button:UIBarButtonItem) {
         
         // Dash cannot start an ICAO registration
         if txtRegistration.text?.count == 0 { return }
@@ -246,7 +246,7 @@ class addSpotViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     }
     
     // Function to add plus character to Registration field when accessoryView tapped
-    func plusButtonTapped(button:UIBarButtonItem) {
+    @objc func plusButtonTapped(button:UIBarButtonItem) {
         
         // Plus cannot start an ICAO or military registration
         if txtRegistration.text?.count == 0 { return }
@@ -256,7 +256,7 @@ class addSpotViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     }
     
     // Function to add G- characters to Registration field when accessoryView tapped
-    func gDashButtonTapped(button:UIBarButtonItem) {
+    @objc func gDashButtonTapped(button:UIBarButtonItem) {
         
         // G- must start an ICAO registration for the UK
         if (txtRegistration.text?.count)! > 0 { return }
@@ -526,7 +526,7 @@ class addSpotViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         }
     }
     
-    func tapLblDate() {
+    @objc func tapLblDate() {
         
         // Disable text fields & hide location picker
         txtRegistration.resignFirstResponder()
@@ -535,7 +535,7 @@ class addSpotViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         
         datePicker.isHidden = false    }
 
-    func tapLblLocation() {
+    @objc func tapLblLocation() {
         
         // Disable text fields & hide date picker
         txtRegistration.resignFirstResponder()
