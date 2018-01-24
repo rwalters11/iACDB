@@ -23,6 +23,7 @@ class SettingsTableViewController: UITableViewController, UITextFieldDelegate {
     @IBOutlet weak var swImagesViaMobileData:   UISwitch!
     @IBOutlet weak var swValidateRegistrations: UISwitch!
     @IBOutlet weak var btnClearSpotData:        UIButton!
+    @IBOutlet weak var btnAboutApp:             UIButton!
     
     // Actions
     @IBAction func btnAppInfo(_ sender: UIButton) {
