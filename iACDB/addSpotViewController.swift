@@ -438,7 +438,7 @@ class addSpotViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
     {
         lblLocation.text = addSpotViewController.locationPickerData[row]
-        //locationPicker.isHidden = true
+        locationPicker.isHidden = true
     }
     
     // MARK: - UITextField Delegates
