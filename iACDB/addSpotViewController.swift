@@ -33,21 +33,12 @@ class addSpotViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     
     var returnSpot: infoSpot = infoSpot(inStatus: spotStatus.Placeholder)
     
-    // Holder for value passed back from getCameraView
-    var regFromCamera: String?
-    
     // Instantiate registration validator
     let rv = registrationValidator()
     
     // MARK: - IB Actions & Outlets
     
-    @IBAction func btnCamera(_ sender: Any)
-    {
-        self.performSegue(withIdentifier: "getImage4Reg", sender: nil)
-    }
-    
     @IBOutlet weak var txtRegistration: UITextField!
-    @IBOutlet weak var swShowDetails:   UISwitch!
     @IBOutlet weak var lblLocation:     UILabel!
     @IBOutlet weak var lblTypeSeries:   UILabel!
     @IBOutlet weak var lblOperator:     UILabel!
@@ -74,33 +65,12 @@ class addSpotViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         
             }
     
-    // Handle Switch changes by user
-    @IBAction func swShowDetailsChange(_ sender: UISwitch) {
-        
-        // Save the setting of the switch
-        defaults.set(sender.isOn, forKey: "showAircraftDetails")
-        
-        if swShowDetails.isOn == true {
-            
-            getAircraftDetails()
-            
-        }else{
-            
-            lblTypeSeries.text = ""
-            lblOperator.text = ""
-        }
-        
-    }
-    
     // MARK: - Overrides
     
     override func viewDidLoad()
     {
         
         super.viewDidLoad()
-        
-        // Set switch
-        swShowDetails.setOn(defaults.bool(forKey: "showAircraftDetails"), animated: true)
         
         // Add borders to fields
         let color = UIColor.lightGray.cgColor
