@@ -207,6 +207,9 @@
                             <datePicker clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="A0C-0i-W8x">
                                 <rect key="frame" x="16" y="192" width="343" height="216"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="216" id="54q-xV-2rt"/>
+                                </constraints>
                                 <date key="date" timeIntervalSinceReferenceDate="522418413.82956302">
                                     <!--2017-07-22 12:13:33 +0000-->
                                 </date>
