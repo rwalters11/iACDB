@@ -18,6 +18,28 @@ import AlamofireImage
 import SwiftyJSON
 
 /*
+ * Function to register user defaults from settings bundle
+ * Use in AppDelegate
+ */
+func registerDefaultsFromSettingsBundle()
+{
+    let settingsUrl = Bundle.main.url(forResource: "Settings", withExtension: "bundle")!.appendingPathComponent("Root.plist")
+    let settingsPlist = NSDictionary(contentsOf:settingsUrl)!
+    let preferences = settingsPlist["PreferenceSpecifiers"] as! [NSDictionary]
+    
+    var defaultsToRegister = Dictionary<String, Any>()
+    
+    for preference in preferences {
+        guard let key = preference["Key"] as? String else {
+            NSLog("Key not found")
+            continue
+        }
+        defaultsToRegister[key] = preference["DefaultValue"]
+    }
+    UserDefaults.standard.register(defaults: defaultsToRegister)
+}
+
+/*
  *
  * Function to take a string and remove any whitespace, lowercase or non A-Z or non 0-9 characters
  *

@@ -62,7 +62,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func loadUserData() {
         
-        // Get esy reference
+        // Get easy reference
         let standardDefaults = UserDefaults.standard
         
         // Setup first run or reset values
@@ -80,8 +80,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             ] as [String : Any]
         
-        // Register the defaults
+        // Register the defaults array
         standardDefaults.register(defaults: appDefaults)
+        
+        // Register the defaults from the Root.plist in the Settings bundle
+        registerDefaultsFromSettingsBundle()
+        
+        // Print UserDefaults to console
+        for (key, value) in UserDefaults.standard.dictionaryRepresentation() {
+            print("\(key) = \(value) \n")
+            }
         
         }
     

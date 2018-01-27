@@ -83,10 +83,12 @@
 		<dict>
 			<key>Type</key>
 			<string>PSTitleValueSpecifier</string>
-			<key>Title</key>
+			<key>DefaultValue</key>
 			<string>v1.0.0</string>
+			<key>Title</key>
+			<string>Version</string>
 			<key>Key</key>
-			<string>app_info</string>
+			<string>app_version</string>
 		</dict>
 	</array>
 </dict>
