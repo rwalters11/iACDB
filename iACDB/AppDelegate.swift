@@ -63,10 +63,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func loadUserData() {
         
         // Get easy reference
-        let standardDefaults = UserDefaults.standard
+        // let standardDefaults = UserDefaults.standard
         
         // Setup first run or reset values
-        let appDefaults = [
+        /* let appDefaults = [
             
             "name":"Jason",
             "useNearestLocation":true,
@@ -79,17 +79,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             "developmentMode":false
             
             ] as [String : Any]
+         */
         
         // Register the defaults array
-        standardDefaults.register(defaults: appDefaults)
+        // standardDefaults.register(defaults: appDefaults)
         
         // Register the defaults from the Root.plist in the Settings bundle
         registerDefaultsFromSettingsBundle()
         
-        // Print UserDefaults to console
-        for (key, value) in UserDefaults.standard.dictionaryRepresentation() {
-            print("\(key) = \(value) \n")
-            }
+        // Print the user defaults to the console
+        printUserDefaults()
         
         }
     

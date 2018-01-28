@@ -18,7 +18,7 @@
 			<key>Title</key>
 			<string>Update locations on startup</string>
 			<key>Key</key>
-			<string>update_locations_cache_on_startup</string>
+			<string>loadLocationsCacheOnStartup</string>
 			<key>DefaultValue</key>
 			<true/>
 		</dict>
@@ -28,7 +28,7 @@
 			<key>Title</key>
 			<string>Update aircraft on startup</string>
 			<key>Key</key>
-			<string>update_aircraft_cache_on_startup</string>
+			<string>loadAircraftCacheOnStartup</string>
 			<key>DefaultValue</key>
 			<true/>
 		</dict>
@@ -36,9 +36,49 @@
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
-			<string>Images via remote data</string>
+			<string>Update cache via WiFi only</string>
 			<key>Key</key>
-			<string>images_via_remote_data</string>
+			<string>cacheLoadWiFiOnly</string>
+			<key>DefaultValue</key>
+			<false/>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Images via WiFi only</string>
+			<key>Key</key>
+			<string>imageLoadWiFiOnly</string>
+			<key>DefaultValue</key>
+			<false/>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Use nearest location</string>
+			<key>Key</key>
+			<string>useNearestLocation</string>
+			<key>DefaultValue</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Validate registrations</string>
+			<key>Key</key>
+			<string>validateRegistrations</string>
+			<key>DefaultValue</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Show aircraft details</string>
+			<key>Key</key>
+			<string>showAircraftDetails</string>
 			<key>DefaultValue</key>
 			<true/>
 		</dict>
@@ -60,7 +100,7 @@
 			<key>Title</key>
 			<string>Name</string>
 			<key>Key</key>
-			<string>username</string>
+			<string>name</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -73,6 +113,14 @@
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
 			<string>Developer</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>File</key>
+			<string>developer</string>
+			<key>Title</key>
+			<string>Developer settings</string>
 		</dict>
 		<dict>
 			<key>Type</key>

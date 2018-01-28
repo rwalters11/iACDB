@@ -18,6 +18,19 @@ import AlamofireImage
 import SwiftyJSON
 
 /*
+ * Function to switch to iOS Settings App page for this App
+ */
+func go2iOSSettings()
+{
+    let application = UIApplication.shared
+    let url = URL(string: UIApplicationOpenSettingsURLString)! as URL
+    if application.canOpenURL(url)
+    {
+        application.open(url, options: [:], completionHandler: nil)
+    }
+}
+
+/*
  * Function to register user defaults from settings bundle
  * Use in AppDelegate
  */
@@ -37,6 +50,17 @@ func registerDefaultsFromSettingsBundle()
         defaultsToRegister[key] = preference["DefaultValue"]
     }
     UserDefaults.standard.register(defaults: defaultsToRegister)
+}
+
+/*
+ * Function to print contents of UserDefaults to console
+ */
+func printUserDefaults()
+{
+    // Print UserDefaults to console
+    for (key, value) in UserDefaults.standard.dictionaryRepresentation() {
+        print("\(key) = \(value) \n")
+    }
 }
 
 /*
@@ -375,7 +399,7 @@ func saveSpot(spot: infoSpot) {
     newSpot.registration = spot.getRegistration()               // Registration
     newSpot.location=spot.getLocation()                         // Location
     newSpot.status=Int16(spot.getStatus().rawValue)             // Status as it's enum integer value
-    newSpot.date=Date() as NSDate?                              // Date/Time
+    newSpot.date=Date() as Date?                              // Date/Time
     newSpot.sectionDate=Date().toiACDBDateString()              // Date in dd-mm-yyyy string format for section headers
     newSpot.notes = spot.getNotes()                             // Notes
     

@@ -1175,6 +1175,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Settings" id="fBq-aY-Vda">
+                        <barButtonItem key="leftBarButtonItem" title="Main" id="YZN-vI-hJT">
+                            <connections>
+                                <action selector="btnMainSettings:" destination="zEq-pj-z2P" id="fDG-vM-cua"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Reset" id="srP-yx-cls">
                             <connections>
                                 <action selector="btnReset:" destination="zEq-pj-z2P" id="b0P-N3-gWn"/>
@@ -1352,6 +1357,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="zyx-d1-Ur6"/>
         <segue reference="nnw-Ps-yhu"/>
-        <segue reference="1vI-sF-6v9"/>
+        <segue reference="Fqt-fW-Phu"/>
     </inferredMetricsTieBreakers>
 </document>

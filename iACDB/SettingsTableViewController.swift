@@ -36,9 +36,7 @@ class SettingsTableViewController: UITableViewController, UITextFieldDelegate {
         UIApplication.shared.open(appHome, options: [:], completionHandler: {
             (success) in
             print("Opened app home page")
-            
         })
-        
     }
     
     @IBAction func swLocationsCache(_ sender: UISwitch) {
@@ -108,11 +106,19 @@ class SettingsTableViewController: UITableViewController, UITextFieldDelegate {
         
     }
     
+    @IBAction func btnMainSettings(_ sender: UIBarButtonItem) {
+        
+        go2iOSSettings()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Load settings
         setViewControls()
+        
+        // Setup observer for changes in UserDefaults
+        notifyDefaultsChange()
         
         // Activate Return key on keyboard
         userName.returnKeyType = .done
@@ -137,6 +143,31 @@ class SettingsTableViewController: UITableViewController, UITextFieldDelegate {
         
         lblAboutApp.text = "TBGweb Solutions v" + (Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String)!
 
+    }
+    
+    /*
+     * Function to add an observer to be notified when a user changes a setting
+     */
+    func notifyDefaultsChange()
+    {
+        NotificationCenter.default.addObserver(self, selector: #selector(self.defaultsChanged), name: UserDefaults.didChangeNotification, object: nil)
+    }
+    
+    /*
+     * Function to receive notification of changed user default
+     */
+    @objc func defaultsChanged(notification: Notification)
+    {
+        if let defaults = notification.object as? UserDefaults {
+            
+            // Print user defaults to console
+            printUserDefaults()
+            
+            // Log UserDefaults update notification
+            print("Notification: UserDefaults Change")
+            
+            
+        }
     }
 
     // MARK: - Table view data source
