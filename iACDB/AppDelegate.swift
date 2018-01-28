@@ -25,6 +25,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Start the network monitor listening for changes
         netMonitor?.startListening()
         
+        // Register the defaults from the Root.plist in the Settings bundle
+        registerDefaultsFromSettingsBundle()
+        
         return true
     }
 
@@ -61,31 +64,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     
     func loadUserData() {
-        
-        // Get easy reference
-        // let standardDefaults = UserDefaults.standard
-        
-        // Setup first run or reset values
-        /* let appDefaults = [
-            
-            "name":"Jason",
-            "useNearestLocation":true,
-            "loadLocationsCacheOnStartup":true,
-            "loadAircraftCacheOnStartup":true,
-            "cacheLoadWiFiOnly":false,
-            "showAircraftDetails":true,
-            "imageLoadWiFiOnly":false,
-            "validateRegistrations":true,
-            "developmentMode":false
-            
-            ] as [String : Any]
-         */
-        
-        // Register the defaults array
-        // standardDefaults.register(defaults: appDefaults)
-        
-        // Register the defaults from the Root.plist in the Settings bundle
-        registerDefaultsFromSettingsBundle()
         
         // Print the user defaults to the console
         printUserDefaults()

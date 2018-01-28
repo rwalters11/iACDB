@@ -17,12 +17,6 @@ class SettingsTableViewController: UITableViewController, UITextFieldDelegate {
     // Outlets
     
     @IBOutlet weak var userName:                UITextField!
-    
-    @IBOutlet weak var swLocationsCache:        UISwitch!
-    @IBOutlet weak var swAircraftCache:         UISwitch!
-    @IBOutlet weak var swUseNearestLocation:    UISwitch!
-    @IBOutlet weak var swImagesViaMobileData:   UISwitch!
-    @IBOutlet weak var swValidateRegistrations: UISwitch!
     @IBOutlet weak var btnClearSpotData:        UIButton!
     @IBOutlet weak var btnUpdate:               UIButton!
     @IBOutlet weak var lblAboutApp:             UILabel!
@@ -39,35 +33,9 @@ class SettingsTableViewController: UITableViewController, UITextFieldDelegate {
         })
     }
     
-    @IBAction func swLocationsCache(_ sender: UISwitch) {
-        
-        defaults.set(sender.isOn, forKey: "loadLocationsCacheOnStartup")
-    }
-    
-    @IBAction func swAircraftCache(_ sender: UISwitch) {
-
-        defaults.set(sender.isOn, forKey: "loadAircraftCacheOnStartup")
-    }
-    
-    @IBAction func swUseNearestLocation(_ sender: UISwitch) {
-
-        defaults.set(sender.isOn, forKey: "useNearestLocation")
-    }
-    
-    @IBAction func swImagesViaMobileData(_ sender: UISwitch) {
-        
-        
-        defaults.set(!sender.isOn, forKey: "imageLoadWiFiOnly")
-    }
-    
     @IBAction func userName(_ sender: UITextField) {
         
         defaults.set(sender.text, forKey: "name")
-    }
-    
-    @IBAction func swValidateRegistrations(_ sender: UISwitch) {
-        
-        defaults.set(sender.isOn, forKey: "validateRegistrations")
     }
     
     @IBAction func btnReset(_ sender: UIBarButtonItem) {
@@ -131,16 +99,6 @@ class SettingsTableViewController: UITableViewController, UITextFieldDelegate {
         
         userName.text = defaults.string(forKey: "name")
         
-        swAircraftCache.setOn(defaults.bool(forKey: "loadAircraftCacheOnStartup"), animated: true)
-
-        swLocationsCache.setOn(defaults.bool(forKey: "loadLocationsCacheOnStartup"), animated: true)
-        
-        swUseNearestLocation.setOn(defaults.bool(forKey: "useNearestLocation"), animated: true)
-        
-        swImagesViaMobileData.setOn(!defaults.bool(forKey: "imageLoadWiFiOnly"), animated: true)
-        
-        swValidateRegistrations.setOn(defaults.bool(forKey: "validateRegistrations"), animated: true)
-        
         lblAboutApp.text = "TBGweb Solutions v" + (Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String)!
 
     }
@@ -158,16 +116,15 @@ class SettingsTableViewController: UITableViewController, UITextFieldDelegate {
      */
     @objc func defaultsChanged(notification: Notification)
     {
-        if let defaults = notification.object as? UserDefaults {
-            
             // Print user defaults to console
             printUserDefaults()
             
             // Log UserDefaults update notification
             print("Notification: UserDefaults Change")
-            
-            
-        }
+        
+            // Reload settings
+            setViewControls()
+        
     }
 
     // MARK: - Table view data source
