@@ -39,6 +39,7 @@
 		D3D4913B1E05290100435E7C /* registrationValidate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D4913A1E05290100435E7C /* registrationValidate.swift */; };
 		D3D491511E067C8B00435E7C /* ChangeLog.rtf in Resources */ = {isa = PBXBuildFile; fileRef = D3D491501E067C8B00435E7C /* ChangeLog.rtf */; };
 		D3E101131E11C9C60019707C /* iACDB.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D3E101111E11C9C60019707C /* iACDB.xcdatamodeld */; };
+		D3EC2EA7201FC7BE0075EB03 /* addSpotViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EC2EA6201FC7BE0075EB03 /* addSpotViewController2.swift */; };
 		D3FFEE881DF39180003472AC /* functionLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FFEE871DF39180003472AC /* functionLibrary.swift */; };
 		FA7D2DD18C73F925684462F4 /* Pods_iACDBTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE12848C5DB11D3FA12DE97E /* Pods_iACDBTests.framework */; };
 /* End PBXBuildFile section */
@@ -108,6 +109,7 @@
 		D3D4913A1E05290100435E7C /* registrationValidate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = registrationValidate.swift; sourceTree = "<group>"; };
 		D3D491501E067C8B00435E7C /* ChangeLog.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = ChangeLog.rtf; sourceTree = "<group>"; };
 		D3E101121E11C9C60019707C /* iACDB.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = iACDB.xcdatamodel; sourceTree = "<group>"; };
+		D3EC2EA6201FC7BE0075EB03 /* addSpotViewController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addSpotViewController2.swift; sourceTree = "<group>"; };
 		D3FFEE871DF39180003472AC /* functionLibrary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = functionLibrary.swift; path = ../../Common_Library/functionLibrary.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -195,6 +197,7 @@
 				D357AB171DFFF8680046427C /* spotInfoTableViewCell.swift */,
 				D3AEBF241DF006C3004FB4A5 /* spotListTableViewController.swift */,
 				D3BBA208201B8D92002C0814 /* Settings.bundle */,
+				D3EC2EA6201FC7BE0075EB03 /* addSpotViewController2.swift */,
 			);
 			path = iACDB;
 			sourceTree = "<group>";
@@ -465,6 +468,7 @@
 				D36896821DF2A08800451587 /* infoAircraft.swift in Sources */,
 				D30864961E20EA970021B6D2 /* addEditLocationViewController.swift in Sources */,
 				D3AEBF271DF006C3004FB4A5 /* aircraftDetailsViewController.swift in Sources */,
+				D3EC2EA7201FC7BE0075EB03 /* addSpotViewController2.swift in Sources */,
 				D3D4913B1E05290100435E7C /* registrationValidate.swift in Sources */,
 				D33A369C1E16EC5D00CE7A37 /* iACDBFunctionLibrary.swift in Sources */,
 				D308647C1E1FCECF0021B6D2 /* locationsTableViewController.swift in Sources */,
