@@ -20,7 +20,7 @@ target 'iACDB' do
         pod 'SwiftyJSON'
     
     #Kingfisher image cacheing
-        pod 'Kingfisher', '~> 3.0'
+        pod 'Kingfisher'
 
     #Eureka forms
         pod 'Eureka'
