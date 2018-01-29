@@ -22,6 +22,9 @@ target 'iACDB' do
     #Kingfisher image cacheing
         pod 'Kingfisher', '~> 3.0'
 
+    #Eureka forms
+        pod 'Eureka'
+
   target 'iACDBTests' do
     inherit! :search_paths
     # Pods for testing

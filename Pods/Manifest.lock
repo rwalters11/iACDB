@@ -4,6 +4,7 @@ PODS:
     - Alamofire (~> 4.5)
   - AlamofireNetworkActivityIndicator (2.2.0):
     - Alamofire (~> 4.5)
+  - Eureka (4.0.1)
   - Kingfisher (3.13.1)
   - SwiftyJSON (4.0.0)
 
@@ -11,6 +12,7 @@ DEPENDENCIES:
   - Alamofire
   - AlamofireImage
   - AlamofireNetworkActivityIndicator
+  - Eureka
   - Kingfisher (~> 3.0)
   - SwiftyJSON
 
@@ -18,9 +20,10 @@ SPEC CHECKSUMS:
   Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
   AlamofireImage: 2e784dc5d00f04903a52c1d169181469c805c3df
   AlamofireNetworkActivityIndicator: 81e1630e7cfed22a4e4e82a174c59e651dc4f8ca
+  Eureka: c8bd5cc07143b6f66268c208d28a246c99b41955
   Kingfisher: ed9707a409cc47fddafbcd12a43a9757e3600af5
   SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
 
-PODFILE CHECKSUM: 0c7a6b1656765a2f238a844d3141806cc4fc69aa
+PODFILE CHECKSUM: b5af85af876a4b290ca4450a4595375c7544af01
 
 COCOAPODS: 1.3.1
