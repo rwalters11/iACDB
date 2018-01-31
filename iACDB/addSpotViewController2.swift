@@ -102,6 +102,11 @@ class addSpotViewController2: FormViewController, CLLocationManagerDelegate{
         //txtRegistration.inputAccessoryView = toolbar
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
+    }
+    
     // Function to add dash character to Registration field when accessoryView tapped
     @objc func dashButtonTapped(button:UIBarButtonItem) {
         
@@ -133,13 +138,12 @@ class addSpotViewController2: FormViewController, CLLocationManagerDelegate{
         // Create sections and rows for Eureka form
         form
             +++ Section("Spot")
-            <<< TextRow() {
-                $0.title = "Registration"
-                $0.placeholder = "Registration"
-                $0.tag = "frmRegistration"
-                }.cellSetup { cell, _  in
-                    cell.textField.keyboardType = .alphabet
-                    
+        
+            <<< TextRow() {row in
+                row.title = "Registration"
+                row.placeholder = "Registration"
+                row.tag = "frmRegistration"
+                row.cell.textField.becomeFirstResponder()
                 }.onChange { row in
                     
                     self.getAircraftDetails(reg: row.value!)
@@ -241,16 +245,16 @@ class addSpotViewController2: FormViewController, CLLocationManagerDelegate{
         // Update the fields if valid or clear
         if !aircraftDetails.acType.isEmpty {
             
-            let rowT = self.form.rowBy(tag: "frmType") as! TextRow
+            let rowT = self.form.rowBy(tag: "frmType") as! LabelRow
             rowT.value = aircraftDetails.acType + "-" + aircraftDetails.acSeries
-            let rowO = self.form.rowBy(tag: "frmOperator") as! TextRow
+            let rowO = self.form.rowBy(tag: "frmOperator") as! LabelRow
             rowO.value = aircraftDetails.acOperator
             
         }else{
             
-            let rowT = self.form.rowBy(tag: "frmType") as! TextRow
+            let rowT = self.form.rowBy(tag: "frmType") as! LabelRow
             rowT.value = ""
-            let rowO = self.form.rowBy(tag: "frmOperator") as! TextRow
+            let rowO = self.form.rowBy(tag: "frmOperator") as! LabelRow
             rowO.value = ""
         }
     }
