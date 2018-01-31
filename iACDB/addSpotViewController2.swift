@@ -37,6 +37,9 @@ class addSpotViewController2: FormViewController, CLLocationManagerDelegate{
     // Instantiate registration validator
     let rv = registrationValidator()
     
+    // Value of registration field from Eureka form
+    var frmRegValue: String!
+    
     // MARK: - Load
 
     override func viewDidLoad() {
@@ -96,83 +99,105 @@ class addSpotViewController2: FormViewController, CLLocationManagerDelegate{
         
         toolbar.setItems([dashButton, plusButton, gDashButton], animated: true)
         
-        txtRegistration.inputAccessoryView = toolbar
+        //txtRegistration.inputAccessoryView = toolbar
     }
     
     // Function to add dash character to Registration field when accessoryView tapped
     @objc func dashButtonTapped(button:UIBarButtonItem) {
         
-        // Dash cannot start an ICAO registration
-        if txtRegistration.text?.count == 0 { return }
-        
-        txtRegistration.text = txtRegistration.text! + "-"
+       editFrmRegistration(newValue: "-")
         UIDevice.current.playInputClick()
     }
     
     // Function to add plus character to Registration field when accessoryView tapped
     @objc func plusButtonTapped(button:UIBarButtonItem) {
         
-        // Plus cannot start an ICAO or military registration
-        if txtRegistration.text?.count == 0 { return }
-        
-        txtRegistration.text = txtRegistration.text! + "+"
+        editFrmRegistration(newValue: "+")
         UIDevice.current.playInputClick()
     }
     
     // Function to add G- characters to Registration field when accessoryView tapped
     @objc func gDashButtonTapped(button:UIBarButtonItem) {
         
-        // G- must start an ICAO registration for the UK
-        if (txtRegistration.text?.count)! > 0 { return }
-        
-        txtRegistration.text = txtRegistration.text! + "G-"
-        UIDevice.current.playInputClick()
+        editFrmRegistration(newValue: "G-")
     }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         
     }
     
-    // MARK: - Form Setup
+    // MARK: - Form
     func setupForm()
     {
         // Create sections and rows for Eureka form
-        
         form
             +++ Section("Spot")
             <<< TextRow() {
                 $0.title = "Registration"
                 $0.placeholder = "Registration"
+                $0.tag = "frmRegistration"
+                }.cellSetup { cell, _  in
+                    cell.textField.keyboardType = .alphabet
+                    
+                }.onChange { row in
+                    
+                    self.getAircraftDetails(reg: row.value!)
                 }
             
             <<< DateRow() {
                 $0.title = "Date"
                 $0.value = Date()
                 $0.maximumDate = Date()
+                $0.tag = "frmDate"
                 }
         
-            <<< PickerInputRow<String>("Picker Input Row"){
+            <<< PickerInputRow<String>(){
                 $0.title = "Location"
-                $0.options = []
-                for i in 1...10{
-                    $0.options.append("location \(i)")
-                    }
+                
+                $0.options = getLocationPickerData()
+                
                 $0.value = $0.options.first
+                $0.tag = "frmLocation"
                 }
             
             +++ Section("Details")
             <<< LabelRow() {
                 $0.title = "Type"
-                $0.value = "Type"
+                $0.value = ""
+                $0.tag = "frmType"
                 }
             
             <<< LabelRow() {
                 $0.title = "Operator"
-                $0.value = "Operator"
-        }    }
+                $0.value = ""
+                $0.tag = "frmOperator"
+                }
+        
+        
+    }
+    
+    // Function to extract values from the form
+    func getFormValues() -> [String:Any?]
+    {
+        //Gets the values of all rows which have a tag assigned as tag:value dictionary
+        let formValuesDictionary = form.values()
+        
+        return formValuesDictionary
+        
+    }
+    
+    // Function to update form registration value
+    func editFrmRegistration(newValue: String)
+    {
+        let row = self.form.rowBy(tag: "frmRegistration") as! TextRow
+        row.value = row.value! + newValue
+    }
     
     // MARK: - CoreData
-    func getLocationPickerData()
+    
+    // Function to get locations list from CoreData and return an array
+    func getLocationPickerData() -> [String]
     {
         // Get the container from the AppDelegate
         let moc = getContext()
@@ -186,36 +211,47 @@ class addSpotViewController2: FormViewController, CLLocationManagerDelegate{
         let sortDescriptor = NSSortDescriptor(key: "location", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
         
+        // Array to hold return values
+        var returnedLocations: [String] = []
+        
         do {
             // Execute Fetch Request
             let records = try moc.fetch(fetchRequest) as! [EntLocations]
             
             for record in records {
                 
-                //addSpotViewController.locationPickerData.append(record.location!)
+                returnedLocations.append(record.location!)
             }
             
         } catch {
             rwPrint(inFunction: #function, inMessage:"Unable to fetch managed objects for entity \(entity).")
         }
         
+        return returnedLocations
+        
     }
     
-    func getAircraftDetails() {
+    func getAircraftDetails(reg: String) {
         
         if !self.defaults.bool(forKey: "showAircraftDetails") { return }
         
         // Get the details from the cache if exists
-        let aircraftDetails = getAircraftDetailsFromCache(inRegistration: txtRegistration.text!)
+        let aircraftDetails = getAircraftDetailsFromCache(inRegistration: reg)
         
         // Update the fields if valid or clear
         if !aircraftDetails.acType.isEmpty {
             
-            lblOperator.text = aircraftDetails.acOperator
-            lblTypeSeries.text = aircraftDetails.acType + "-" + aircraftDetails.acSeries
+            let rowT = self.form.rowBy(tag: "frmType") as! TextRow
+            rowT.value = aircraftDetails.acType + "-" + aircraftDetails.acSeries
+            let rowO = self.form.rowBy(tag: "frmOperator") as! TextRow
+            rowO.value = aircraftDetails.acOperator
+            
         }else{
-            lblOperator.text = ""
-            lblTypeSeries.text = ""
+            
+            let rowT = self.form.rowBy(tag: "frmType") as! TextRow
+            rowT.value = ""
+            let rowO = self.form.rowBy(tag: "frmOperator") as! TextRow
+            rowO.value = ""
         }
     }
     
@@ -232,10 +268,13 @@ class addSpotViewController2: FormViewController, CLLocationManagerDelegate{
         // Get the nearest location in the DB to the device's geo position
         nearestLocation = getNearestLocation(inLocation: locations[0])
         
-        // Set the picker if other than an empty string is returned
+        // Set the form value if other than an empty string is returned
         if !nearestLocation.isEmpty {
             
-            self.setPicker2Index(inLocation: self.nearestLocation, sender: "Location update")
+            let rowP = form.rowBy(tag: "frmLocation") as! PickerInputRow<String>
+            rowP.value = self.nearestLocation
+            rowP.updateCell()
+            
         }
         
     }
@@ -244,7 +283,9 @@ class addSpotViewController2: FormViewController, CLLocationManagerDelegate{
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error)
     {
         rwPrint(inFunction: #function, inMessage:"Error while updating location " + error.localizedDescription)
-    }    /*
+    }
+    
+    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
