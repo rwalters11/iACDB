@@ -7,18 +7,47 @@
 //
 
 import UIKit
+import Eureka
 
-class addSpotViewController2: UIViewController {
+class addSpotViewController2: FormViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        setupForm()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        
+    }
+    
+    // MARK: - Form Setup
+    func setupForm()
+    {
+        // Create sections and rows for Eureka form
+        
+        form
+            +++ Section()
+            <<< TextRow() {
+                $0.title = "Registration"
+                $0.placeholder = "Registration"
+                }
+            
+            <<< DateRow() {
+                $0.title = "Date"
+                $0.value = Date()
+                $0.maximumDate = Date()
+                }
+        
+            <<< PickerInputRow<String>("Picker Input Row"){
+                $0.title = "Location"
+                $0.options = []
+                for i in 1...10{
+                    $0.options.append("location \(i)")
+                }
+                $0.value = $0.options.first
+        }
     }
     
 

@@ -103,7 +103,7 @@
                         </segmentedControl>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="YIP-vu-Ih2">
                             <connections>
-                                <segue destination="sR2-ZU-5UN" kind="show" identifier="addSpot" id="Fqt-fW-Phu"/>
+                                <segue destination="jZy-4W-2C7" kind="show" identifier="showAddSpotForm" id="xsQ-pl-HZe"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -312,12 +312,12 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eGa-oP-MhO" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="5lI-77-xEn" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="5693.5" y="-953.5"/>
+            <point key="canvasLocation" x="6382" y="-1009"/>
         </scene>
-        <!--addSpotViewController2-->
+        <!--Add Spot-->
         <scene sceneID="kLI-Ma-Vtx">
             <objects>
-                <viewController title="addSpotViewController2" id="jZy-4W-2C7" customClass="addSpotViewController2" customModule="iACDB" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Add Spot" id="jZy-4W-2C7" customClass="addSpotViewController2" customModule="iACDB" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="KhU-zM-xe2"/>
                         <viewControllerLayoutGuide type="bottom" id="bAL-Fv-4cA"/>
@@ -330,7 +330,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oDh-EQ-tqp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6511" y="-949"/>
+            <point key="canvasLocation" x="5692" y="-1009"/>
         </scene>
         <!--aircraftDetailsViewController-->
         <scene sceneID="7Sv-MW-RNt">
@@ -1213,6 +1213,5 @@
     <inferredMetricsTieBreakers>
         <segue reference="zyx-d1-Ur6"/>
         <segue reference="nnw-Ps-yhu"/>
-        <segue reference="Fqt-fW-Phu"/>
     </inferredMetricsTieBreakers>
 </document>
