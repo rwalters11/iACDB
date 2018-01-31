@@ -174,14 +174,15 @@
 			children = (
 				D30864951E20EA970021B6D2 /* addEditLocationViewController.swift */,
 				D3B7517B1E02084C000FDF6D /* addSpotViewController.swift */,
+				D3EC2EA6201FC7BE0075EB03 /* addSpotViewController2.swift */,
 				D320B2351F2492B7003CE8F5 /* addSpot_ToolbarSubClass.swift */,
 				D3AEBF261DF006C3004FB4A5 /* aircraftDetailsViewController.swift */,
 				D309C01D1DFA9EAC00CC9C59 /* AircraftInfoTableViewCell.swift */,
 				D368967F1DF170A200451587 /* aircraftTableViewController.swift */,
+				D3AEBF221DF006C3004FB4A5 /* AppDelegate.swift */,
 				D3AEBF2B1DF006C3004FB4A5 /* Assets.xcassets */,
 				D33A36991E1658F500CE7A37 /* CoreDataLibrary.swift */,
 				D3FFEE871DF39180003472AC /* functionLibrary.swift */,
-				D3AEBF221DF006C3004FB4A5 /* AppDelegate.swift */,
 				D33A369B1E16EC5D00CE7A37 /* iACDBFunctionLibrary.swift */,
 				D331FDE71E32A22900CB20B6 /* iACDBCacheSync.swift */,
 				D3AEBF301DF006C3004FB4A5 /* Info.plist */,
@@ -197,7 +198,6 @@
 				D357AB171DFFF8680046427C /* spotInfoTableViewCell.swift */,
 				D3AEBF241DF006C3004FB4A5 /* spotListTableViewController.swift */,
 				D3BBA208201B8D92002C0814 /* Settings.bundle */,
-				D3EC2EA6201FC7BE0075EB03 /* addSpotViewController2.swift */,
 			);
 			path = iACDB;
 			sourceTree = "<group>";
