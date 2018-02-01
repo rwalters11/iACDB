@@ -27,6 +27,9 @@ class addSpotViewController2: FormViewController, CLLocationManagerDelegate{
     // Create a reference to the Phone Location Manager
     let locationManager = CLLocationManager()
     
+    // Accessory for Registration keyboard
+    let toolbar = addSpot_ToolbarSubClass()
+    
     // Value for string passed in by segue from Details View
     var inRegistration: String!
     
@@ -84,7 +87,7 @@ class addSpotViewController2: FormViewController, CLLocationManagerDelegate{
         // MARK: - Custom Keybaord Bar
         
         // Add custom accessory on top of system keyboard for Registration field
-        let toolbar = addSpot_ToolbarSubClass()
+        
         toolbar.barStyle = UIBarStyle.default
         toolbar.sizeToFit()
         
@@ -98,8 +101,6 @@ class addSpotViewController2: FormViewController, CLLocationManagerDelegate{
         gDashButton.width = 75
         
         toolbar.setItems([dashButton, plusButton, gDashButton], animated: true)
-        
-        //txtRegistration.inputAccessoryView = toolbar
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -139,6 +140,7 @@ class addSpotViewController2: FormViewController, CLLocationManagerDelegate{
         form
             +++ Section("Spot")
         
+                // Registration
             <<< TextRow() {row in
                 row.title = "Registration"
                 row.placeholder = "Registration"
@@ -146,11 +148,20 @@ class addSpotViewController2: FormViewController, CLLocationManagerDelegate{
                 row.cell.textField.becomeFirstResponder()
                 }.onChange { row in
                     
+                    // Get aircraft details if not empty
                     if let reg = row.value {
                         self.getAircraftDetails(reg: reg)
                     }
-                }
+                    
+                }.cellUpdate {cell, row in
+                    
+                    // Customise behaviour for the registration text box
+                    cell.textField.autocapitalizationType = .allCharacters              // All capitals
+                    cell.textField.autocorrectionType = UITextAutocorrectionType.no     // No predictive text
+                    cell.textField.inputAccessoryView = self.toolbar
+            }
             
+                // Date
             <<< DateRow() {
                 $0.title = "Date"
                 $0.value = Date()
@@ -158,9 +169,11 @@ class addSpotViewController2: FormViewController, CLLocationManagerDelegate{
                 $0.tag = "frmDate"
                 }
         
+                // Locations
             <<< PickerInputRow<String>(){
                 $0.title = "Location"
                 
+                // Load picker with locations
                 $0.options = getLocationPickerData()
                 
                 $0.value = $0.options.first
@@ -168,12 +181,15 @@ class addSpotViewController2: FormViewController, CLLocationManagerDelegate{
                 }
             
             +++ Section("Details")
+            
+                // Type
             <<< LabelRow() {
                 $0.title = "Type"
                 $0.value = ""
                 $0.tag = "frmType"
                 }
             
+                // Operator
             <<< LabelRow() {
                 $0.title = "Operator"
                 $0.value = ""
@@ -267,7 +283,10 @@ class addSpotViewController2: FormViewController, CLLocationManagerDelegate{
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
     {
         
-        let locValue:CLLocationCoordinate2D = manager.location!.coordinate
+        guard let locValue:CLLocationCoordinate2D = manager.location?.coordinate else {
+            
+            return
+        }
         
         rwPrint(inFunction: #function, inMessage:"locations = \(locValue.latitude) \(locValue.longitude)")
         
