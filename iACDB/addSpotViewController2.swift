@@ -84,7 +84,7 @@ class addSpotViewController2: FormViewController, CLLocationManagerDelegate{
             
         }
         
-        // MARK: - Custom Keybaord Bar
+        // MARK: - Custom Keyboard Bar
         
         // Add custom accessory on top of system keyboard for Registration field
         
@@ -101,11 +101,82 @@ class addSpotViewController2: FormViewController, CLLocationManagerDelegate{
         gDashButton.width = 75
         
         toolbar.setItems([dashButton, plusButton, gDashButton], animated: true)
+        
+        // Populate the Registration field if value passed in
+        guard inRegistration == nil else {
+            
+            editFrmRegistration(newValue: inRegistration)
+            
+            return
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
+    }
+    
+    // Do the preparation for showing the next view (going forwards)
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+        switch segue.identifier!
+        {
+            
+        // Unwind segue from Add button to Spot List adding spot
+        case "unwind2AddSpot":
+            
+            let frmValues = getFormValues()
+            var errorCheck = false
+            
+            let regText = frmValues["frmRegistration"] as! String
+            
+            // Error checking
+            
+            if (regText == "") { errorCheck = true }
+            
+            // MARK: - Validation
+            
+            // Perform validation if switched on
+            if defaults.bool(forKey: "validateRegistrations") {
+                
+                let validatedReg = rv.validateRegistration(unvRegistration: regText) as _ICAOValidationResult
+                returnSpot.setRegistration(inRegistration: validatedReg.vReturn)
+                
+                // Reg fails validation so error's - except when  reg field is blank
+                if (validatedReg.vValid == false && regText != "")
+                {
+                    errorCheck = true
+                    
+                    showAlert(inTitle: "iACDB Error", inMessage: "Invalid registration", inViewController: self)
+                }
+                
+            }else{
+                // Use unvalidated registration
+                returnSpot.setRegistration(inRegistration: regText)
+            }
+            
+            // If errors are false update status so it gets added as a spot
+            if (errorCheck == false)
+            {
+                // Add data from fields to Spot
+                returnSpot.setLocation(inLocation: frmValues["frmLocation"] as! String)
+                returnSpot.setName(inName: defaults.string(forKey: "name")!)
+                returnSpot.setNotes(inNotes: frmValues["frmNotes"] as! String)
+                
+                // Add Spot to CoreData
+                saveSpot(spot: returnSpot)
+                
+                // Move status to 'Waiting' which triggers upload to server
+                returnSpot.setStatus(inStatus: .Waiting)
+            }
+            
+        // Unwind segue to Spot List from Cancel button
+        case "unwind2SpotList": break
+            // Do nothing
+            
+        default: break
+            // Do nothing
+        }
     }
     
     // Function to add dash character to Registration field when accessoryView tapped
@@ -150,6 +221,7 @@ class addSpotViewController2: FormViewController, CLLocationManagerDelegate{
                     
                     // Get aircraft details if not empty
                     if let reg = row.value {
+                        
                         self.getAircraftDetails(reg: reg)
                     }
                     
@@ -192,6 +264,15 @@ class addSpotViewController2: FormViewController, CLLocationManagerDelegate{
                 $0.tag = "frmLocation"
                 }
             
+            +++ Section("Notes")
+            
+            <<< TextAreaRow() {
+                $0.title = "Notes"
+                $0.placeholder = ""
+                $0.textAreaHeight = .dynamic(initialTextViewHeight: 110)
+                $0.tag = "frmNotes"
+            }
+            
             +++ Section("Details")
             
                 // Type
@@ -208,7 +289,10 @@ class addSpotViewController2: FormViewController, CLLocationManagerDelegate{
                 $0.tag = "frmOperator"
                 }
         
-        
+        // Enables smooth scrolling on navigation to off-screen rows
+        animateScroll = true
+        // Leaves 20pt of space between the keyboard and the highlighted row after scrolling to an off screen row
+        rowKeyboardSpacing = 20
     }
     
     // Function to extract values from the form
@@ -224,8 +308,18 @@ class addSpotViewController2: FormViewController, CLLocationManagerDelegate{
     // Function to update form registration value
     func editFrmRegistration(newValue: String)
     {
+        // Get row
         let row = self.form.rowBy(tag: "frmRegistration") as! TextRow
-        row.value = row.value! + newValue
+        
+        if let _ = row.cell.textField.text {
+            
+            row.cell.textField.text? += newValue
+            
+        }else{
+            
+            row.cell.textField.text = newValue
+            
+        }
     }
     
     // MARK: - CoreData
@@ -276,16 +370,18 @@ class addSpotViewController2: FormViewController, CLLocationManagerDelegate{
         if !aircraftDetails.acType.isEmpty {
             
             let rowT = self.form.rowBy(tag: "frmType") as! LabelRow
-            rowT.value = aircraftDetails.acType + "-" + aircraftDetails.acSeries
+            rowT.cell.textLabel?.text = aircraftDetails.acType + "-" + aircraftDetails.acSeries
+            
             let rowO = self.form.rowBy(tag: "frmOperator") as! LabelRow
-            rowO.value = aircraftDetails.acOperator
+            rowO.cell.textLabel?.text = aircraftDetails.acOperator
             
         }else{
             
             let rowT = self.form.rowBy(tag: "frmType") as! LabelRow
-            rowT.value = ""
+            rowT.cell.textLabel?.text = ""
+            
             let rowO = self.form.rowBy(tag: "frmOperator") as! LabelRow
-            rowO.value = ""
+            rowO.cell.textLabel?.text = ""
         }
     }
     
