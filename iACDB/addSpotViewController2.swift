@@ -146,7 +146,9 @@ class addSpotViewController2: FormViewController, CLLocationManagerDelegate{
                 row.cell.textField.becomeFirstResponder()
                 }.onChange { row in
                     
-                    self.getAircraftDetails(reg: row.value!)
+                    if let reg = row.value {
+                        self.getAircraftDetails(reg: reg)
+                    }
                 }
             
             <<< DateRow() {
