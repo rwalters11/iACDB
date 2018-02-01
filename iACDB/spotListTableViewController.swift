@@ -631,7 +631,7 @@ class spotListTableViewController: UITableViewController, NSFetchedResultsContro
             svc.inRegistration = ""
             
             let backItem = UIBarButtonItem()
-            backItem.title = "Cancel"
+            backItem.title = "Add"
             navigationItem.backBarButtonItem = backItem
             
         default: break

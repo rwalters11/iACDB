@@ -312,7 +312,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eGa-oP-MhO" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="5lI-77-xEn" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="6382" y="-1009"/>
+            <point key="canvasLocation" x="6455" y="-242"/>
         </scene>
         <!--Add Spot-->
         <scene sceneID="kLI-Ma-Vtx">
