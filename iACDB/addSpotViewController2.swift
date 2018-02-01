@@ -158,7 +158,7 @@ class addSpotViewController2: FormViewController, CLLocationManagerDelegate{
                     // Customise behaviour for the registration text box
                     cell.textField.autocapitalizationType = .allCharacters              // All capitals
                     cell.textField.autocorrectionType = UITextAutocorrectionType.no     // No predictive text
-                    cell.textField.inputAccessoryView = self.toolbar
+                    cell.textField.inputAccessoryView = self.toolbar                    // Custom keyboard accessory bar for registrations
             }
             
                 // Date
@@ -167,6 +167,18 @@ class addSpotViewController2: FormViewController, CLLocationManagerDelegate{
                 $0.value = Date()
                 $0.maximumDate = Date()
                 $0.tag = "frmDate"
+                }.cellUpdate {cell, row in
+                    
+                    // Set style of date display after any updates
+                    row.dateFormatter?.locale = Locale(identifier: "en_GB")
+                    row.dateFormatter?.dateStyle = .short
+                    
+                }.cellSetup {cell, row in
+                    
+                    // Set style of date picker and display on initial load
+                    cell.datePicker.locale = Locale(identifier: "en_GB")
+                    row.dateFormatter?.locale = Locale(identifier: "en_GB")
+                    row.dateFormatter?.dateStyle = .short
                 }
         
                 // Locations
