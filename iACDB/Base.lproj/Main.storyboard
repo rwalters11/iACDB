@@ -327,8 +327,23 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Add Spot" id="68U-B6-w6g">
+                        <barButtonItem key="leftBarButtonItem" title="Add" id="KZH-L2-cFv">
+                            <connections>
+                                <segue destination="cYq-nq-gLL" kind="unwind" identifier="btnAdd2SpotList" unwindAction="btnAddWithSegue:" id="aRR-Z3-1z2"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="ANW-L2-hLN">
+                            <connections>
+                                <segue destination="cYq-nq-gLL" kind="unwind" identifier="btnCancel2SpotList" unwindAction="btnCancelWithSegue:" id="xsO-1n-fOu"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oDh-EQ-tqp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="cYq-nq-gLL" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="5692" y="-1009"/>
         </scene>

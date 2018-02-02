@@ -123,7 +123,7 @@ class addSpotViewController2: FormViewController, CLLocationManagerDelegate{
         {
             
         // Unwind segue from Add button to Spot List adding spot
-        case "unwind2AddSpot":
+        case "btnAdd2SpotList":
             
             let frmValues = getFormValues()
             var errorCheck = false
@@ -171,7 +171,7 @@ class addSpotViewController2: FormViewController, CLLocationManagerDelegate{
             }
             
         // Unwind segue to Spot List from Cancel button
-        case "unwind2SpotList": break
+        case "btnCancel2SpotList": break
             // Do nothing
             
         default: break
