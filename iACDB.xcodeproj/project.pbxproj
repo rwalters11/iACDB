@@ -39,6 +39,7 @@
 		D3D4913B1E05290100435E7C /* registrationValidate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D4913A1E05290100435E7C /* registrationValidate.swift */; };
 		D3D491511E067C8B00435E7C /* ChangeLog.rtf in Resources */ = {isa = PBXBuildFile; fileRef = D3D491501E067C8B00435E7C /* ChangeLog.rtf */; };
 		D3E101131E11C9C60019707C /* iACDB.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D3E101111E11C9C60019707C /* iACDB.xcdatamodeld */; };
+		D3EC2EA7201FC7BE0075EB03 /* addSpotViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EC2EA6201FC7BE0075EB03 /* addSpotViewController2.swift */; };
 		D3FFEE881DF39180003472AC /* functionLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FFEE871DF39180003472AC /* functionLibrary.swift */; };
 		FA7D2DD18C73F925684462F4 /* Pods_iACDBTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE12848C5DB11D3FA12DE97E /* Pods_iACDBTests.framework */; };
 /* End PBXBuildFile section */
@@ -108,6 +109,7 @@
 		D3D4913A1E05290100435E7C /* registrationValidate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = registrationValidate.swift; sourceTree = "<group>"; };
 		D3D491501E067C8B00435E7C /* ChangeLog.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = ChangeLog.rtf; sourceTree = "<group>"; };
 		D3E101121E11C9C60019707C /* iACDB.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = iACDB.xcdatamodel; sourceTree = "<group>"; };
+		D3EC2EA6201FC7BE0075EB03 /* addSpotViewController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addSpotViewController2.swift; sourceTree = "<group>"; };
 		D3FFEE871DF39180003472AC /* functionLibrary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = functionLibrary.swift; path = ../../Common_Library/functionLibrary.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -172,14 +174,15 @@
 			children = (
 				D30864951E20EA970021B6D2 /* addEditLocationViewController.swift */,
 				D3B7517B1E02084C000FDF6D /* addSpotViewController.swift */,
+				D3EC2EA6201FC7BE0075EB03 /* addSpotViewController2.swift */,
 				D320B2351F2492B7003CE8F5 /* addSpot_ToolbarSubClass.swift */,
 				D3AEBF261DF006C3004FB4A5 /* aircraftDetailsViewController.swift */,
 				D309C01D1DFA9EAC00CC9C59 /* AircraftInfoTableViewCell.swift */,
 				D368967F1DF170A200451587 /* aircraftTableViewController.swift */,
+				D3AEBF221DF006C3004FB4A5 /* AppDelegate.swift */,
 				D3AEBF2B1DF006C3004FB4A5 /* Assets.xcassets */,
 				D33A36991E1658F500CE7A37 /* CoreDataLibrary.swift */,
 				D3FFEE871DF39180003472AC /* functionLibrary.swift */,
-				D3AEBF221DF006C3004FB4A5 /* AppDelegate.swift */,
 				D33A369B1E16EC5D00CE7A37 /* iACDBFunctionLibrary.swift */,
 				D331FDE71E32A22900CB20B6 /* iACDBCacheSync.swift */,
 				D3AEBF301DF006C3004FB4A5 /* Info.plist */,
@@ -465,6 +468,7 @@
 				D36896821DF2A08800451587 /* infoAircraft.swift in Sources */,
 				D30864961E20EA970021B6D2 /* addEditLocationViewController.swift in Sources */,
 				D3AEBF271DF006C3004FB4A5 /* aircraftDetailsViewController.swift in Sources */,
+				D3EC2EA7201FC7BE0075EB03 /* addSpotViewController2.swift in Sources */,
 				D3D4913B1E05290100435E7C /* registrationValidate.swift in Sources */,
 				D33A369C1E16EC5D00CE7A37 /* iACDBFunctionLibrary.swift in Sources */,
 				D308647C1E1FCECF0021B6D2 /* locationsTableViewController.swift in Sources */,
@@ -700,7 +704,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = TBGweb.iACDBTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iACDB.app/iACDB";
 			};
@@ -719,7 +723,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = TBGweb.iACDBTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iACDB.app/iACDB";
 			};

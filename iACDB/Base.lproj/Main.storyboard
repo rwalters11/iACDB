@@ -103,7 +103,7 @@
                         </segmentedControl>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="YIP-vu-Ih2">
                             <connections>
-                                <segue destination="sR2-ZU-5UN" kind="show" identifier="addSpot" id="Fqt-fW-Phu"/>
+                                <segue destination="jZy-4W-2C7" kind="show" identifier="showAddSpotForm" id="xsQ-pl-HZe"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -312,7 +312,40 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eGa-oP-MhO" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="5lI-77-xEn" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="5693.5" y="-953.5"/>
+            <point key="canvasLocation" x="6455" y="-242"/>
+        </scene>
+        <!--Add Spot-->
+        <scene sceneID="kLI-Ma-Vtx">
+            <objects>
+                <viewController title="Add Spot" id="jZy-4W-2C7" customClass="addSpotViewController2" customModule="iACDB" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="KhU-zM-xe2"/>
+                        <viewControllerLayoutGuide type="bottom" id="bAL-Fv-4cA"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="qvb-Tt-laD">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Add Spot" id="68U-B6-w6g">
+                        <barButtonItem key="leftBarButtonItem" title="Add" id="KZH-L2-cFv">
+                            <connections>
+                                <segue destination="cYq-nq-gLL" kind="unwind" identifier="btnAdd2SpotList" unwindAction="btnAddWithSegue:" id="aRR-Z3-1z2"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="ANW-L2-hLN">
+                            <connections>
+                                <segue destination="cYq-nq-gLL" kind="unwind" identifier="btnCancel2SpotList" unwindAction="btnCancelWithSegue:" id="xsO-1n-fOu"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oDh-EQ-tqp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="cYq-nq-gLL" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="5692" y="-1009"/>
         </scene>
         <!--aircraftDetailsViewController-->
         <scene sceneID="7Sv-MW-RNt">
@@ -1195,6 +1228,5 @@
     <inferredMetricsTieBreakers>
         <segue reference="zyx-d1-Ur6"/>
         <segue reference="nnw-Ps-yhu"/>
-        <segue reference="Fqt-fW-Phu"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -623,6 +623,17 @@ class spotListTableViewController: UITableViewController, NSFetchedResultsContro
             // Hide the Add Spot RH menu bar item
             svc.inMenuSpot = false
             
+        case "showAddSpotForm":
+            
+            // Set the class of the AddSpot View controller
+            let svc = segue.destination as! addSpotViewController2
+            
+            svc.inRegistration = ""
+            
+            let backItem = UIBarButtonItem()
+            backItem.title = "Add"
+            navigationItem.backBarButtonItem = backItem
+            
         default: break
             // Do nothing
         }

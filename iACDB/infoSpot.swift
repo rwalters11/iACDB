@@ -129,7 +129,9 @@ class infoSpot {
     // Set Notes
     public func setNotes(inNotes: String)
     {
-        spNotes = inNotes
+        if !inNotes.isEmpty {
+            spNotes = inNotes
+        }
     }
     
     // Set Date
