@@ -30,8 +30,9 @@ class addSpotViewController2: FormViewController, CLLocationManagerDelegate{
     // Accessory for Registration keyboard
     let toolbar = addSpot_ToolbarSubClass()
     
-    // Value for string passed in by segue from Details View
-    var inRegistration: String!
+    // Values for data passed in by segue from Details View
+    var inRegistration: String! = ""
+    var inTypeSeries: String! = ""
     
     var nearestLocation = ""
     
@@ -50,8 +51,6 @@ class addSpotViewController2: FormViewController, CLLocationManagerDelegate{
 
         // Create form using Eureka
         setupForm()
-        
-
         
         // MARK: - Location Services
         
@@ -102,17 +101,17 @@ class addSpotViewController2: FormViewController, CLLocationManagerDelegate{
         
         toolbar.setItems([dashButton, plusButton, gDashButton], animated: true)
         
-        // Populate the Registration field if value passed in
-        guard inRegistration == nil else {
-            
-            editFrmRegistration(newValue: inRegistration)
-            
-            return
-        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        
+        // Get aircraft details if not empty
+        if let reg = inRegistration {
+            
+            self.getAircraftDetails(reg: reg)
+            
+        }
         
     }
     
@@ -221,6 +220,9 @@ class addSpotViewController2: FormViewController, CLLocationManagerDelegate{
                 row.title = "Registration"
                 row.placeholder = "Registration"
                 row.tag = "frmRegistration"
+                
+                // Populate registration if passed in
+                row.value = inRegistration
                 row.cell.textField.becomeFirstResponder()
                 }.onChange { row in
                     
@@ -236,7 +238,7 @@ class addSpotViewController2: FormViewController, CLLocationManagerDelegate{
                     cell.textField.autocapitalizationType = .allCharacters              // All capitals
                     cell.textField.autocorrectionType = UITextAutocorrectionType.no     // No predictive text
                     cell.textField.inputAccessoryView = self.toolbar                    // Custom keyboard accessory bar for registrations
-            }
+                }
             
                 // Date
             <<< DateRow() {
@@ -298,6 +300,8 @@ class addSpotViewController2: FormViewController, CLLocationManagerDelegate{
         animateScroll = true
         // Leaves 20pt of space between the keyboard and the highlighted row after scrolling to an off screen row
         rowKeyboardSpacing = 20
+        
+
     }
     
     // Function to extract values from the form
@@ -376,9 +380,11 @@ class addSpotViewController2: FormViewController, CLLocationManagerDelegate{
             
             let rowT = self.form.rowBy(tag: "frmType") as! LabelRow
             rowT.cell.textLabel?.text = aircraftDetails.acType + "-" + aircraftDetails.acSeries
+            //rowT.updateCell()
             
             let rowO = self.form.rowBy(tag: "frmOperator") as! LabelRow
             rowO.cell.textLabel?.text = aircraftDetails.acOperator
+            //rowO.updateCell()
             
         }else{
             

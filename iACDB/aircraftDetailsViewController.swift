@@ -123,13 +123,14 @@ class aircraftDetailsViewController: UIViewController, UISearchBarDelegate, UITe
     // Do the preparation for showing the next view
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        if (segue.identifier == "AddSpotFromACDetails")
+        if (segue.identifier == "showAddSpotFromDetails")
         {
             // Set the class of the details View controller
-            let svc = segue.destination as! addSpotViewController
+            let svc = segue.destination as! addSpotViewController2
             
             // Pass the registration to the Add Spot view
-            svc.inRegistration = inRegistration!
+            svc.inRegistration = inRegistration
+            svc.inTypeSeries = self.lblTypeSeries.text
             
             // Set the custom value of the Back Item text to be shown in the Add Spot view
             let backItem = UIBarButtonItem()
