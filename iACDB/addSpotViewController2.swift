@@ -161,7 +161,12 @@ class addSpotViewController2: FormViewController, CLLocationManagerDelegate{
                 // Add data from fields to Spot
                 returnSpot.setLocation(inLocation: frmValues["frmLocation"] as! String)
                 returnSpot.setName(inName: defaults.string(forKey: "name")!)
-                returnSpot.setNotes(inNotes: frmValues["frmNotes"] as! String)
+                
+                // Empty fields from Eureka forms return nil so check
+                if let notes = frmValues["frmNotes"] as? String
+                {
+                    if !notes.isEmpty { returnSpot.setNotes(inNotes: notes) }
+                }
                 
                 // Add Spot to CoreData
                 saveSpot(spot: returnSpot)
