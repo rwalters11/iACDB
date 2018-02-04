@@ -24,6 +24,11 @@ class aircraftDetailsViewController: UIViewController, UISearchBarDelegate, UITe
     @IBOutlet weak var lbl4lblTypeSeries:   UILabel!
     @IBOutlet weak var txtViewNotes:        UITextView!
     
+    // Unwind segue from Add Spot Screen - Cancel
+    @IBAction func btnCancelFromAddSpot2Details(segue: UIStoryboardSegue) {
+        
+    }
+    
     // Values passed in by segue
     var inRegistration: String!
     var inMenuSpot: Bool = true

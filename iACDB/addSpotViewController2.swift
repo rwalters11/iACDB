@@ -19,6 +19,9 @@ import SwiftyJSON
 
 class addSpotViewController2: FormViewController, CLLocationManagerDelegate{
     
+    @IBOutlet weak var btnCance2SpotList: UIBarButtonItem!
+    @IBOutlet weak var btnCancel2Details: UIBarButtonItem!
+    
     // MARK: - Properties
     
     // Seup our User Defaults instance
@@ -81,6 +84,19 @@ class addSpotViewController2: FormViewController, CLLocationManagerDelegate{
         default:
             break
             
+        }
+        
+        // Setup Cancel buttons
+        
+        // Change title of btn from IB value
+        btnCancel2Details.title = "Cancel"
+        
+        // Hide one of the buttons - they unwind segue to different view controllers
+        if inRegistration != "" {
+            
+            self.navigationItem.rightBarButtonItems![0].title = ""
+        }else{
+            self.navigationItem.rightBarButtonItems![1].title = ""
         }
         
         // MARK: - Custom Keyboard Bar
@@ -176,6 +192,9 @@ class addSpotViewController2: FormViewController, CLLocationManagerDelegate{
             
         // Unwind segue to Spot List from Cancel button
         case "btnCancel2SpotList": break
+            // Do nothing
+            
+        case "btnCancel2Details": break
             // Do nothing
             
         default: break

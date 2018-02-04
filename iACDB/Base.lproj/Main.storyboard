@@ -7,6 +7,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -135,13 +136,24 @@
                                 <segue destination="cYq-nq-gLL" kind="unwind" identifier="btnAdd2SpotList" unwindAction="btnAddWithSegue:" id="aRR-Z3-1z2"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="ANW-L2-hLN">
-                            <connections>
-                                <segue destination="cYq-nq-gLL" kind="unwind" identifier="btnCancel2SpotList" unwindAction="btnCancelWithSegue:" id="xsO-1n-fOu"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem title="Cancel" springLoaded="YES" id="ANW-L2-hLN">
+                                <connections>
+                                    <segue destination="cYq-nq-gLL" kind="unwind" identifier="btnCancel2SpotList" unwindAction="btnCancelWithSegue:" id="xsO-1n-fOu"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Cancel2AD" springLoaded="YES" id="Chy-rW-pZH">
+                                <connections>
+                                    <segue destination="cYq-nq-gLL" kind="unwind" identifier="btnCancel2Details" unwindAction="btnCancelFromAddSpot2DetailsWithSegue:" id="d0V-TT-MhL"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="btnCance2SpotList" destination="ANW-L2-hLN" id="md8-T5-Csw"/>
+                        <outlet property="btnCancel2Details" destination="Chy-rW-pZH" id="cRQ-I8-oBC"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oDh-EQ-tqp" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="cYq-nq-gLL" userLabel="Exit" sceneMemberID="exit"/>
