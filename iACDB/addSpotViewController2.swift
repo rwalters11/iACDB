@@ -5,6 +5,8 @@
 //  Created by Richard Walters on 29/01/2018.
 //  Copyright © 2018 Richard Walters. All rights reserved.
 //
+// Version 2
+// Using Eureka library as base for form.
 
 // Import Apple frameworks
 import UIKit
@@ -85,6 +87,8 @@ class addSpotViewController2: FormViewController, CLLocationManagerDelegate{
             break
             
         }
+        
+        // MARK: - Cancel Buttons
         
         // Setup Cancel buttons
         

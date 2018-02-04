@@ -14,6 +14,7 @@
 		D30864961E20EA970021B6D2 /* addEditLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30864951E20EA970021B6D2 /* addEditLocationViewController.swift */; };
 		D309C01E1DFA9EAC00CC9C59 /* AircraftInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D309C01D1DFA9EAC00CC9C59 /* AircraftInfoTableViewCell.swift */; };
 		D320B2361F2492B7003CE8F5 /* addSpot_ToolbarSubClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D320B2351F2492B7003CE8F5 /* addSpot_ToolbarSubClass.swift */; };
+		D32DFD692027366400BA3CD4 /* aircraftDetailsViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32DFD682027366400BA3CD4 /* aircraftDetailsViewController2.swift */; };
 		D331FDE81E32A22900CB20B6 /* iACDBCacheSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = D331FDE71E32A22900CB20B6 /* iACDBCacheSync.swift */; };
 		D33A369A1E1658F500CE7A37 /* CoreDataLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33A36991E1658F500CE7A37 /* CoreDataLibrary.swift */; };
 		D33A369C1E16EC5D00CE7A37 /* iACDBFunctionLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33A369B1E16EC5D00CE7A37 /* iACDBFunctionLibrary.swift */; };
@@ -80,6 +81,7 @@
 		D30864971E2233B00021B6D2 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		D309C01D1DFA9EAC00CC9C59 /* AircraftInfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AircraftInfoTableViewCell.swift; sourceTree = "<group>"; };
 		D320B2351F2492B7003CE8F5 /* addSpot_ToolbarSubClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = addSpot_ToolbarSubClass.swift; sourceTree = "<group>"; };
+		D32DFD682027366400BA3CD4 /* aircraftDetailsViewController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = aircraftDetailsViewController2.swift; sourceTree = "<group>"; };
 		D331FDE71E32A22900CB20B6 /* iACDBCacheSync.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = iACDBCacheSync.swift; sourceTree = "<group>"; };
 		D33A36991E1658F500CE7A37 /* CoreDataLibrary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CoreDataLibrary.swift; path = ../../Common_Library/CoreDataLibrary.swift; sourceTree = "<group>"; };
 		D33A369B1E16EC5D00CE7A37 /* iACDBFunctionLibrary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = iACDBFunctionLibrary.swift; sourceTree = "<group>"; };
@@ -174,6 +176,7 @@
 				D3EC2EA6201FC7BE0075EB03 /* addSpotViewController2.swift */,
 				D320B2351F2492B7003CE8F5 /* addSpot_ToolbarSubClass.swift */,
 				D3AEBF261DF006C3004FB4A5 /* aircraftDetailsViewController.swift */,
+				D32DFD682027366400BA3CD4 /* aircraftDetailsViewController2.swift */,
 				D309C01D1DFA9EAC00CC9C59 /* AircraftInfoTableViewCell.swift */,
 				D368967F1DF170A200451587 /* aircraftTableViewController.swift */,
 				D3AEBF221DF006C3004FB4A5 /* AppDelegate.swift */,
@@ -477,6 +480,7 @@
 				D309C01E1DFA9EAC00CC9C59 /* AircraftInfoTableViewCell.swift in Sources */,
 				D33A36A21E1ADF4600CE7A37 /* SettingsTableViewController.swift in Sources */,
 				D30864941E1FDB560021B6D2 /* locationDetailViewController.swift in Sources */,
+				D32DFD692027366400BA3CD4 /* aircraftDetailsViewController2.swift in Sources */,
 				D357AB161DFFF1E50046427C /* infoSpot.swift in Sources */,
 				D36896801DF170A200451587 /* aircraftTableViewController.swift in Sources */,
 				D3AEBF251DF006C3004FB4A5 /* spotListTableViewController.swift in Sources */,
