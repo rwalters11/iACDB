@@ -18,6 +18,7 @@
 		D33622CE202997C400232D83 /* cacheSyncAircraft.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33622CD202997C400232D83 /* cacheSyncAircraft.swift */; };
 		D33622D0202998C000232D83 /* cacheSyncLocations.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33622CF202998C000232D83 /* cacheSyncLocations.swift */; };
 		D33622D220299A0D00232D83 /* cacheSyncOperators.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33622D120299A0D00232D83 /* cacheSyncOperators.swift */; };
+		D33622D420299B2900232D83 /* cacheSyncTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33622D320299B2900232D83 /* cacheSyncTypes.swift */; };
 		D33A369A1E1658F500CE7A37 /* CoreDataLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33A36991E1658F500CE7A37 /* CoreDataLibrary.swift */; };
 		D33A369C1E16EC5D00CE7A37 /* iACDBFunctionLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33A369B1E16EC5D00CE7A37 /* iACDBFunctionLibrary.swift */; };
 		D33A369E1E1701AE00CE7A37 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D33A369D1E1701AE00CE7A37 /* CoreLocation.framework */; };
@@ -87,6 +88,7 @@
 		D33622CD202997C400232D83 /* cacheSyncAircraft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cacheSyncAircraft.swift; sourceTree = "<group>"; };
 		D33622CF202998C000232D83 /* cacheSyncLocations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cacheSyncLocations.swift; sourceTree = "<group>"; };
 		D33622D120299A0D00232D83 /* cacheSyncOperators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cacheSyncOperators.swift; sourceTree = "<group>"; };
+		D33622D320299B2900232D83 /* cacheSyncTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cacheSyncTypes.swift; sourceTree = "<group>"; };
 		D33A36991E1658F500CE7A37 /* CoreDataLibrary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CoreDataLibrary.swift; path = ../../Common_Library/CoreDataLibrary.swift; sourceTree = "<group>"; };
 		D33A369B1E16EC5D00CE7A37 /* iACDBFunctionLibrary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = iACDBFunctionLibrary.swift; sourceTree = "<group>"; };
 		D33A369D1E1701AE00CE7A37 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -191,6 +193,7 @@
 				D33622D120299A0D00232D83 /* cacheSyncOperators.swift */,
 				D33622CF202998C000232D83 /* cacheSyncLocations.swift */,
 				D33622CD202997C400232D83 /* cacheSyncAircraft.swift */,
+				D33622D320299B2900232D83 /* cacheSyncTypes.swift */,
 				D3AEBF301DF006C3004FB4A5 /* Info.plist */,
 				D36896811DF2A08800451587 /* infoAircraft.swift */,
 				D357AB151DFFF1E50046427C /* infoSpot.swift */,
@@ -473,6 +476,7 @@
 				D3FFEE881DF39180003472AC /* functionLibrary.swift in Sources */,
 				D3E101131E11C9C60019707C /* iACDB.xcdatamodeld in Sources */,
 				D36896821DF2A08800451587 /* infoAircraft.swift in Sources */,
+				D33622D420299B2900232D83 /* cacheSyncTypes.swift in Sources */,
 				D30864961E20EA970021B6D2 /* addEditLocationViewController.swift in Sources */,
 				D3AEBF271DF006C3004FB4A5 /* aircraftDetailsViewController.swift in Sources */,
 				D33622D220299A0D00232D83 /* cacheSyncOperators.swift in Sources */,
