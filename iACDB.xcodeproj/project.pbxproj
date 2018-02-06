@@ -89,6 +89,7 @@
 		D33622CF202998C000232D83 /* cacheSyncLocations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cacheSyncLocations.swift; sourceTree = "<group>"; };
 		D33622D120299A0D00232D83 /* cacheSyncOperators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cacheSyncOperators.swift; sourceTree = "<group>"; };
 		D33622D320299B2900232D83 /* cacheSyncTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cacheSyncTypes.swift; sourceTree = "<group>"; };
+		D33622D82029B0F600232D83 /* iACDB 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "iACDB 2.xcdatamodel"; sourceTree = "<group>"; };
 		D33A36991E1658F500CE7A37 /* CoreDataLibrary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CoreDataLibrary.swift; path = ../../Common_Library/CoreDataLibrary.swift; sourceTree = "<group>"; };
 		D33A369B1E16EC5D00CE7A37 /* iACDBFunctionLibrary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = iACDBFunctionLibrary.swift; sourceTree = "<group>"; };
 		D33A369D1E1701AE00CE7A37 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -777,9 +778,10 @@
 		D3E101111E11C9C60019707C /* iACDB.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				D33622D82029B0F600232D83 /* iACDB 2.xcdatamodel */,
 				D3E101121E11C9C60019707C /* iACDB.xcdatamodel */,
 			);
-			currentVersion = D3E101121E11C9C60019707C /* iACDB.xcdatamodel */;
+			currentVersion = D33622D82029B0F600232D83 /* iACDB 2.xcdatamodel */;
 			path = iACDB.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
