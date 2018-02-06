@@ -47,6 +47,24 @@ class aircraftDetailsViewController2: FormViewController{
         // Set title
         self.navigationItem.title = inRegistration
         
+        // MARK: - Custom Keyboard Bar
+        
+        // Add custom accessory on top of system keyboard for Registration field
+        
+        toolbar.barStyle = UIBarStyle.default
+        toolbar.sizeToFit()
+        
+        let dashButton = UIBarButtonItem(title: "\"-\"", style: UIBarButtonItemStyle.plain, target: self, action: #selector(self.dashButtonTapped(button:)))
+        dashButton.width = 75
+        
+        let plusButton = UIBarButtonItem(title: "\"+\"", style: UIBarButtonItemStyle.plain, target: self, action: #selector(self.plusButtonTapped(button:)))
+        plusButton.width = 75
+        
+        let gDashButton = UIBarButtonItem(title: "\"G-\"", style: UIBarButtonItemStyle.plain, target: self, action: #selector(self.gDashButtonTapped(button:)))
+        gDashButton.width = 75
+        
+        toolbar.setItems([dashButton, plusButton, gDashButton], animated: true)
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -103,6 +121,11 @@ class aircraftDetailsViewController2: FormViewController{
                 $0.title = "Series"
                 $0.value = aircraftDetails.acSeries
                 $0.tag = "frmSeries"
+                }.cellUpdate {cell, row in
+                    
+                    // Customise behaviour for the registration text box
+                    cell.textField.autocapitalizationType = .allCharacters              // All capitals
+                    cell.textField.autocorrectionType = UITextAutocorrectionType.no     // No predictive text
             }
             
             // Operators
@@ -142,6 +165,11 @@ class aircraftDetailsViewController2: FormViewController{
                 $0.title = "Constructor"
                 $0.value = ""
                 $0.tag = "frmConstructor"
+                }.cellUpdate {cell, row in
+                    
+                    // Customise behaviour for the registration text box
+                    cell.textField.autocapitalizationType = .allCharacters              // All capitals
+                    cell.textField.autocorrectionType = UITextAutocorrectionType.no     // No predictive text
             }
             
             // Fuselage
@@ -149,11 +177,28 @@ class aircraftDetailsViewController2: FormViewController{
                 $0.title = "Fuselage"
                 $0.value = ""
                 $0.tag = "frmFuselage"
+                }.cellUpdate {cell, row in
+                    
+                    // Customise behaviour for the registration text box
+                    cell.textField.autocapitalizationType = .allCharacters              // All capitals
+                    cell.textField.autocorrectionType = UITextAutocorrectionType.no     // No predictive text
+            }
+            
+            // Mode S
+            <<< TextRow() {
+                $0.title = "Mode S"
+                $0.value = ""
+                $0.tag = "frmModeS"
+                }.cellUpdate {cell, row in
+                    
+                    // Customise behaviour for the registration text box
+                    cell.textField.autocapitalizationType = .allCharacters              // All capitals
+                    cell.textField.autocorrectionType = UITextAutocorrectionType.no     // No predictive text
             }
             
             +++ Section("Remarks")
             
-            <<< TextAreaRow() {
+            <<< TextAreaRow("Remarks") {
                 $0.title = "Remarks"
                 $0.placeholder = ""
                 $0.textAreaHeight = .dynamic(initialTextViewHeight: 110)
@@ -166,6 +211,43 @@ class aircraftDetailsViewController2: FormViewController{
         rowKeyboardSpacing = 20
         
         
+    }
+    
+    // Function to add dash character to Registration field when accessoryView tapped
+    @objc func dashButtonTapped(button:UIBarButtonItem) {
+        
+        editFrmRegistration(newValue: "-")
+        UIDevice.current.playInputClick()
+    }
+    
+    // Function to add plus character to Registration field when accessoryView tapped
+    @objc func plusButtonTapped(button:UIBarButtonItem) {
+        
+        editFrmRegistration(newValue: "+")
+        UIDevice.current.playInputClick()
+    }
+    
+    // Function to add G- characters to Registration field when accessoryView tapped
+    @objc func gDashButtonTapped(button:UIBarButtonItem) {
+        
+        editFrmRegistration(newValue: "G-")
+    }
+    
+    // Function to update form registration value
+    func editFrmRegistration(newValue: String)
+    {
+        // Get row
+        let row = self.form.rowBy(tag: "frmRegistration") as! TextRow
+        
+        if let _ = row.cell.textField.text {
+            
+            row.cell.textField.text? += newValue
+            
+        }else{
+            
+            row.cell.textField.text = newValue
+            
+        }
     }
     
     // Function to extract values from the form
@@ -201,7 +283,7 @@ class aircraftDetailsViewController2: FormViewController{
     
     // MARK: - CoreData
     
-    // Function to get locations list from CoreData and return an array
+    // Function to get Operators list from CoreData and return an array
     func getOperatorPickerData() -> [String]
     {
         // Get the container from the AppDelegate
@@ -236,6 +318,24 @@ class aircraftDetailsViewController2: FormViewController{
         
     }
     
+    // Function to get Types from CoreData and return an array
+    func getTypesPickerData() -> [String]
+    {
+        // Get the container from the AppDelegate
+        let moc = getContext()
+        
+        
+        
+        // Array to hold return values
+        var returnedTypes: [String] = []
+        
+        
+        
+        
+        return returnedTypes
+    }
+    
+    // Function to retrieve details of an aircraft from CoreData
     func getAircraftDetails(reg: String) {
         
         if !self.defaults.bool(forKey: "showAircraftDetails") { return }

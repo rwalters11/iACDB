@@ -29,6 +29,12 @@
             </uniquenessConstraint>
         </uniquenessConstraints>
     </entity>
+    <entity name="EntNewAircraft" representedClassName="EntNewAircraft" syncable="YES" codeGenerationType="class">
+        <attribute name="registration" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="EntOperators" representedClassName="EntOperators" syncable="YES" codeGenerationType="class">
+        <attribute name="acOperator" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="EntSpots" representedClassName="EntSpots" syncable="YES" codeGenerationType="class">
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" customClassName="Date" syncable="YES"/>
         <attribute name="location" optional="YES" attributeType="String" syncable="YES"/>
@@ -37,9 +43,15 @@
         <attribute name="sectionDate" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="status" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
     </entity>
+    <entity name="EntTypes" representedClassName="EntTypes" syncable="YES" codeGenerationType="class">
+        <attribute name="acType" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <elements>
         <element name="EntAircraft" positionX="-146" positionY="15" width="128" height="135"/>
         <element name="EntLocations" positionX="-369" positionY="-126" width="128" height="210"/>
         <element name="EntSpots" positionX="-369" positionY="15" width="128" height="135"/>
+        <element name="EntOperators" positionX="-261" positionY="-9" width="128" height="60"/>
+        <element name="EntTypes" positionX="-252" positionY="0" width="128" height="60"/>
+        <element name="EntNewAircraft" positionX="-243" positionY="9" width="128" height="60"/>
     </elements>
 </model>
