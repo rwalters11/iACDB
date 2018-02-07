@@ -120,8 +120,12 @@ class spotListTableViewController: UITableViewController, NSFetchedResultsContro
                 // Trigger sync of CoreData caches
             case .reachable(.ethernetOrWiFi), .reachable(.wwan):
                 
-                syncLocations2RemoteDB()
                 syncAircraft2RemoteDB(inController: self)
+                
+                syncLocations2RemoteDB()
+                syncTypes2RemoteDB()
+                syncOperators2RemoteDB()
+                
                 break
             }
         }

@@ -82,18 +82,19 @@ func syncOperators2RemoteDB() {
     UIApplication.shared.isNetworkActivityIndicatorVisible = true
     
     // Set destination url & value to send
-    let url: String = "https://tbgweb.dyndns.info/iacdb/iosOperatorCount.php"
+    let url: String = "https://tbgweb.dyndns.info/iacdb/iosOperatorsCount.php"
     
     // Do asynchronous call to server using Alamofire library
-    Alamofire.request(url, method: .post)
+    Alamofire.request(url, method: .get)
         .validate()
         .responseJSON { response in
+            //.responseString { response in
             
             // check for errors
             guard response.result.error == nil else {
                 
                 // got an error in getting the data, need to handle it
-                rwPrint(inFunction: #function, inMessage: "error calling POST on Operators data request")
+                rwPrint(inFunction: #function, inMessage: "error calling POST on Operators count request")
                 rwPrint(inFunction: #function, inMessage: "Error: \(String(describing: response.result.error))")
                 
                 UIApplication.shared.isNetworkActivityIndicatorVisible = false
@@ -179,7 +180,7 @@ func populateOperatorsCache(inLocalCacheCount: Int) -> Int
                 let addOperator = EntOperators(context: moc)
                 
                 // Get the location information from json
-                addOperator.acOperator = object["Operator"].stringValue
+                addOperator.acOperator = object["Airline Title"].stringValue
                 
             }
             
@@ -222,7 +223,7 @@ func afPopulateOperators(completionHandler:  @escaping (Bool, [[String: String]]
     UIApplication.shared.isNetworkActivityIndicatorVisible = true
     
     // Set destination url & value to send
-    let url: String = "https://tbgweb.dyndns.info/iacdb/iosLoadOperators.php"
+    let url: String = "https://tbgweb.dyndns.info/iacdb/iosLoadOperatorsCache.php"
     
     // Do asynchronous call to server using Alamofire library
     Alamofire.request(url, method: .post)

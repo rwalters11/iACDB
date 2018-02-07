@@ -110,10 +110,15 @@ class aircraftDetailsViewController2: FormViewController{
             }
             
             // Type
-            <<< TextRow() {
-                $0.title = "Type"
-                $0.value = aircraftDetails.acType
-                $0.tag = "frmType"
+            <<< PickerInputRow<String>(){ row in
+                row.title = "Type"
+                
+                // Load picker with Types
+                row.options = getTypesPickerData()
+                
+                row.value = aircraftDetails.acType
+                row.tag = "frmType"
+                row.reload()
             }
             
             // Series
@@ -135,9 +140,10 @@ class aircraftDetailsViewController2: FormViewController{
                 // Load picker with locations
                 $0.options = getOperatorPickerData()
                 
-                //$0.value = $0.options.first
                 $0.value = aircraftDetails.acOperator
                 $0.tag = "frmOperator"
+                $0.reload()
+                
             }
             
             // Delivery
@@ -289,32 +295,35 @@ class aircraftDetailsViewController2: FormViewController{
         // Get the container from the AppDelegate
         let moc = getContext()
         
-        let entity = "EntLocations"
+        let entity = "EntOperators"
         
         // Create Fetch Request
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entity)
         
         // Add Sort Descriptor
-        let sortDescriptor = NSSortDescriptor(key: "location", ascending: true)
+        let sortDescriptor = NSSortDescriptor(key: "acOperator", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
         
         // Array to hold return values
-        var returnedLocations: [String] = []
+        var returnedOperators: [String] = []
         
         do {
             // Execute Fetch Request
-            let records = try moc.fetch(fetchRequest) as! [EntLocations]
+            let records = try moc.fetch(fetchRequest) as! [EntOperators]
             
             for record in records {
                 
-                returnedLocations.append(record.location!)
+                returnedOperators.append(record.acOperator!)
+                print(record.acOperator!)
             }
             
         } catch {
             rwPrint(inFunction: #function, inMessage:"Unable to fetch managed objects for entity \(entity).")
         }
         
-        return returnedLocations
+        rwPrint(inFunction: #function, inMessage: "\(String(describing: returnedOperators.count)) operators returned for picker")
+        
+        return returnedOperators
         
     }
     
@@ -324,14 +333,33 @@ class aircraftDetailsViewController2: FormViewController{
         // Get the container from the AppDelegate
         let moc = getContext()
         
+        let entity = "EntTypes"
         
+        // Create Fetch Request
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entity)
+        
+        // Add Sort Descriptor
+        let sortDescriptor = NSSortDescriptor(key: "acType", ascending: true)
+        fetchRequest.sortDescriptors = [sortDescriptor]
         
         // Array to hold return values
         var returnedTypes: [String] = []
         
+        do {
+            // Execute Fetch Request
+            let records = try moc.fetch(fetchRequest) as! [EntTypes]
+            
+            for record in records {
+                
+                returnedTypes.append(record.acType!)
+                //print(record.acType!)
+            }
+            
+        } catch {
+            rwPrint(inFunction: #function, inMessage:"Unable to fetch managed objects for entity \(entity).")
+        }
         
-        
-        
+        rwPrint(inFunction: #function, inMessage: "\(String(describing: returnedTypes.count)) types returned for picker")
         return returnedTypes
     }
     

@@ -66,9 +66,9 @@ func syncTypes2RemoteDB() {
     // Execute Fetch request
     do {
         // Execute Fetch Request
-        let fetchedTypes = try moc.fetch(fetchRequest) as! [EntOperators]
+        let fetchedTypes = try moc.fetch(fetchRequest) as! [EntTypes]
         
-        // Get the count of the cached Operators
+        // Get the count of the cached Types
         cachedTypesCount = fetchedTypes.count
         
     } catch {
@@ -92,7 +92,7 @@ func syncTypes2RemoteDB() {
             guard response.result.error == nil else {
                 
                 // got an error in getting the data, need to handle it
-                rwPrint(inFunction: #function, inMessage: "error calling POST on Types data request")
+                rwPrint(inFunction: #function, inMessage: "error calling POST on Types count request")
                 rwPrint(inFunction: #function, inMessage: "Error: \(String(describing: response.result.error))")
                 
                 UIApplication.shared.isNetworkActivityIndicatorVisible = false
@@ -115,6 +115,7 @@ func syncTypes2RemoteDB() {
             
             //**********   Compare cache to remote DB
             if cachedTypesCount != remoteTypesCount
+            //if true
             {
                 
                 //**********   Sync the cache by downloading and overwriting
@@ -163,7 +164,7 @@ func populateTypesCache(inLocalCacheCount: Int) -> Int
             
             rwPrint(inFunction: #function, inMessage: "Types data returned successfully from async call")
             
-            // Clear the Locations cache after download of new data
+            // Clear the Types cache after download of new data
             _ = entityDeleteAllData(inEntity: "EntTypes")
             
             let moc = getContext()
@@ -174,15 +175,15 @@ func populateTypesCache(inLocalCacheCount: Int) -> Int
             // Iterate through array of Dictionary's
             for (_, object) in data {
                 
-                // Create a new Location
+                // Create a new Type
                 let addTypes = EntTypes(context: moc)
                 
-                // Get the location information from json
-                addTypes.acType = object["Type"].stringValue
+                // Get the type information from json
+                addTypes.acType = object["Aircraft Type"].stringValue
                 
             }
             
-            // Save the locations added
+            // Save the types added
             do {
                 // Do the save
                 try moc.save()
@@ -221,7 +222,7 @@ func afPopulateTypes(completionHandler:  @escaping (Bool, [[String: String]]?) -
     UIApplication.shared.isNetworkActivityIndicatorVisible = true
     
     // Set destination url & value to send
-    let url: String = "https://tbgweb.dyndns.info/iacdb/iosLoadTypes.php"
+    let url: String = "https://tbgweb.dyndns.info/iacdb/iosLoadTypesCache.php"
     
     // Do asynchronous call to server using Alamofire library
     Alamofire.request(url, method: .post)
@@ -232,7 +233,7 @@ func afPopulateTypes(completionHandler:  @escaping (Bool, [[String: String]]?) -
             guard response.result.error == nil else {
                 
                 // got an error in getting the data, need to handle it
-                rwPrint(inFunction: #function, inMessage: "error calling POST on Operators data request")
+                rwPrint(inFunction: #function, inMessage: "error calling POST on Types data request")
                 rwPrint(inFunction: #function, inMessage: "Error: \(String(describing: response.result.error))")
                 
                 UIApplication.shared.isNetworkActivityIndicatorVisible = false

@@ -54,13 +54,16 @@
     </entity>
     <entity name="EntTypes" representedClassName="EntTypes" syncable="YES" codeGenerationType="class">
         <attribute name="acType" optional="YES" attributeType="String" syncable="YES"/>
+        <fetchIndex name="typeIndex">
+            <fetchIndexElement property="acType" type="Binary" order="ascending"/>
+        </fetchIndex>
     </entity>
     <elements>
         <element name="EntAircraft" positionX="-146" positionY="15" width="128" height="135"/>
         <element name="EntLocations" positionX="-369" positionY="-126" width="128" height="210"/>
-        <element name="EntSpots" positionX="-369" positionY="15" width="128" height="135"/>
-        <element name="EntOperators" positionX="-261" positionY="-9" width="128" height="60"/>
-        <element name="EntTypes" positionX="-252" positionY="0" width="128" height="60"/>
         <element name="EntNewAircraft" positionX="-243" positionY="9" width="128" height="60"/>
+        <element name="EntOperators" positionX="-261" positionY="-9" width="128" height="60"/>
+        <element name="EntSpots" positionX="-369" positionY="15" width="128" height="135"/>
+        <element name="EntTypes" positionX="-252" positionY="0" width="128" height="60"/>
     </elements>
 </model>
