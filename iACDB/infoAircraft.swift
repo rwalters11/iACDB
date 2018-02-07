@@ -18,11 +18,13 @@ class infoAircraft {
     var acType:           String                    // Type
     var acSeries:         String                    // Series
     var acOperator:       String                    // Operator
+    var acConstructor:    String                    // Constructor
+    var acFuselage:       String                    // Fuselage
+    var acModeS:          String                    // Mode S
+    var recordNum:        Int16                     // Record Number
     
     var acImageAvailable: Bool                      // True if image available
     var acImage:          UIImage?                  // Latest image (if exists)
-    
-    
     
     // MARK: Initialisation
     
@@ -34,6 +36,11 @@ class infoAircraft {
         self.acType=""                              // Set defaults for the rest
         self.acSeries=""
         self.acOperator=""
+        self.acConstructor=""
+        self.acFuselage=""
+        self.acModeS=""
+        self.recordNum=0
+        
         self.acImageAvailable=false
         self.acImage=nil
     }
@@ -47,6 +54,11 @@ class infoAircraft {
         self.acSeries = inSeries
         self.acOperator = inOperator
         self.acImageAvailable=inMarker
+        
+        self.acConstructor=""
+        self.acFuselage=""
+        self.acModeS=""
+        self.recordNum=0
         self.acImage=nil
     }
     

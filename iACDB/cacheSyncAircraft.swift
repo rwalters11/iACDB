@@ -115,6 +115,7 @@ func syncAircraft2RemoteDB(inController: spotListTableViewController) {
             
             //**********   Compare cache to remote DB and populate the cache if they differ or the user settings say do a refresh on startup
             if cachedAircraftCount != remoteAircraftCount
+            //if true
             {
                 
                 //**********   Sync the cache by downloading and overwriting
@@ -228,10 +229,10 @@ func populateAircraftCacheStage2(inController: spotListTableViewController?) {
                 
                 //recordCounter += 1
                 
-                // Create a new spot
+                // Create a new aircraft obj
                 let addAircraft = EntAircraft(context: moc)
                 
-                // Get the location information from json
+                // Get the registration information from json
                 addAircraft.acRegistration = object["Registration"].stringValue
                 
                 //print(String(recordCounter))
@@ -240,6 +241,13 @@ func populateAircraftCacheStage2(inController: spotListTableViewController?) {
                 addAircraft.acSeries = object["Series"].stringValue
                 
                 addAircraft.acOperator = object["Operator"].stringValue
+                
+                addAircraft.acConstructor = object["Constructors Number"].stringValue
+                addAircraft.acFuselage = object["Fuselage Number"].stringValue
+                
+                addAircraft.acModeS = object["ModeS"].stringValue
+                
+                addAircraft.dbRecordNum = object["RecordNumber"].int16Value
                 
                 let acImageMarkerInt: Int = Int(object["Image"].stringValue)!
                 
@@ -266,8 +274,6 @@ func populateAircraftCacheStage2(inController: spotListTableViewController?) {
                 cacheCount = data.count
                 
                 rwPrint(inFunction: #function, inMessage: "\(cacheCount) aircraft saved to CoreData")
-                
-                
                 
                 // Dismiss the loading screen once complete
                 inController?.removeLoadingScreen()
@@ -323,6 +329,10 @@ func getAircraftDetailsFromCache(inRegistration: String) -> infoAircraft {
             aircraftDetails.acType = fetchedAircraft.acType!
             aircraftDetails.acSeries = fetchedAircraft.acSeries!
             aircraftDetails.acOperator = fetchedAircraft.acOperator!
+            aircraftDetails.acConstructor = fetchedAircraft.acConstructor!
+            aircraftDetails.acFuselage = fetchedAircraft.acFuselage!
+            aircraftDetails.acModeS = fetchedAircraft.acModeS!
+            aircraftDetails.recordNum = fetchedAircraft.dbRecordNum
         }
         
     } catch {

@@ -169,7 +169,7 @@ class aircraftDetailsViewController2: FormViewController{
             // Constructor
             <<< TextRow() {
                 $0.title = "Constructor"
-                $0.value = ""
+                $0.value = aircraftDetails.acConstructor
                 $0.tag = "frmConstructor"
                 }.cellUpdate {cell, row in
                     
@@ -181,7 +181,7 @@ class aircraftDetailsViewController2: FormViewController{
             // Fuselage
             <<< TextRow() {
                 $0.title = "Fuselage"
-                $0.value = ""
+                $0.value = aircraftDetails.acFuselage
                 $0.tag = "frmFuselage"
                 }.cellUpdate {cell, row in
                     
@@ -193,7 +193,7 @@ class aircraftDetailsViewController2: FormViewController{
             // Mode S
             <<< TextRow() {
                 $0.title = "Mode S"
-                $0.value = ""
+                $0.value = aircraftDetails.acModeS
                 $0.tag = "frmModeS"
                 }.cellUpdate {cell, row in
                     
@@ -314,7 +314,7 @@ class aircraftDetailsViewController2: FormViewController{
             for record in records {
                 
                 returnedOperators.append(record.acOperator!)
-                print(record.acOperator!)
+                //print(record.acOperator!)
             }
             
         } catch {
