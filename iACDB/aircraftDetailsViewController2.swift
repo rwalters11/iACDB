@@ -9,6 +9,7 @@
 // Using Eureka library as base for form.
 
 // Import Apple frameworks
+import Foundation
 import UIKit
 import CoreData
 import CoreLocation
@@ -149,7 +150,12 @@ class aircraftDetailsViewController2: FormViewController{
             // Delivery
             <<< DateRow() {
                 $0.title = "Delivery"
-                $0.value = Date()
+                
+                // Test for nil return from conversion
+                
+                $0.value = ConvertACDB_Date(inDate: aircraftDetails.acDelivery)
+                
+                
                 $0.maximumDate = Date()
                 $0.tag = "frmDelivery"
                 }.cellUpdate {cell, row in

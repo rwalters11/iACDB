@@ -22,6 +22,7 @@ class infoAircraft {
     var acFuselage:       String                    // Fuselage
     var acModeS:          String                    // Mode S
     var recordNum:        Int16                     // Record Number
+    var acDelivery:       String                    // Delivery Date
     
     var acImageAvailable: Bool                      // True if image available
     var acImage:          UIImage?                  // Latest image (if exists)
@@ -40,6 +41,7 @@ class infoAircraft {
         self.acFuselage=""
         self.acModeS=""
         self.recordNum=0
+        self.acDelivery=""
         
         self.acImageAvailable=false
         self.acImage=nil
@@ -59,6 +61,7 @@ class infoAircraft {
         self.acFuselage=""
         self.acModeS=""
         self.recordNum=0
+        self.acDelivery=""
         self.acImage=nil
     }
     

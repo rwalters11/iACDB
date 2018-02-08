@@ -244,6 +244,7 @@ func populateAircraftCacheStage2(inController: spotListTableViewController?) {
                 
                 addAircraft.acConstructor = object["Constructors Number"].stringValue
                 addAircraft.acFuselage = object["Fuselage Number"].stringValue
+                addAircraft.acDelivery = object["Delivery Date"].stringValue
                 
                 addAircraft.acModeS = object["ModeS"].stringValue
                 
