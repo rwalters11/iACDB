@@ -77,7 +77,7 @@
                                     <outlet property="lblOperator" destination="Ugm-o0-ycJ" id="vV7-9y-Bky"/>
                                     <outlet property="lblRegistration" destination="THo-QR-Tmi" id="Gk1-0V-LOb"/>
                                     <outlet property="lblTypeSeries" destination="345-Vk-5aK" id="kJS-q2-yCv"/>
-                                    <segue destination="696-3L-G9K" kind="show" identifier="spotShowDetails" id="nnw-Ps-yhu"/>
+                                    <segue destination="1Jq-FS-8o1" kind="show" identifier="showACDetails" id="h4a-9S-79x"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -158,115 +158,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oDh-EQ-tqp" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="cYq-nq-gLL" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="6063" y="-953"/>
+            <point key="canvasLocation" x="5692" y="-952"/>
         </scene>
-        <!--aircraftDetailsViewController-->
-        <scene sceneID="7Sv-MW-RNt">
+        <!--aircraftDetailsViewController2-->
+        <scene sceneID="ecA-e2-bjG">
             <objects>
-                <viewController title="aircraftDetailsViewController" id="696-3L-G9K" customClass="aircraftDetailsViewController" customModule="iACDB" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="aircraftDetailsViewController2" id="1Jq-FS-8o1" customClass="aircraftDetailsViewController2" customModule="iACDB" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="o1H-ht-NJK"/>
-                        <viewControllerLayoutGuide type="bottom" id="QFG-15-WmR"/>
+                        <viewControllerLayoutGuide type="top" id="Jed-7d-eSI"/>
+                        <viewControllerLayoutGuide type="bottom" id="4MW-gY-XhD"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="KnV-Yz-AU2">
+                    <view key="view" contentMode="scaleToFill" id="BoG-es-BLd">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.65000000000000002" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Registration" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jqm-eE-QvF">
-                                <rect key="frame" x="20" y="64" width="339" height="32"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="28"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="59h-Rr-gaj">
-                                <rect key="frame" x="20" y="122" width="280" height="21"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="oJN-jZ-bAX"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="CbI-ge-VPs">
-                                <rect key="frame" x="20" y="151" width="339" height="144"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Notes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EaI-ZN-sy1">
-                                        <rect key="frame" x="0.0" y="0.0" width="36" height="16"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="lVJ-Lx-f5w">
-                                        <rect key="frame" x="0.0" y="16" width="339" height="128"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="128" id="MjD-MN-55C"/>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="70" id="kSa-4J-EAg"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                    </textView>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="lVJ-Lx-f5w" secondAttribute="trailing" id="3UX-j3-SnX"/>
-                                    <constraint firstItem="lVJ-Lx-f5w" firstAttribute="leading" secondItem="CbI-ge-VPs" secondAttribute="leading" id="jr3-Jb-Eoe"/>
-                                    <constraint firstAttribute="trailing" secondItem="lVJ-Lx-f5w" secondAttribute="trailing" id="vSQ-yw-NpR"/>
-                                </constraints>
-                            </stackView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="59s-Fy-Czs">
-                                <rect key="frame" x="20" y="304" width="335" height="188"/>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Type:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fmN-Bh-EOD">
-                                <rect key="frame" x="20" y="105" width="41" height="15"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="15" id="5zs-ip-F69"/>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="41" id="vRc-LP-k88"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="59s-Fy-Czs" firstAttribute="leading" secondItem="KnV-Yz-AU2" secondAttribute="leading" constant="20" symbolic="YES" id="6Pl-6V-GLN"/>
-                            <constraint firstItem="fmN-Bh-EOD" firstAttribute="top" secondItem="jqm-eE-QvF" secondAttribute="bottom" constant="9" id="GIR-1H-xA5"/>
-                            <constraint firstItem="59h-Rr-gaj" firstAttribute="leading" secondItem="fmN-Bh-EOD" secondAttribute="leading" id="GiS-L6-dft"/>
-                            <constraint firstItem="59h-Rr-gaj" firstAttribute="leading" secondItem="jqm-eE-QvF" secondAttribute="leading" id="KGk-n9-HLY"/>
-                            <constraint firstItem="jqm-eE-QvF" firstAttribute="top" secondItem="o1H-ht-NJK" secondAttribute="bottom" id="SDU-vC-IgD"/>
-                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="fmN-Bh-EOD" secondAttribute="trailing" id="UF2-H4-tsh"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="59h-Rr-gaj" secondAttribute="trailing" constant="59" id="V6u-MS-LlI"/>
-                            <constraint firstItem="59h-Rr-gaj" firstAttribute="top" secondItem="KnV-Yz-AU2" secondAttribute="top" constant="122" id="VIC-iP-e3S"/>
-                            <constraint firstItem="59h-Rr-gaj" firstAttribute="top" secondItem="fmN-Bh-EOD" secondAttribute="bottom" constant="2" id="ZQW-yB-Re9"/>
-                            <constraint firstItem="jqm-eE-QvF" firstAttribute="leading" secondItem="KnV-Yz-AU2" secondAttribute="leading" constant="20" symbolic="YES" id="cfC-DG-cKd"/>
-                            <constraint firstItem="QFG-15-WmR" firstAttribute="top" secondItem="59s-Fy-Czs" secondAttribute="bottom" constant="126" id="h19-LH-Hvu"/>
-                            <constraint firstItem="59s-Fy-Czs" firstAttribute="top" secondItem="CbI-ge-VPs" secondAttribute="bottom" constant="9" id="i7d-9h-mkg"/>
-                            <constraint firstItem="jqm-eE-QvF" firstAttribute="trailing" secondItem="CbI-ge-VPs" secondAttribute="trailing" id="jr1-kO-e35"/>
-                            <constraint firstItem="CbI-ge-VPs" firstAttribute="leading" secondItem="KnV-Yz-AU2" secondAttribute="leading" constant="20" symbolic="YES" id="jxW-c5-MWR"/>
-                            <constraint firstItem="QFG-15-WmR" firstAttribute="top" secondItem="CbI-ge-VPs" secondAttribute="bottom" constant="323" id="nyp-k0-ejC"/>
-                            <constraint firstAttribute="trailing" secondItem="59s-Fy-Czs" secondAttribute="trailing" constant="20" symbolic="YES" id="spb-jz-99q"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="CbI-ge-VPs" secondAttribute="trailing" id="yIq-ia-lWu"/>
-                        </constraints>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Details" id="7MH-3x-1Tp">
-                        <barButtonItem key="rightBarButtonItem" title="Spot" id="HRB-vS-wzR">
-                            <connections>
-                                <segue destination="jZy-4W-2C7" kind="show" identifier="showAddSpotFromDetails" id="xB3-an-UK4"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="imgAircraft" destination="59s-Fy-Czs" id="Qc6-1d-nrY"/>
-                        <outlet property="lbl4lblTypeSeries" destination="fmN-Bh-EOD" id="2b7-Bs-Xlw"/>
-                        <outlet property="lblRegistration" destination="jqm-eE-QvF" id="goz-Ya-AUy"/>
-                        <outlet property="lblTypeSeries" destination="59h-Rr-gaj" id="grO-MJ-JQt"/>
-                        <outlet property="txtViewNotes" destination="lVJ-Lx-f5w" id="BBo-pW-b7C"/>
-                    </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="58u-SJ-Ve8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sSN-LT-GMv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5692" y="-241.52923538230885"/>
+            <point key="canvasLocation" x="5692" y="-242"/>
         </scene>
         <!--Location-->
         <scene sceneID="YEH-Ts-hKc">
@@ -942,7 +852,7 @@
                                     <outlet property="lblDetails" destination="odB-lV-GZi" id="3tI-Qj-S34"/>
                                     <outlet property="lblOperator" destination="qie-jY-heJ" id="XtG-Nx-E72"/>
                                     <outlet property="lblRegistration" destination="L2c-7J-txW" id="6dA-lh-KPH"/>
-                                    <segue destination="696-3L-G9K" kind="show" identifier="acShowDetails" id="XEd-7w-BFi"/>
+                                    <segue destination="1Jq-FS-8o1" kind="show" identifier="acShowDetails2" id="siZ-7Y-PKc"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -1040,7 +950,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="zyx-d1-Ur6"/>
-        <segue reference="nnw-Ps-yhu"/>
-        <segue reference="xB3-an-UK4"/>
+        <segue reference="h4a-9S-79x"/>
     </inferredMetricsTieBreakers>
 </document>

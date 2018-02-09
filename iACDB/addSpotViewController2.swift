@@ -292,6 +292,7 @@ class addSpotViewController2: FormViewController, CLLocationManagerDelegate{
                 
                 $0.value = $0.options.first
                 $0.tag = "frmLocation"
+                $0.reload()
                 }
             
             +++ Section("Notes")

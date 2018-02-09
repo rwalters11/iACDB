@@ -120,8 +120,12 @@ class spotListTableViewController: UITableViewController, NSFetchedResultsContro
                 // Trigger sync of CoreData caches
             case .reachable(.ethernetOrWiFi), .reachable(.wwan):
                 
-                syncLocations2RemoteDB()
                 syncAircraft2RemoteDB(inController: self)
+                
+                syncLocations2RemoteDB()
+                syncTypes2RemoteDB()
+                syncOperators2RemoteDB()
+                
                 break
             }
         }
@@ -604,10 +608,10 @@ class spotListTableViewController: UITableViewController, NSFetchedResultsContro
         
         switch segue.identifier!
         {
-        case "spotShowDetails":
+        case "showACDetails":
             
             // Set the class of the details View controller
-            let svc = segue.destination as! aircraftDetailsViewController;
+            let svc = segue.destination as! aircraftDetailsViewController2;
             
             let path = tableView.indexPathForSelectedRow
             let cell = tableView.cellForRow(at: path!) as! spotInfoTableViewCell
@@ -617,7 +621,7 @@ class spotListTableViewController: UITableViewController, NSFetchedResultsContro
             
             // Set the custom value of the Back Item text to be shown in the Details view
             let backItem = UIBarButtonItem()
-            backItem.title = "List"
+            backItem.title = "Back"
             navigationItem.backBarButtonItem = backItem // This will show in the next view controller being pushed
             
             // Hide the Add Spot RH menu bar item
