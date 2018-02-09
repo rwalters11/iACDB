@@ -28,7 +28,8 @@ func ConvertACDB_Date(inDate: String) -> Date?
     
     // Calculate date
     let dateFormatter = DateFormatter()
-    dateFormatter.dateFormat = "dd/mm/yyyy"
+    dateFormatter.dateFormat = "dd/MM/yy"
+    dateFormatter.locale = Locale(identifier: "en_GB")
     guard let returnDate = dateFormatter.date(from: dateString) else
     {
         // Return gregorian date

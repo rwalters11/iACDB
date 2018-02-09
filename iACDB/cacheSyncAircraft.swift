@@ -333,6 +333,7 @@ func getAircraftDetailsFromCache(inRegistration: String) -> infoAircraft {
             aircraftDetails.acConstructor = fetchedAircraft.acConstructor!
             aircraftDetails.acFuselage = fetchedAircraft.acFuselage!
             aircraftDetails.acModeS = fetchedAircraft.acModeS!
+            aircraftDetails.acDelivery = fetchedAircraft.acDelivery!
             aircraftDetails.recordNum = fetchedAircraft.dbRecordNum
         }
         

@@ -152,9 +152,10 @@ class aircraftDetailsViewController2: FormViewController{
                 $0.title = "Delivery"
                 
                 // Test for nil return from conversion
-                
-                $0.value = ConvertACDB_Date(inDate: aircraftDetails.acDelivery)
-                
+                if let deliveryDate = ConvertACDB_Date(inDate: aircraftDetails.acDelivery)
+                {
+                    $0.value = deliveryDate
+                }
                 
                 $0.maximumDate = Date()
                 $0.tag = "frmDelivery"
@@ -162,14 +163,16 @@ class aircraftDetailsViewController2: FormViewController{
                     
                     // Set style of date display after any updates
                     row.dateFormatter?.locale = Locale(identifier: "en_GB")
-                    row.dateFormatter?.dateStyle = .short
+                    //row.dateFormatter?.dateStyle = .short
+                    row.dateFormatter?.dateFormat = "MM/yy"
                     
                 }.cellSetup {cell, row in
                     
                     // Set style of date picker and display on initial load
                     cell.datePicker.locale = Locale(identifier: "en_GB")
                     row.dateFormatter?.locale = Locale(identifier: "en_GB")
-                    row.dateFormatter?.dateStyle = .short
+                    //row.dateFormatter?.dateStyle = .short
+                    row.dateFormatter?.dateFormat = "MM/yy"
             }
             
             // Constructor
