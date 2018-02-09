@@ -618,6 +618,7 @@ class spotListTableViewController: UITableViewController, NSFetchedResultsContro
             
             // Pass the registration to the details view
             svc.inRegistration = (cell.lblRegistration.text)!
+            svc.formDisabled = true
             
             // Set the custom value of the Back Item text to be shown in the Details view
             let backItem = UIBarButtonItem()

@@ -36,6 +36,8 @@ class aircraftDetailsViewController2: FormViewController{
     
     // Values passed in by segue
     var inRegistration: String!
+    var formDisabled: Condition = true
+    
     var inMenuSpot: Bool = true
     
 
@@ -73,7 +75,7 @@ class aircraftDetailsViewController2: FormViewController{
         // Dispose of any resources that can be recreated.
     }
     
-    // MARK: - Form
+    // MARK: - Eureka Form Functions
     func setupForm()
     {
         // Get the details from the cache if exists
@@ -163,7 +165,6 @@ class aircraftDetailsViewController2: FormViewController{
                     
                     // Set style of date display after any updates
                     row.dateFormatter?.locale = Locale(identifier: "en_GB")
-                    //row.dateFormatter?.dateStyle = .short
                     row.dateFormatter?.dateFormat = "MM/yy"
                     
                 }.cellSetup {cell, row in
@@ -171,7 +172,6 @@ class aircraftDetailsViewController2: FormViewController{
                     // Set style of date picker and display on initial load
                     cell.datePicker.locale = Locale(identifier: "en_GB")
                     row.dateFormatter?.locale = Locale(identifier: "en_GB")
-                    //row.dateFormatter?.dateStyle = .short
                     row.dateFormatter?.dateFormat = "MM/yy"
             }
             
@@ -225,7 +225,7 @@ class aircraftDetailsViewController2: FormViewController{
         // Leaves 20pt of space between the keyboard and the highlighted row after scrolling to an off screen row
         rowKeyboardSpacing = 20
         
-        
+        enableFormFields(inSetting: formDisabled)
     }
     
     // Function to add dash character to Registration field when accessoryView tapped
@@ -383,25 +383,25 @@ class aircraftDetailsViewController2: FormViewController{
         // Update the fields if valid or clear
         if !aircraftDetails.acType.isEmpty {
             
-            let rowT = self.form.rowBy(tag: "frmType") as! TextRow
-            rowT.cell.textField?.text = aircraftDetails.acType
+            let rowT = self.form.rowBy(tag: "frmType") as! PickerInputRow<String>
+            rowT.value = aircraftDetails.acType
             
             let rowS = self.form.rowBy(tag: "frmSeries") as! TextRow
             rowS.cell.textField?.text = aircraftDetails.acSeries
             
-            ////let rowO = self.form.rowBy(tag: "frmOperator") as! PickerInputRow
-            ////rowO.cell.textLabel?.text = aircraftDetails.acOperator
+            let rowO = self.form.rowBy(tag: "frmOperator") as! PickerInputRow<String>
+            rowO.value = aircraftDetails.acOperator
             
         }else{
             
-            let rowT = self.form.rowBy(tag: "frmType") as! TextRow
-            rowT.cell.textField?.text = ""
+            let rowT = self.form.rowBy(tag: "frmType") as! PickerInputRow<String>
+            rowT.value = aircraftDetails.acType
             
             let rowS = self.form.rowBy(tag: "frmSeries") as! TextRow
             rowS.cell.textField?.text = ""
             
-            ////let rowO = self.form.rowBy(tag: "frmOperator") as! PickerInputRow
-            ////rowO.cell.textLabel?.text = ""
+            let rowO = self.form.rowBy(tag: "frmOperator") as! PickerInputRow<String>
+            rowO.value = ""
         }
     }
     
@@ -431,6 +431,18 @@ class aircraftDetailsViewController2: FormViewController{
             ////self.imgAircraft?.kf.indicatorType = .activity
             ////self.imgAircraft?.kf.setImage(with: resource, placeholder: nil, options: [.processor(processor)])
         }
+    }
+    
+    // Enable/Disable Eureka form fields
+    func enableFormFields(inSetting: Condition)
+    {
+        // Iterate through form rows setting disabled and forcing evaluation
+        for row in self.form.rows {
+            row.disabled = inSetting
+            row.evaluateDisabled()
+        }
+        
+        
     }
 
 }
