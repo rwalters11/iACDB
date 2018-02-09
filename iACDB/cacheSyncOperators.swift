@@ -26,6 +26,17 @@ import SwiftyJSON
  */
 func syncOperators2RemoteDB() {
     
+    // Ensure function runs only once
+    struct Temp { static var hasSynched = false }
+    if Temp.hasSynched == false {
+        
+        Temp.hasSynched = true
+        
+    } else {
+        
+        return
+    }
+    
     var cachedOperatorsCount: Int = 0
     var remoteOperatorsCount: Int = 0
     

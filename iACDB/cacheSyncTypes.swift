@@ -25,6 +25,17 @@ import SwiftyJSON
  */
 func syncTypes2RemoteDB() {
     
+    // Ensure function runs only once
+    struct Temp { static var hasSynched = false }
+    if Temp.hasSynched == false {
+        
+        Temp.hasSynched = true
+        
+    } else {
+        
+        return
+    }
+    
     var cachedTypesCount: Int = 0
     var remoteTypesCount: Int = 0
     

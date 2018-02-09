@@ -25,6 +25,17 @@ import SwiftyJSON
  */
 func syncAircraft2RemoteDB(inController: spotListTableViewController) {
     
+    // Ensure function runs only once
+    struct Temp { static var hasSynched = false }
+    if Temp.hasSynched == false {
+        
+        Temp.hasSynched = true
+        
+    } else {
+        
+        return
+    }
+    
     var cachedAircraftCount: Int = 0
     var remoteAircraftCount: Int = 0
     

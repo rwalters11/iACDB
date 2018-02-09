@@ -25,6 +25,17 @@ import SwiftyJSON
  */
 func syncLocations2RemoteDB() {
     
+    // Ensure function runs only once
+    struct Temp { static var hasSynched = false }
+    if Temp.hasSynched == false {
+        
+        Temp.hasSynched = true
+        
+    } else {
+        
+        return
+    }
+    
     var cachedLocationsCount: Int = 0
     var remoteLocationsCount: Int = 0
     
