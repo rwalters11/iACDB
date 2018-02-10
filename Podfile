@@ -24,6 +24,7 @@ target 'iACDB' do
 
     #Eureka forms
         pod 'Eureka'
+	pod 'ImageRow', '~> 3.0'
 
   target 'iACDBTests' do
     inherit! :search_paths

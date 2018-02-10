@@ -346,6 +346,7 @@ func getAircraftDetailsFromCache(inRegistration: String) -> infoAircraft {
             aircraftDetails.acModeS = fetchedAircraft.acModeS!
             aircraftDetails.acDelivery = fetchedAircraft.acDelivery!
             aircraftDetails.recordNum = fetchedAircraft.dbRecordNum
+            aircraftDetails.acImageAvailable = fetchedAircraft.acImageAvailable
         }
         
     } catch {

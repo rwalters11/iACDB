@@ -20,6 +20,7 @@ import AlamofireImage
 import SwiftyJSON
 import Kingfisher
 import Eureka
+import ImageRow
 
 class aircraftDetailsViewController2: FormViewController{
     
@@ -36,6 +37,7 @@ class aircraftDetailsViewController2: FormViewController{
     
     // Values passed in by segue
     var inRegistration: String!
+    
     var formDisabled: Condition = true
     
     var inMenuSpot: Bool = true
@@ -43,9 +45,14 @@ class aircraftDetailsViewController2: FormViewController{
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Get the details from the cache if exists
+        let aircraftDetails = getAircraftDetailsFromCache(inRegistration: inRegistration)
 
         // Create form using Eureka
-        setupForm()
+        setupForm(aircraftDetails: aircraftDetails)
+        
+        getAircraftImage(aircraft: aircraftDetails)
         
         // Set title
         self.navigationItem.title = inRegistration
@@ -76,11 +83,8 @@ class aircraftDetailsViewController2: FormViewController{
     }
     
     // MARK: - Eureka Form Functions
-    func setupForm()
+    func setupForm(aircraftDetails: infoAircraft)
     {
-        // Get the details from the cache if exists
-        let aircraftDetails = getAircraftDetailsFromCache(inRegistration: inRegistration)
-        
         // Create sections and rows for Eureka form
         form
             +++ Section("Aircraft")
@@ -110,6 +114,14 @@ class aircraftDetailsViewController2: FormViewController{
                     cell.textField.autocapitalizationType = .allCharacters              // All capitals
                     cell.textField.autocorrectionType = UITextAutocorrectionType.no     // No predictive text
                     cell.textField.inputAccessoryView = self.toolbar                    // Custom keyboard accessory bar for registrations
+            }
+            
+            // Image
+            <<< ImageRow() { row in
+                row.tag = "frmImage"
+                }.cellUpdate { cell, row in
+                    //cell.accessoryView?.layer.cornerRadius = 17
+                    //cell.accessoryView?.frame = CGRect(x: 0, y: 0, width: 34, height: 34)
             }
             
             // Type
@@ -406,31 +418,64 @@ class aircraftDetailsViewController2: FormViewController{
     }
     
     // Function to compile and display the aircraft details - may be more than 1 aircraft with same registration !!
-    func showAircraftData(acDetails: [EntAircraft]) {
+    func getAircraftImage(aircraft: infoAircraft) {
         
-        let aircraft = acDetails[0]
-        
-        ////lblTypeSeries.text = aircraft.acType! + "-" + aircraft.acSeries!
+        let rowImage = self.form.rowBy(tag: "frmImage") as! ImageRow
         
         // Make call to server if current image is nil and image available for registration
         if aircraft.acImageAvailable
         {
             // Make sure search string is properly escaped
             let expectedCharSet = NSCharacterSet.urlQueryAllowed
-            let searchTerm = aircraft.acRegistration?.addingPercentEncoding(withAllowedCharacters: expectedCharSet)
+            let searchTerm = aircraft.acRegistration.addingPercentEncoding(withAllowedCharacters: expectedCharSet)
             
             // Set destination url & value to send including requested image width
             let url = URL(string: "https://tbgweb.dyndns.info/iacdb/iosGetLatestImage.php?registration=" + searchTerm! + "&w=500")!
             
             // Setup Kingfisher Image Cacheing & retrieval resource using aircraft registration as the cache key
-            let resource = ImageResource(downloadURL: url, cacheKey: aircraft.acRegistration! + "w500")
+            let resource = ImageResource(downloadURL: url, cacheKey: aircraft.acRegistration + "w500")
             
             // Display the image with loading indicator and corner radius
             let processor = RoundCornerImageProcessor(cornerRadius: 5)
             
-            ////self.imgAircraft?.kf.indicatorType = .activity
-            ////self.imgAircraft?.kf.setImage(with: resource, placeholder: nil, options: [.processor(processor)])
+            let image = UIImage(named: "Updating")
+            
+            rowImage.baseCell.imageView?.kf.indicatorType = .activity
+            rowImage.baseCell.imageView?.kf.setImage(with: resource, placeholder: image, options: [.processor(processor)], completionHandler: {
+                (image, error, cacheType, imageUrl) in
+                // image: Image? `nil` means failed
+                // error: NSError? non-`nil` means failed
+                // cacheType: CacheType
+                //                  .none - Just downloaded
+                //                  .memory - Got from memory cache
+                //                  .disk - Got from disk cache
+                // imageUrl: URL of the image
+                
+                // Test for error
+                if let _ = error {
+                    
+                    rwPrint(inFunction: #function, inMessage: "Image retrieval failed")
+                    rwPrint(inFunction: #function, inMessage: (error?.debugDescription)!)
+                    
+                    rowImage.baseCell.imageView?.kf.indicatorType = .none
+                    return
+                }
+                
+                // Test for image returned
+                if let _ = image {
+                    
+                    rwPrint(inFunction: #function, inMessage: "Image retrieved by Kingfisher")
+                    
+                }else{
+                    
+                    rwPrint(inFunction: #function, inMessage: "Image not available")
+                }
+                
+                rowImage.baseCell.imageView?.kf.indicatorType = .none
+            })
+            
         }
+
     }
     
     // Enable/Disable Eureka form fields
@@ -441,8 +486,6 @@ class aircraftDetailsViewController2: FormViewController{
             row.disabled = inSetting
             row.evaluateDisabled()
         }
-        
-        
     }
 
 }
