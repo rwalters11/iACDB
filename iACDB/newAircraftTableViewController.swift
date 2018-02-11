@@ -40,7 +40,7 @@ class newAircraftTableViewController: UITableViewController,  NSFetchedResultsCo
         syncNewAircraft2RemoteDB()
         
         // Setup the initial sort & display order for the FRC
-        sortFRC(inSegment: 0)
+        sortFRC(inSegment: 2)
         
     }
     
@@ -129,6 +129,7 @@ class newAircraftTableViewController: UITableViewController,  NSFetchedResultsCo
         let nsfNewAircraft = fetchedResultsController.object(at: indexPath) as! EntNewAircraft
         
         cell.lblRegHex.text = nsfNewAircraft.registration
+        cell.lblCount.text = "(" + String(nsfNewAircraft.count) + ")"
         
         return cell
     }

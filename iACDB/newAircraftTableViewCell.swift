@@ -11,6 +11,7 @@ import UIKit
 class newAircraftTableViewCell: UITableViewCell {
     
     @IBOutlet weak var lblRegHex: UILabel!
+    @IBOutlet weak var lblCount: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

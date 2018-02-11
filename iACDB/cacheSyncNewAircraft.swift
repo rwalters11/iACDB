@@ -129,7 +129,6 @@ func syncNewAircraft2RemoteDB() {
             if cachedAircraftCount != remoteAircraftCount
             //if true
             {
-                
                 //**********   Sync the cache by downloading and overwriting
                 // Populate the New Aircraft cache from the TBGweb server
                 _ = populateNewAircraftCache(inLocalCacheCount: cachedAircraftCount)
@@ -140,7 +139,6 @@ func syncNewAircraft2RemoteDB() {
             }
     }
 }
-
 
 // MARK: Helper Functions
 
@@ -184,7 +182,7 @@ func populateNewAircraftCache(inLocalCacheCount: Int) -> Int
             let data = JSON(json!)
             
             // Initialise count of returned New Aircraft with a nil value - Bug Fix 11/02/2018
-            var nilCountInJSON = 0
+            //var nilCountInJSON = 0
             
             // Iterate through array of Dictionary's
             for (_, object) in data {
@@ -195,19 +193,7 @@ func populateNewAircraftCache(inLocalCacheCount: Int) -> Int
                 // Get the New Aircraft information from json
                 addNewAircraft.registration = object["Registration"].stringValue
                 
-                // Test for nil in JSON
-                if let newCount = object["Count"].int16 {
-                    
-                    addNewAircraft.count = newCount
-                    nilCountInJSON += 1
-                    
-                }else {
-                    
-                    // if nil
-                    addNewAircraft.count = 0
-                    
-                }
-                
+                addNewAircraft.count = Int16(object["Count"].stringValue)!
             }
             
             // Save the locations added
@@ -219,7 +205,6 @@ func populateNewAircraftCache(inLocalCacheCount: Int) -> Int
                 cacheCount = data.count
                 
                 rwPrint(inFunction: #function, inMessage: "\(cacheCount) New Aircraft saved to CoreData")
-                rwPrint(inFunction: #function, inMessage: "\(nilCountInJSON) New Aircraft with nil count")
                 
             } catch let error as NSError {
                 rwPrint(inFunction: #function, inMessage:"Could not save. \(error), \(error.userInfo)")
