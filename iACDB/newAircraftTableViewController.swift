@@ -11,6 +11,14 @@ import CoreData
 import Alamofire
 
 class newAircraftTableViewController: UITableViewController,  NSFetchedResultsControllerDelegate  {
+    
+    // Setup controller to manage our data NSFetched results style
+    var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult>!
+    
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    
+    // Seup our User Defaults instance
+    let defaults = UserDefaults.standard
 
     override func viewDidLoad() {
         super.viewDidLoad()
