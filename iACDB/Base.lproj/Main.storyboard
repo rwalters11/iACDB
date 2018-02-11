@@ -942,10 +942,10 @@
             </objects>
             <point key="canvasLocation" x="4013" y="499"/>
         </scene>
-        <!--Table View Controller-->
+        <!--New Aircraft Table View Controller-->
         <scene sceneID="yvj-9h-CrA">
             <objects>
-                <tableViewController id="AT7-68-ea9" sceneMemberID="viewController">
+                <tableViewController id="AT7-68-ea9" customClass="newAircraftTableViewController" customModule="iACDB" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="dM9-4l-3yM">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -965,7 +965,19 @@
                             <outlet property="delegate" destination="AT7-68-ea9" id="qxT-wg-hdk"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="Qdv-ol-sGs"/>
+                    <navigationItem key="navigationItem" id="aXM-iv-g72">
+                        <nil key="title"/>
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="mmi-m9-bKy">
+                            <rect key="frame" x="129.5" y="7" width="116" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <segments>
+                                <segment title="Hex"/>
+                                <segment title="Reg"/>
+                                <segment title="All"/>
+                            </segments>
+                            <color key="tintColor" cocoaTouchSystemColor="lightTextColor"/>
+                        </segmentedControl>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oYI-Of-tuz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -975,7 +987,7 @@
         <scene sceneID="7Ky-34-o9p">
             <objects>
                 <navigationController title="New Aircraft" automaticallyAdjustsScrollViewInsets="NO" id="dp6-9e-sRV" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="Doj-JU-qbu"/>
+                    <tabBarItem key="tabBarItem" title="New" image="Aircraft" id="Doj-JU-qbu"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" id="wZF-DO-QLb">
                         <autoresizingMask key="autoresizingMask"/>

@@ -19,6 +19,7 @@
 		D33622D0202998C000232D83 /* cacheSyncLocations.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33622CF202998C000232D83 /* cacheSyncLocations.swift */; };
 		D33622D220299A0D00232D83 /* cacheSyncOperators.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33622D120299A0D00232D83 /* cacheSyncOperators.swift */; };
 		D33622D420299B2900232D83 /* cacheSyncTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33622D320299B2900232D83 /* cacheSyncTypes.swift */; };
+		D33855F12030BCFD00CFF921 /* newAircraftTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33855F02030BCFD00CFF921 /* newAircraftTableViewController.swift */; };
 		D33A369A1E1658F500CE7A37 /* CoreDataLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33A36991E1658F500CE7A37 /* CoreDataLibrary.swift */; };
 		D33A369C1E16EC5D00CE7A37 /* iACDBFunctionLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33A369B1E16EC5D00CE7A37 /* iACDBFunctionLibrary.swift */; };
 		D33A369E1E1701AE00CE7A37 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D33A369D1E1701AE00CE7A37 /* CoreLocation.framework */; };
@@ -90,6 +91,7 @@
 		D33622D120299A0D00232D83 /* cacheSyncOperators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cacheSyncOperators.swift; sourceTree = "<group>"; };
 		D33622D320299B2900232D83 /* cacheSyncTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cacheSyncTypes.swift; sourceTree = "<group>"; };
 		D33622D82029B0F600232D83 /* iACDB 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "iACDB 2.xcdatamodel"; sourceTree = "<group>"; };
+		D33855F02030BCFD00CFF921 /* newAircraftTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = newAircraftTableViewController.swift; sourceTree = "<group>"; };
 		D33A36991E1658F500CE7A37 /* CoreDataLibrary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CoreDataLibrary.swift; path = ../../Common_Library/CoreDataLibrary.swift; sourceTree = "<group>"; };
 		D33A369B1E16EC5D00CE7A37 /* iACDBFunctionLibrary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = iACDBFunctionLibrary.swift; sourceTree = "<group>"; };
 		D33A369D1E1701AE00CE7A37 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -203,6 +205,7 @@
 				D30864911E1FCF460021B6D2 /* locationsTableViewCell.swift */,
 				D308647B1E1FCECF0021B6D2 /* locationsTableViewController.swift */,
 				D3AEBF281DF006C3004FB4A5 /* Main.storyboard */,
+				D33855F02030BCFD00CFF921 /* newAircraftTableViewController.swift */,
 				D3D4913A1E05290100435E7C /* registrationValidate.swift */,
 				D33A36A11E1ADF4600CE7A37 /* SettingsTableViewController.swift */,
 				D357AB171DFFF8680046427C /* spotInfoTableViewCell.swift */,
@@ -484,6 +487,7 @@
 				D3AEBF271DF006C3004FB4A5 /* aircraftDetailsViewController.swift in Sources */,
 				D33622D220299A0D00232D83 /* cacheSyncOperators.swift in Sources */,
 				D3EC2EA7201FC7BE0075EB03 /* addSpotViewController2.swift in Sources */,
+				D33855F12030BCFD00CFF921 /* newAircraftTableViewController.swift in Sources */,
 				D3D4913B1E05290100435E7C /* registrationValidate.swift in Sources */,
 				D33A369C1E16EC5D00CE7A37 /* iACDBFunctionLibrary.swift in Sources */,
 				D308647C1E1FCECF0021B6D2 /* locationsTableViewController.swift in Sources */,
