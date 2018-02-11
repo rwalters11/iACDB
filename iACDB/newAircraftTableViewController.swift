@@ -22,6 +22,48 @@ class newAircraftTableViewController: UITableViewController,  NSFetchedResultsCo
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Get ref to the network monitor
+        let netMonitor = appDelegate.netMonitor!
+        
+        var networkStatus: String = "TBGweb server "
+        
+        // Start the listener
+        netMonitor.listener = { status in
+            
+            // Take action depending on status 1st pass - identify status
+            switch status {
+                
+            case .notReachable:
+                networkStatus += "is not reachable"
+                
+            case .unknown:
+                networkStatus += "status unknown"
+                
+            case .reachable(.ethernetOrWiFi):
+                networkStatus += "is WiFi reachable"
+                
+            case .reachable(.wwan):
+                networkStatus += "is reachable via mobile data"
+            }
+            
+            print(networkStatus)
+            
+            // Take action depending on status - 2nd pass
+            switch status {
+                
+            // Do nothing
+            case .notReachable, .unknown:
+                break
+                
+            // Trigger sync of CoreData caches
+            case .reachable(.ethernetOrWiFi), .reachable(.wwan):
+                
+                //syncNewAircraft2RemoteDB()
+                
+                break
+            }
+        }
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
