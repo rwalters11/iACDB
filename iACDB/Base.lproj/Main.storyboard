@@ -114,7 +114,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4852" y="-953.07346326836591"/>
+            <point key="canvasLocation" x="5530.3999999999996" y="-953.07346326836591"/>
         </scene>
         <!--Add Spot-->
         <scene sceneID="kLI-Ma-Vtx">
@@ -158,12 +158,12 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oDh-EQ-tqp" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="cYq-nq-gLL" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="5692" y="-952"/>
+            <point key="canvasLocation" x="6370.3999999999996" y="-952.17391304347836"/>
         </scene>
-        <!--aircraftDetailsViewController2-->
+        <!--Aircraft Details-->
         <scene sceneID="ecA-e2-bjG">
             <objects>
-                <viewController title="aircraftDetailsViewController2" id="1Jq-FS-8o1" customClass="aircraftDetailsViewController2" customModule="iACDB" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Aircraft Details" id="1Jq-FS-8o1" customClass="aircraftDetailsViewController2" customModule="iACDB" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Jed-7d-eSI"/>
                         <viewControllerLayoutGuide type="bottom" id="4MW-gY-XhD"/>
@@ -176,7 +176,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sSN-LT-GMv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5692" y="-242"/>
+            <point key="canvasLocation" x="6370.3999999999996" y="-242.42878560719643"/>
         </scene>
         <!--Location-->
         <scene sceneID="YEH-Ts-hKc">
@@ -645,11 +645,12 @@
                         <segue destination="0B7-7I-V31" kind="relationship" relationship="viewControllers" id="yDB-9N-dny"/>
                         <segue destination="1vW-JN-NTc" kind="relationship" relationship="viewControllers" id="f0I-Eo-GFK"/>
                         <segue destination="XUQ-Sw-ulS" kind="relationship" relationship="viewControllers" id="fK7-yk-E6P"/>
+                        <segue destination="dp6-9e-sRV" kind="relationship" relationship="viewControllers" id="fuq-Fj-mcZ"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2985" y="-714"/>
+            <point key="canvasLocation" x="3663.1999999999998" y="-714.69265367316348"/>
         </scene>
         <!--Settings-->
         <scene sceneID="Xzs-3l-v6b">
@@ -867,7 +868,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DQm-lk-IVK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4852.5" y="-240.8450704225352"/>
+            <point key="canvasLocation" x="5530.3999999999996" y="-241.52923538230885"/>
         </scene>
         <!--Seen-->
         <scene sceneID="pUV-en-QjA">
@@ -885,7 +886,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="soU-9n-dK7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4013" y="-952"/>
+            <point key="canvasLocation" x="4690.3999999999996" y="-952.17391304347836"/>
         </scene>
         <!--Aircraft-->
         <scene sceneID="AeI-tP-9UF">
@@ -893,7 +894,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="0B7-7I-V31" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Aircraft" image="Aircraft" id="svO-zH-3SD"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="fQZ-wt-RcY">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="fQZ-wt-RcY">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -903,7 +904,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CVB-Zg-s5I" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4013" y="-239"/>
+            <point key="canvasLocation" x="4690.3999999999996" y="-239.73013493253376"/>
         </scene>
         <!--Settings-->
         <scene sceneID="EL6-TV-lMP">
@@ -940,6 +941,53 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7Li-u7-OJZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4013" y="499"/>
+        </scene>
+        <!--Table View Controller-->
+        <scene sceneID="yvj-9h-CrA">
+            <objects>
+                <tableViewController id="AT7-68-ea9" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="dM9-4l-3yM">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="PKV-mH-Nf1">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="PKV-mH-Nf1" id="3zK-CZ-ERJ">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="AT7-68-ea9" id="HCv-BL-jqW"/>
+                            <outlet property="delegate" destination="AT7-68-ea9" id="qxT-wg-hdk"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="Qdv-ol-sGs"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oYI-Of-tuz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1871" y="-674"/>
+        </scene>
+        <!--New Aircraft-->
+        <scene sceneID="7Ky-34-o9p">
+            <objects>
+                <navigationController title="New Aircraft" automaticallyAdjustsScrollViewInsets="NO" id="dp6-9e-sRV" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="Doj-JU-qbu"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" id="wZF-DO-QLb">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="AT7-68-ea9" kind="relationship" relationship="rootViewController" id="hv5-Tz-uF6"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6hj-aR-Ec2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2740" y="-674"/>
         </scene>
     </scenes>
     <resources>
