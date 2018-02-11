@@ -968,7 +968,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="lblRegHex" destination="3zK-CZ-ERJ" id="JUP-pn-mdJ"/>
+                                    <outlet property="lblRegHex" destination="KfR-sB-W1C" id="9me-FH-JCA"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -988,12 +988,18 @@
                                 <segment title="All"/>
                             </segments>
                             <color key="tintColor" cocoaTouchSystemColor="lightTextColor"/>
+                            <connections>
+                                <action selector="segControl:" destination="AT7-68-ea9" eventType="valueChanged" id="Vwn-vz-LuC"/>
+                            </connections>
                         </segmentedControl>
                     </navigationItem>
+                    <connections>
+                        <outlet property="segControl" destination="mmi-m9-bKy" id="BwU-Ed-GSt"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oYI-Of-tuz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1869.5999999999999" y="-674.21289355322347"/>
+            <point key="canvasLocation" x="1847" y="-715"/>
         </scene>
         <!--New Aircraft-->
         <scene sceneID="7Ky-34-o9p">
@@ -1011,7 +1017,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6hj-aR-Ec2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2740" y="-674"/>
+            <point key="canvasLocation" x="2737" y="-715"/>
         </scene>
     </scenes>
     <resources>

@@ -10,7 +10,7 @@ import UIKit
 
 class newAircraftTableViewCell: UITableViewCell {
     
-    @IBOutlet weak var lblRegHex: UIView!
+    @IBOutlet weak var lblRegHex: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

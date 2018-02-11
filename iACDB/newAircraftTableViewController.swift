@@ -19,129 +19,246 @@ class newAircraftTableViewController: UITableViewController,  NSFetchedResultsCo
     
     // Seup our User Defaults instance
     let defaults = UserDefaults.standard
-
+    
+    @IBOutlet weak var segControl: UISegmentedControl!
+    @IBAction func segControl(_ sender: UISegmentedControl) {
+        
+        // Sort the Fetched Results Controller according to the button segment selected
+        sortFRC(inSegment: segControl.selectedSegmentIndex)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Get ref to the network monitor
-        let netMonitor = appDelegate.netMonitor!
+        // Preserve selection between presentations
+        self.clearsSelectionOnViewWillAppear = false
         
-        var networkStatus: String = "TBGweb server "
-        
-        // Start the listener
-        netMonitor.listener = { status in
-            
-            // Take action depending on status 1st pass - identify status
-            switch status {
-                
-            case .notReachable:
-                networkStatus += "is not reachable"
-                
-            case .unknown:
-                networkStatus += "status unknown"
-                
-            case .reachable(.ethernetOrWiFi):
-                networkStatus += "is WiFi reachable"
-                
-            case .reachable(.wwan):
-                networkStatus += "is reachable via mobile data"
-            }
-            
-            print(networkStatus)
-            
-            // Take action depending on status - 2nd pass
-            switch status {
-                
-            // Do nothing
-            case .notReachable, .unknown:
-                break
-                
-            // Trigger sync of CoreData caches
-            case .reachable(.ethernetOrWiFi), .reachable(.wwan):
-                
-                //syncNewAircraft2RemoteDB()
-                
-                break
-            }
-        }
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+        // Display an Edit button in the navigation bar
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
+        // Sync of CoreData cache
+        syncNewAircraft2RemoteDB()
+        
+        // Setup the initial sort & display order for the FRC
+        sortFRC(inSegment: 0)
+        
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    // MARK: Fetched Results Controller Display Sorting & Grouping
+    
+    func sortFRC(inSegment: Int) {
+        
+        // Get context for CoreData
+        let moc = getContext()
+        
+        // Setup NSFetchResultController for table (entity)
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "EntNewAircraft")
+        
+        // Construct the frc parameters
+        
+        switch inSegment {
+            
+        case 0: // No sections - List Registrations
+            
+            // Setup sorts
+            let fetchSort = NSSortDescriptor(key: "registration", ascending: true)
+            fetchRequest.sortDescriptors = [fetchSort]
+            
+            fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: moc, sectionNameKeyPath: nil, cacheName: nil)
+            
+        case 1: // No sections - List Hex Codes
+            
+            // Setup sorts
+            let fetchSort = NSSortDescriptor(key: "registration", ascending: true)
+            fetchRequest.sortDescriptors = [fetchSort]
+            
+            fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: moc, sectionNameKeyPath: nil, cacheName: nil)
+            
+        case 2:// No sections - List All
+            
+            // Setup sorts
+            let fetchSort = NSSortDescriptor(key: "registration", ascending: true)
+            fetchRequest.sortDescriptors = [fetchSort]
+            
+            fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: moc, sectionNameKeyPath: nil, cacheName: nil)
+            
+        default:
+            break
+        }
+        
+        // Set this class to handle the events from the controller
+        fetchedResultsController.delegate = self
+        
+        // Perform the fetch
+        do {
+            try fetchedResultsController.performFetch()
+            
+        }catch let error as NSError {
+            rwPrint(inFunction: #function, inMessage:"Unable to perform fetch of Spots: \(error.localizedDescription)")
+        }
+        
+        // Refresh the tableView
+        self.tableView.reloadData()
     }
-
+    
     // MARK: - Table view data source
-
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        
+        guard let sectionCount = fetchedResultsController.sections?.count else {
+            return 0
+        }
+        return sectionCount
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        
+        guard let sectionData = fetchedResultsController.sections?[section] else {
+            return 0
+        }
+        return sectionData.numberOfObjects
     }
-
-    /*
+    
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
+        
+        // Get cell to update
+        let cell = tableView.dequeueReusableCell(withIdentifier: "newACCell", for: indexPath) as! newAircraftTableViewCell
+        
+        // CoreData NSFetchedResults style
+        let nsfNewAircraft = fetchedResultsController.object(at: indexPath) as! EntNewAircraft
+        
+        cell.lblRegHex.text = nsfNewAircraft.registration
+        
         return cell
     }
-    */
-
-    /*
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        // let cell = tableView.cellForRow(at: indexPath)  as! locationsTableViewCell
+        
+    }
+    
+    // Override to set custom Delete confirmation button text
+    override func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
+        
+        // CoreData NSFetchedResults style
+        let nsfNewAircraft = fetchedResultsController.object(at: indexPath) as! EntNewAircraft
+            
+            return "Delete \(nsfNewAircraft.registration!)"
+    }
+    
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        
+        // CoreData NSFetchedResults style
+        //let nsfNewAircraft = fetchedResultsController.object(at: indexPath) as! EntNewAircraft
+            
+            return true
+        
         // Return false if you do not want the specified item to be editable.
-        return true
     }
-    */
-
-    /*
+    
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+        
+        if editingStyle == .delete
+        {
+            // Get the ManagedObjectContext from the App delegate
+            let moc = getContext()
+            
+            
+            // Save the values
+            do {
+                // Do the save
+                try moc.save()
+                
+            } catch let error as NSError {
+                rwPrint(inFunction: #function, inMessage:"Could not save. \(error), \(error.userInfo)")
+            }
+        }
     }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
+    
+    // MARK: -  FetchedResultsController Delegates to handle updating tableview when changes are made to the CoreData
+    
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        tableView.beginUpdates()
     }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
+    
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        tableView.endUpdates()
     }
-    */
-
-    /*
+    
+    func controller(controller: NSFetchedResultsController<NSFetchRequestResult>, didChangeSection sectionInfo: NSFetchedResultsSectionInfo, atIndex sectionIndex: Int, forChangeType type: NSFetchedResultsChangeType) {
+        // 1
+        switch type {
+        case .insert:
+            tableView.insertSections(NSIndexSet(index: sectionIndex) as IndexSet, with: .automatic)
+        case .delete:
+            tableView.deleteSections(NSIndexSet(index: sectionIndex) as IndexSet, with: .automatic)
+        default: break
+        }
+    }
+    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        // 2
+        switch type {
+        case .insert:
+            tableView.insertRows(at: [newIndexPath!], with: .automatic)
+        case .delete:
+            tableView.deleteRows(at: [indexPath!], with: .automatic)
+        default: break
+        }
+    }
+    
+    
     // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        
+        switch segue.identifier!
+        {
+            
+        case "showLocationDetails":
+            
+            // Set the class of the addSpot View controller
+            if let svc = segue.destination as? locationDetailViewController {
+                
+                let path = tableView.indexPathForSelectedRow
+                let cell = tableView.cellForRow(at: path!) as! locationsTableViewCell
+                
+                // Pass Location to details view
+                svc.inLocation = (cell.lblLocation.text)!
+                
+            }
+            
+            // Set the default value of the Back Item text to be shown in next view
+            let backItem = UIBarButtonItem()
+            backItem.title = "Back"
+            navigationItem.backBarButtonItem = backItem
+            
+        case "addEditFromLocationsListSegue":
+            
+            // Set the class of the addSpot View controller
+            if let svc = segue.destination as? addEditLocationViewController {
+                
+                // Pass Location to details view
+                svc.inLocation = "New Location"
+                
+                svc.editLock = true
+                
+            }
+            
+            // Set the default value of the Back Item text to be shown in next view
+            let backItem = UIBarButtonItem()
+            backItem.title = "Add"
+            navigationItem.backBarButtonItem = backItem
+            
+        default: break
+            // Do nothing
+        }
+        
+        
     }
-    */
-
+    
 }
