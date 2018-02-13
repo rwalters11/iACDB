@@ -949,7 +949,7 @@
             </objects>
             <point key="canvasLocation" x="4690" y="15"/>
         </scene>
-        <!--New Aircraft Table View Controller2-->
+        <!--New Aircraft-->
         <scene sceneID="yvj-9h-CrA">
             <objects>
                 <tableViewController id="AT7-68-ea9" customClass="newAircraftTableViewController2" customModule="iACDB" customModuleProvider="target" sceneMemberID="viewController">
@@ -992,31 +992,9 @@
                             <outlet property="delegate" destination="AT7-68-ea9" id="qxT-wg-hdk"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="aXM-iv-g72">
-                        <nil key="title"/>
-                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="2" id="mmi-m9-bKy">
-                            <rect key="frame" x="129.5" y="7" width="116" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <segments>
-                                <segment title="Hex"/>
-                                <segment title="Reg"/>
-                                <segment title="All"/>
-                            </segments>
-                            <color key="tintColor" cocoaTouchSystemColor="lightTextColor"/>
-                            <connections>
-                                <action selector="segControl:" destination="AT7-68-ea9" eventType="valueChanged" id="Sxo-ea-Qdy"/>
-                            </connections>
-                        </segmentedControl>
-                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="wbj-HQ-cW7">
-                            <connections>
-                                <action selector="btnSearch:" destination="AT7-68-ea9" id="r1S-B2-jBf"/>
-                            </connections>
-                        </barButtonItem>
+                    <navigationItem key="navigationItem" title="New Aircraft" id="aXM-iv-g72">
+                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="wbj-HQ-cW7"/>
                     </navigationItem>
-                    <connections>
-                        <outlet property="btnSearch" destination="wbj-HQ-cW7" id="ddJ-sv-aLL"/>
-                        <outlet property="segControl" destination="mmi-m9-bKy" id="YIm-BQ-i5g"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oYI-Of-tuz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

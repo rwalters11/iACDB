@@ -16,7 +16,7 @@ import CoreData
 import SwiftyJSON
 import Kingfisher
 
-class newAircraftTableViewController2: UITableViewController, NSFetchedResultsControllerDelegate , UISearchResultsUpdating {
+class newAircraftTableViewController2: UITableViewController, NSFetchedResultsControllerDelegate , UISearchResultsUpdating, UISearchBarDelegate {
     
     // Seup our User Defaults instance
     let defaults = UserDefaults.standard
@@ -32,20 +32,6 @@ class newAircraftTableViewController2: UITableViewController, NSFetchedResultsCo
     
     // https Server communication
     let defaultSession = URLSession(configuration: URLSessionConfiguration.default)
-    
-    @IBOutlet weak var segControl: UISegmentedControl!
-    @IBAction func segControl(_ sender: UISegmentedControl) {
-        
-        // Sort the Fetched Results Controller according to the button segment selected
-        sortFRC(inSegment: segControl.selectedSegmentIndex)
-    }
-    
-    @IBOutlet weak var btnSearch: UIBarButtonItem!
-    @IBAction func btnSearch(_ sender: UIBarButtonItem) {
-        
-        // Places the built-in SearchBar into the table header
-        self.tableView.tableHeaderView = self.resultSearchController.searchBar
-    }
     
     // On successful load
     override func viewDidLoad() {
@@ -71,17 +57,33 @@ class newAircraftTableViewController2: UITableViewController, NSFetchedResultsCo
         // Pull out CoreData records
         //fetch(frcToFetch: frc)
         
+        // MARK: - Search Controller & SearchBar Setup
+        
         // Initialise search controller after the core data
         self.resultSearchController.searchResultsUpdater = self
-        self.resultSearchController.dimsBackgroundDuringPresentation = false
-        self.resultSearchController.searchBar.sizeToFit()
+        
+        self.resultSearchController.obscuresBackgroundDuringPresentation = false
+        self.resultSearchController.searchBar.placeholder = "Search registrations"
+        
         // Set to all upper case otherise it does not match values in CoreData or DB.
         self.resultSearchController.searchBar.autocapitalizationType = UITextAutocapitalizationType.allCharacters
+        
+        // New in iOS 11 you can embed the search bar in the navigation bar !
+        if #available(iOS 11.0, *) {
+            navigationItem.searchController = self.resultSearchController
+        } else {
+            // Fallback on earlier versions
+            self.resultSearchController.searchBar.sizeToFit()
+        }
         
         // Makes the SearchBar stay in the current screen and not spill into the next screen
         definesPresentationContext = true
         
+        self.resultSearchController.searchBar.scopeButtonTitles = ["All", "Reg", "Hex"]
+        self.resultSearchController.searchBar.delegate = self
     }
+    
+    // MARK: - Fetched Results Controller
     
     // Function to update the contents of a FetchedResultsController
     func fetch(frcToFetch: NSFetchedResultsController<NSFetchRequestResult>)
@@ -113,6 +115,9 @@ class newAircraftTableViewController2: UITableViewController, NSFetchedResultsCo
     // Updates the tableView with the search results as the user is typing ...
     func updateSearchResults(for searchController: UISearchController) {
         
+        let searchBar = searchController.searchBar
+        let scope = searchBar.scopeButtonTitles![searchBar.selectedScopeButtonIndex]
+        
         // Process the search string, removw leading and trailing spaces
         let searchText = searchController.searchBar.text!
         let trimmedSearchString = searchText.trimmingCharacters(in: NSCharacterSet.whitespaces)
@@ -125,7 +130,6 @@ class newAircraftTableViewController2: UITableViewController, NSFetchedResultsCo
             
             // Add the search filter
             frc.fetchRequest.predicate = predicate
-            
             
         }else {
             
@@ -159,6 +163,12 @@ class newAircraftTableViewController2: UITableViewController, NSFetchedResultsCo
             // Setup sorts
             let fetchSort = NSSortDescriptor(key: "registration", ascending: true)
             fetchRequest.sortDescriptors = [fetchSort]
+            // Form the search format
+            let searchString = "HEX"
+            let predicate = NSPredicate(format: "registration BEGINSWITH %@", searchString)
+            
+            // Add the search filter
+            frc.fetchRequest.predicate = predicate
             
             frc = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: moc, sectionNameKeyPath: nil, cacheName: nil)
             
@@ -167,6 +177,12 @@ class newAircraftTableViewController2: UITableViewController, NSFetchedResultsCo
             // Setup sorts
             let fetchSort = NSSortDescriptor(key: "registration", ascending: true)
             fetchRequest.sortDescriptors = [fetchSort]
+            // Form the search format
+            let searchString = "HEX"
+            let predicate = NSPredicate(format: "registration BEGINSWITH %@", searchString)
+            
+            // Add the search filter
+            frc.fetchRequest.predicate = predicate
             
             frc = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: moc, sectionNameKeyPath: nil, cacheName: nil)
             
@@ -197,10 +213,19 @@ class newAircraftTableViewController2: UITableViewController, NSFetchedResultsCo
         self.tableView.reloadData()
     }
     
+    // MARK: - SearchBar Delegates
+    
+    // Function to respond to user making scope bar selection
+    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+        
+    }
+    
+    // MARK: - Tableview Data Source & Delegates
+    
     // Update the section titles
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
-        switch segControl.selectedSegmentIndex {
+        switch resultSearchController.searchBar.selectedScopeButtonIndex {
             
         case 0:
             return "Mode S"
@@ -223,7 +248,7 @@ class newAircraftTableViewController2: UITableViewController, NSFetchedResultsCo
         
         guard let sectionInfo = frc.sections?[section] else { fatalError("Unexpected Section")}
         
-        switch segControl.selectedSegmentIndex {
+        switch resultSearchController.searchBar.selectedScopeButtonIndex {
             
         case 0,1,2:
             return nil
@@ -250,28 +275,7 @@ class newAircraftTableViewController2: UITableViewController, NSFetchedResultsCo
         }
     }
     
-    // Do the preparation for showing the next view
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        if (segue.identifier == "acShowDetails2") {
-            
-            // Set the class of the details View controller
-            let svc = segue.destination as! aircraftDetailsViewController2;
-            
-            let path = tableView.indexPathForSelectedRow
-            let cell = tableView.cellForRow(at: path!) as! newAircraftTableViewCell
-            
-            // Pass the registration to the details view
-            svc.inRegistration = (cell.lblRegHex.text)!
-            
-            // Set the custom value of the Back Item text to be shown in the details view
-            let backItem = UIBarButtonItem()
-            backItem.title = "Back"
-            navigationItem.backBarButtonItem = backItem // This will show in the next view controller being pushed
-        }
-    }
     
-    // MARK: - Tableview Data Source
     
     //Update the number of sections
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -345,6 +349,25 @@ class newAircraftTableViewController2: UITableViewController, NSFetchedResultsCo
     
     // MARK: Functions
     
-    
+    // Do the preparation for showing the next view
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if (segue.identifier == "acShowDetails2") {
+            
+            // Set the class of the details View controller
+            let svc = segue.destination as! aircraftDetailsViewController2;
+            
+            let path = tableView.indexPathForSelectedRow
+            let cell = tableView.cellForRow(at: path!) as! newAircraftTableViewCell
+            
+            // Pass the registration to the details view
+            svc.inRegistration = (cell.lblRegHex.text)!
+            
+            // Set the custom value of the Back Item text to be shown in the details view
+            let backItem = UIBarButtonItem()
+            backItem.title = "Back"
+            navigationItem.backBarButtonItem = backItem // This will show in the next view controller being pushed
+        }
+    }
     
 }
