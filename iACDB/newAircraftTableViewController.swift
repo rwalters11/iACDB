@@ -10,10 +10,13 @@ import UIKit
 import CoreData
 import Alamofire
 
-class newAircraftTableViewController: UITableViewController,  NSFetchedResultsControllerDelegate  {
+class newAircraftTableViewController: UITableViewController,  NSFetchedResultsControllerDelegate, UISearchResultsUpdating   {
     
     // Setup controller to manage our data NSFetched results style
     var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult>!
+    
+    // For searching our records carried by the FetchedResultsController
+    var resultSearchController = UISearchController(searchResultsController: nil)
     
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
@@ -30,6 +33,8 @@ class newAircraftTableViewController: UITableViewController,  NSFetchedResultsCo
     @IBOutlet weak var btnSearch: UIBarButtonItem!
     @IBAction func btnSearch(_ sender: UIBarButtonItem) {
         
+        // Places the built-in SearchBar into the table header
+        self.tableView.tableHeaderView = self.resultSearchController.searchBar
     }
     
     override func viewDidLoad() {
@@ -38,15 +43,63 @@ class newAircraftTableViewController: UITableViewController,  NSFetchedResultsCo
         // Preserve selection between presentations
         self.clearsSelectionOnViewWillAppear = false
         
-        // Display an Edit button in the navigation bar
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
-        
         // Sync of CoreData cache
         syncNewAircraft2RemoteDB()
         
         // Setup the initial sort & display order for the FRC
         sortFRC(inSegment: 2)
         
+        // Initialise search controller after the core data
+        self.resultSearchController.searchResultsUpdater = self
+        self.resultSearchController.dimsBackgroundDuringPresentation = false
+        self.resultSearchController.searchBar.sizeToFit()
+        // Set to all upper case otherise it does not match values in CoreData or DB.
+        self.resultSearchController.searchBar.autocapitalizationType = UITextAutocapitalizationType.allCharacters
+        
+        // Makes the SearchBar stay in the current screen and not spill into the next screen
+        definesPresentationContext = true
+        
+        
+    }
+    
+    // Updates the tableView with the search results as the user is typing ...
+    func updateSearchResults(for searchController: UISearchController) {
+        
+        // Process the search string, removw leading and trailing spaces
+        let searchText = searchController.searchBar.text!
+        let trimmedSearchString = searchText.trimmingCharacters(in: NSCharacterSet.whitespaces)
+        
+        // If search string is not blank
+        if !trimmedSearchString.isEmpty {
+            
+            // Form the search format
+            let predicate = NSPredicate(format: "acRegistration BEGINSWITH %@", trimmedSearchString)
+            
+            // Add the search filter
+            fetchedResultsController.fetchRequest.predicate = predicate
+            
+            
+        }else {
+            
+            // reset to all
+            //fetchedResultsController = sortFRC(inSegment: 2)
+        }
+        
+        // Reload the frc
+        fetch(frcToFetch: fetchedResultsController)
+        
+        // Refresh the tableView
+        self.tableView.reloadData()
+    }
+    
+    // Function to update the contents of a FetchedResultsController
+    func fetch(frcToFetch: NSFetchedResultsController<NSFetchRequestResult>)
+    {
+        do {
+            try frcToFetch.performFetch()
+        } catch {
+            return
+        }
     }
     
     // MARK: Fetched Results Controller Display Sorting & Grouping
@@ -196,7 +249,7 @@ class newAircraftTableViewController: UITableViewController,  NSFetchedResultsCo
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let cell = tableView.cellForRow(at: indexPath)  as! newAircraftTableViewCell
+        //let cell = tableView.cellForRow(at: indexPath)  as! newAircraftTableViewCell
         
     }
     
@@ -213,7 +266,7 @@ class newAircraftTableViewController: UITableViewController,  NSFetchedResultsCo
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         
         // CoreData NSFetchedResults style
-        let nsfNewAircraft = fetchedResultsController.object(at: indexPath) as! EntNewAircraft
+        //let nsfNewAircraft = fetchedResultsController.object(at: indexPath) as! EntNewAircraft
             
             return true
         

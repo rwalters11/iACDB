@@ -176,7 +176,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sSN-LT-GMv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6370.3999999999996" y="-242.42878560719643"/>
+            <point key="canvasLocation" x="1215" y="92"/>
         </scene>
         <!--Location-->
         <scene sceneID="YEH-Ts-hKc">
@@ -229,7 +229,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UUS-LN-gln" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5693" y="499"/>
+            <point key="canvasLocation" x="6370" y="15"/>
         </scene>
         <!--AddEdit Location-->
         <scene sceneID="KDe-Sm-cdp">
@@ -628,7 +628,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hKJ-G2-D2H" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4853" y="499"/>
+            <point key="canvasLocation" x="5530" y="15"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
@@ -875,7 +875,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DQm-lk-IVK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5530.3999999999996" y="-241.52923538230885"/>
+            <point key="canvasLocation" x="1959" y="92"/>
         </scene>
         <!--Seen-->
         <scene sceneID="pUV-en-QjA">
@@ -901,7 +901,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="0B7-7I-V31" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Aircraft" image="Aircraft" id="svO-zH-3SD"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="fQZ-wt-RcY">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="fQZ-wt-RcY">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -911,7 +911,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CVB-Zg-s5I" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4690.3999999999996" y="-239.73013493253376"/>
+            <point key="canvasLocation" x="2737" y="93"/>
         </scene>
         <!--Settings-->
         <scene sceneID="EL6-TV-lMP">
@@ -947,12 +947,12 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7Li-u7-OJZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4013" y="499"/>
+            <point key="canvasLocation" x="4690" y="15"/>
         </scene>
-        <!--New Aircraft Table View Controller-->
+        <!--New Aircraft Table View Controller2-->
         <scene sceneID="yvj-9h-CrA">
             <objects>
-                <tableViewController id="AT7-68-ea9" customClass="newAircraftTableViewController" customModule="iACDB" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="AT7-68-ea9" customClass="newAircraftTableViewController2" customModule="iACDB" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="dM9-4l-3yM">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1004,7 +1004,7 @@
                             </segments>
                             <color key="tintColor" cocoaTouchSystemColor="lightTextColor"/>
                             <connections>
-                                <action selector="segControl:" destination="AT7-68-ea9" eventType="valueChanged" id="Vwn-vz-LuC"/>
+                                <action selector="segControl:" destination="AT7-68-ea9" eventType="valueChanged" id="Sxo-ea-Qdy"/>
                             </connections>
                         </segmentedControl>
                         <barButtonItem key="rightBarButtonItem" systemItem="search" id="wbj-HQ-cW7">
@@ -1015,7 +1015,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="btnSearch" destination="wbj-HQ-cW7" id="ddJ-sv-aLL"/>
-                        <outlet property="segControl" destination="mmi-m9-bKy" id="BwU-Ed-GSt"/>
+                        <outlet property="segControl" destination="mmi-m9-bKy" id="YIm-BQ-i5g"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oYI-Of-tuz" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1048,7 +1048,7 @@
         <image name="Settings" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="zyx-d1-Ur6"/>
+        <segue reference="NFT-QK-60t"/>
         <segue reference="siZ-7Y-PKc"/>
     </inferredMetricsTieBreakers>
 </document>
