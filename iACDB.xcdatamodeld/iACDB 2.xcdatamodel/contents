@@ -38,6 +38,7 @@
         </uniquenessConstraints>
     </entity>
     <entity name="EntNewAircraft" representedClassName="EntNewAircraft" syncable="YES" codeGenerationType="class">
+        <attribute name="count" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="registration" optional="YES" attributeType="String" syncable="YES"/>
         <fetchIndex name="registrationIndex">
             <fetchIndexElement property="registration" type="Binary" order="ascending"/>
@@ -66,7 +67,7 @@
     <elements>
         <element name="EntAircraft" positionX="-146" positionY="15" width="128" height="210"/>
         <element name="EntLocations" positionX="-369" positionY="-126" width="128" height="210"/>
-        <element name="EntNewAircraft" positionX="-243" positionY="9" width="128" height="60"/>
+        <element name="EntNewAircraft" positionX="-243" positionY="9" width="128" height="75"/>
         <element name="EntOperators" positionX="-261" positionY="-9" width="128" height="60"/>
         <element name="EntSpots" positionX="-369" positionY="15" width="128" height="135"/>
         <element name="EntTypes" positionX="-252" positionY="0" width="128" height="60"/>

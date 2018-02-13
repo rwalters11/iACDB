@@ -87,7 +87,7 @@ class aircraftDetailsViewController2: FormViewController{
     {
         // Create sections and rows for Eureka form
         form
-            +++ Section("Aircraft")
+            +++ Section("Aircraft Details")
             
             // Registration
             <<< TextRow() {row in
@@ -120,9 +120,13 @@ class aircraftDetailsViewController2: FormViewController{
             <<< ImageRow() { row in
                 row.tag = "frmImage"
                 }.cellUpdate { cell, row in
-                    //cell.accessoryView?.layer.cornerRadius = 17
-                    //cell.accessoryView?.frame = CGRect(x: 0, y: 0, width: 34, height: 34)
-            }
+                    //cell.accessoryView?.frame = CGRect(x: 0, y: 0, width: cell.frame.width, height: cell.frame.height)
+                    
+                }.cellSetup({ (cell, row) in
+                    row.cell.height = {
+                        return 200
+                    }
+                })
             
             // Type
             <<< PickerInputRow<String>(){ row in
@@ -430,10 +434,10 @@ class aircraftDetailsViewController2: FormViewController{
             let searchTerm = aircraft.acRegistration.addingPercentEncoding(withAllowedCharacters: expectedCharSet)
             
             // Set destination url & value to send including requested image width
-            let url = URL(string: "https://tbgweb.dyndns.info/iacdb/iosGetLatestImage.php?registration=" + searchTerm! + "&w=500")!
+            let url = URL(string: "https://tbgweb.dyndns.info/iacdb/iosGetLatestImage.php?registration=" + searchTerm! + "&w=300")!
             
             // Setup Kingfisher Image Cacheing & retrieval resource using aircraft registration as the cache key
-            let resource = ImageResource(downloadURL: url, cacheKey: aircraft.acRegistration + "w500")
+            let resource = ImageResource(downloadURL: url, cacheKey: aircraft.acRegistration + "w300")
             
             // Display the image with loading indicator and corner radius
             let processor = RoundCornerImageProcessor(cornerRadius: 5)
