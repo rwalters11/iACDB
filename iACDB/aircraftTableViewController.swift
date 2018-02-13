@@ -33,6 +33,13 @@ class aircraftTableViewController: UITableViewController, NSFetchedResultsContro
     // https Server communication
     let defaultSession = URLSession(configuration: URLSessionConfiguration.default)
     
+    @IBOutlet weak var btnSearch: UIBarButtonItem!
+    @IBAction func btnSearch(_ sender: UIBarButtonItem) {
+        
+        // Places the built-in SearchBar into the table header
+        self.tableView.tableHeaderView = self.resultSearchController.searchBar
+    }
+    
     // On successful load
     override func viewDidLoad() {
         
@@ -54,9 +61,6 @@ class aircraftTableViewController: UITableViewController, NSFetchedResultsContro
         self.resultSearchController.searchBar.sizeToFit()
         // Set to all upper case otherise it does not match values in CoreData or DB.
         self.resultSearchController.searchBar.autocapitalizationType = UITextAutocapitalizationType.allCharacters
-        
-        // Places the built-in SearchBar into the table header
-        self.tableView.tableHeaderView = self.resultSearchController.searchBar
         
         // Makes the SearchBar stay in the current screen and not spill into the next screen
         definesPresentationContext = true

@@ -27,6 +27,11 @@ class newAircraftTableViewController: UITableViewController,  NSFetchedResultsCo
         sortFRC(inSegment: segControl.selectedSegmentIndex)
     }
     
+    @IBOutlet weak var btnSearch: UIBarButtonItem!
+    @IBAction func btnSearch(_ sender: UIBarButtonItem) {
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -103,6 +108,61 @@ class newAircraftTableViewController: UITableViewController,  NSFetchedResultsCo
     
     // MARK: - Table view data source
     
+    // Update the section titles
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        
+        //guard let sectionInfo = fetchedResultsController.sections?[section] else { fatalError("Unexpected Section")}
+        
+        switch segControl.selectedSegmentIndex {
+            
+        case 0:
+            return "Mode S"
+            
+        case 1:
+            return "Registration"
+            
+        case 2:
+            return "All"
+            
+        default:
+            return nil
+            
+        }
+        
+    }
+    
+    // Customise the section titles
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        guard let sectionInfo = fetchedResultsController.sections?[section] else { fatalError("Unexpected Section")}
+        
+        switch segControl.selectedSegmentIndex {
+            
+        case 0,1,2:
+            return nil
+            
+        case 3:
+            
+            // Create the custom header cell frame
+            let returnedView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 20))
+            returnedView.backgroundColor = .lightGray
+            
+            // Create the text label
+            let label = UILabel(frame: CGRect(x: 10, y: 7, width: view.frame.size.width, height: 20))
+            label.text = sectionInfo.name
+            label.textColor = .white
+            
+            // Add the label to the view
+            returnedView.addSubview(label)
+            
+            return returnedView
+            
+        default:
+            return nil
+            
+        }
+    }
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         
         guard let sectionCount = fetchedResultsController.sections?.count else {
@@ -136,7 +196,7 @@ class newAircraftTableViewController: UITableViewController,  NSFetchedResultsCo
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        // let cell = tableView.cellForRow(at: indexPath)  as! locationsTableViewCell
+        let cell = tableView.cellForRow(at: indexPath)  as! newAircraftTableViewCell
         
     }
     
@@ -153,7 +213,7 @@ class newAircraftTableViewController: UITableViewController,  NSFetchedResultsCo
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         
         // CoreData NSFetchedResults style
-        //let nsfNewAircraft = fetchedResultsController.object(at: indexPath) as! EntNewAircraft
+        let nsfNewAircraft = fetchedResultsController.object(at: indexPath) as! EntNewAircraft
             
             return true
         

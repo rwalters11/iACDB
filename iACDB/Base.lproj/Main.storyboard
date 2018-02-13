@@ -863,8 +863,15 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Aircraft List" id="q9H-nS-qQ8">
-                        <barButtonItem key="rightBarButtonItem" title="View" id="jIV-VI-x6L"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="jIV-VI-x6L">
+                            <connections>
+                                <action selector="btnSearch:" destination="99i-0J-PjS" id="LPs-cL-oBY"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="btnSearch" destination="jIV-VI-x6L" id="Uah-nm-18b"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DQm-lk-IVK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1000,8 +1007,14 @@
                                 <action selector="segControl:" destination="AT7-68-ea9" eventType="valueChanged" id="Vwn-vz-LuC"/>
                             </connections>
                         </segmentedControl>
+                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="wbj-HQ-cW7">
+                            <connections>
+                                <action selector="btnSearch:" destination="AT7-68-ea9" id="r1S-B2-jBf"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="btnSearch" destination="wbj-HQ-cW7" id="ddJ-sv-aLL"/>
                         <outlet property="segControl" destination="mmi-m9-bKy" id="BwU-Ed-GSt"/>
                     </connections>
                 </tableViewController>
