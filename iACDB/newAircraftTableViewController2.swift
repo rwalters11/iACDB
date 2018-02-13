@@ -11,8 +11,6 @@ import UIKit
 import CoreData
 
 // Import 3rd party frameworks
-// import Alamofire
-// import AlamofireImage
 import SwiftyJSON
 import Kingfisher
 
@@ -48,15 +46,6 @@ class newAircraftTableViewController2: UITableViewController, NSFetchedResultsCo
         // Sync of CoreData cache
         syncNewAircraft2RemoteDB()
         
-        // Setup the initial sort
-         sortFRC(inSegment: 2)
-        
-        // Initialise Core Data FetchResultsController
-        //frc = getFRC()
-        
-        // Pull out CoreData records
-        //fetch(frcToFetch: frc)
-        
         // MARK: - Search Controller & SearchBar Setup
         
         // Initialise search controller after the core data
@@ -81,42 +70,15 @@ class newAircraftTableViewController2: UITableViewController, NSFetchedResultsCo
         
         self.resultSearchController.searchBar.scopeButtonTitles = ["All", "Reg", "Hex"]
         self.resultSearchController.searchBar.delegate = self
+        
+        // Setup the initial sort
+        sortFRC(searchPredicate: nil)
     }
     
     // MARK: - Fetched Results Controller
     
-    // Function to update the contents of a FetchedResultsController
-    func fetch(frcToFetch: NSFetchedResultsController<NSFetchRequestResult>)
-    {
-        do {
-            try frcToFetch.performFetch()
-        } catch {
-            return
-        }
-    }
-    
-    // Function to form the Fetch Request
-    func fetchRequest() -> NSFetchRequest<NSFetchRequestResult> {
-        
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "EntNewAircraft")
-        let sortDescriptor = NSSortDescriptor(key: "registration", ascending: true)
-        fetchRequest.sortDescriptors = [sortDescriptor]
-        
-        return fetchRequest
-    }
-    
-    func getFRC() -> NSFetchedResultsController<NSFetchRequestResult> {
-        
-        frc = NSFetchedResultsController(fetchRequest: fetchRequest(), managedObjectContext: moc, sectionNameKeyPath: nil, cacheName: nil)
-        
-        return frc
-    }
-    
     // Updates the tableView with the search results as the user is typing ...
     func updateSearchResults(for searchController: UISearchController) {
-        
-        let searchBar = searchController.searchBar
-        let scope = searchBar.scopeButtonTitles![searchBar.selectedScopeButtonIndex]
         
         // Process the search string, removw leading and trailing spaces
         let searchText = searchController.searchBar.text!
@@ -126,77 +88,87 @@ class newAircraftTableViewController2: UITableViewController, NSFetchedResultsCo
         if !trimmedSearchString.isEmpty {
             
             // Form the search format
-            let predicate = NSPredicate(format: "registration BEGINSWITH %@", trimmedSearchString)
+            let searchPredicate = NSPredicate(format: "registration BEGINSWITH %@", trimmedSearchString)
             
-            // Add the search filter
-            frc.fetchRequest.predicate = predicate
+        sortFRC(searchPredicate: searchPredicate)
             
         }else {
             
             // reset to all
-            sortFRC(inSegment: 2)
+            sortFRC(searchPredicate: nil)
         }
-        
-        // Reload the frc
-        fetch(frcToFetch: frc)
-        
-        // Refresh the tableView
-        self.tableView.reloadData()
+
     }
     
     // MARK: Fetched Results Controller Display Sorting & Grouping
     
-    func sortFRC(inSegment: Int) {
+    func sortFRC(searchPredicate: NSPredicate?) {
         
-        // Get context for CoreData
-        //let moc = getContext()
+        let searchBar = self.resultSearchController.searchBar
         
         // Setup NSFetchResultController for table (entity)
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "EntNewAircraft")
+        let scopeIndex = searchBar.selectedScopeButtonIndex
         
         // Construct the frc parameters
+        // Setup sorts
+        let fetchSort = NSSortDescriptor(key: "registration", ascending: true)
+        fetchRequest.sortDescriptors = [fetchSort]
         
-        switch inSegment {
+        // Set limit to number of aircraft listed on screen
+        //fetchRequest.fetchLimit = 10
+        
+        switch scopeIndex {
             
-        case 0: // No sections - List Registrations
+        case 1: // No sections - List Registrations
             
-            // Setup sorts
-            let fetchSort = NSSortDescriptor(key: "registration", ascending: true)
-            fetchRequest.sortDescriptors = [fetchSort]
             // Form the search format
-            let searchString = "HEX"
-            let predicate = NSPredicate(format: "registration BEGINSWITH %@", searchString)
+            let regString = "(Hex)"
+            let regPredicate = NSPredicate(format: "NOT (registration CONTAINS %@)", regString)
+            //fetchRequest.fetchLimit = 5
             
-            // Add the search filter
-            frc.fetchRequest.predicate = predicate
+            if searchPredicate != nil {
+                
+                // Add the search filter(s)
+                let multiplePredicate = NSCompoundPredicate(type: NSCompoundPredicate.LogicalType.and, subpredicates: [regPredicate, searchPredicate!])
+                fetchRequest.predicate = multiplePredicate
+                
+            }else{
+                
+                fetchRequest.predicate = regPredicate
+            }
             
-            frc = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: moc, sectionNameKeyPath: nil, cacheName: nil)
+        case 2: // No sections - List Hex Codes
             
-        case 1: // No sections - List Hex Codes
-            
-            // Setup sorts
-            let fetchSort = NSSortDescriptor(key: "registration", ascending: true)
-            fetchRequest.sortDescriptors = [fetchSort]
             // Form the search format
-            let searchString = "HEX"
-            let predicate = NSPredicate(format: "registration BEGINSWITH %@", searchString)
+            let regString = "(Hex)"
+            let regPredicate = NSPredicate(format: "registration ENDSWITH %@", regString)
+            //fetchRequest.fetchLimit = 7
             
-            // Add the search filter
-            frc.fetchRequest.predicate = predicate
+            if searchPredicate != nil {
+                
+                // Add the search filter(s)
+                let multiplePredicate = NSCompoundPredicate(type: NSCompoundPredicate.LogicalType.and, subpredicates: [regPredicate, searchPredicate!])
+                fetchRequest.predicate = multiplePredicate
+                
+            }else{
+                
+                fetchRequest.predicate = regPredicate
+            }
+
+        case 0:// No sections - List All
             
-            frc = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: moc, sectionNameKeyPath: nil, cacheName: nil)
-            
-        case 2:// No sections - List All
-            
-            // Setup sorts
-            let fetchSort = NSSortDescriptor(key: "registration", ascending: true)
-            fetchRequest.sortDescriptors = [fetchSort]
-            
-            frc = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: moc, sectionNameKeyPath: nil, cacheName: nil)
+            if searchPredicate != nil {
+                
+                // Add the passed in search filter
+                fetchRequest.predicate = searchPredicate
+            }
             
         default:
             break
         }
+        
+        frc = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: moc, sectionNameKeyPath: nil, cacheName: nil)
         
         // Set this class to handle the events from the controller
         frc.delegate = self
@@ -218,6 +190,7 @@ class newAircraftTableViewController2: UITableViewController, NSFetchedResultsCo
     // Function to respond to user making scope bar selection
     func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
         
+        sortFRC(searchPredicate: nil)
     }
     
     // MARK: - Tableview Data Source & Delegates
@@ -228,13 +201,13 @@ class newAircraftTableViewController2: UITableViewController, NSFetchedResultsCo
         switch resultSearchController.searchBar.selectedScopeButtonIndex {
             
         case 0:
-            return "Mode S"
+            return "All"
             
         case 1:
             return "Registration"
             
         case 2:
-            return "All"
+            return "Mode S"
             
         default:
             return nil
@@ -352,7 +325,7 @@ class newAircraftTableViewController2: UITableViewController, NSFetchedResultsCo
     // Do the preparation for showing the next view
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        if (segue.identifier == "acShowDetails2") {
+        if (segue.identifier == "newACShowDetails") {
             
             // Set the class of the details View controller
             let svc = segue.destination as! aircraftDetailsViewController2;
@@ -362,6 +335,7 @@ class newAircraftTableViewController2: UITableViewController, NSFetchedResultsCo
             
             // Pass the registration to the details view
             svc.inRegistration = (cell.lblRegHex.text)!
+            svc.formDisabled = false
             
             // Set the custom value of the Back Item text to be shown in the details view
             let backItem = UIBarButtonItem()

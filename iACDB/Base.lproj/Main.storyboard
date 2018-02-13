@@ -984,6 +984,7 @@
                                 <connections>
                                     <outlet property="lblCount" destination="pEb-hV-sKk" id="TUM-i5-riA"/>
                                     <outlet property="lblRegHex" destination="KfR-sB-W1C" id="9me-FH-JCA"/>
+                                    <segue destination="1Jq-FS-8o1" kind="show" identifier="newACShowDetails" id="3St-YM-j4b"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -1027,6 +1028,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="NFT-QK-60t"/>
-        <segue reference="siZ-7Y-PKc"/>
+        <segue reference="3St-YM-j4b"/>
     </inferredMetricsTieBreakers>
 </document>
