@@ -29,6 +29,7 @@
 		D34BA7952032F33A0049293C /* newAircraftTableViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34BA7942032F33A0049293C /* newAircraftTableViewController2.swift */; };
 		D357AB161DFFF1E50046427C /* infoSpot.swift in Sources */ = {isa = PBXBuildFile; fileRef = D357AB151DFFF1E50046427C /* infoSpot.swift */; };
 		D357AB181DFFF8680046427C /* spotInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D357AB171DFFF8680046427C /* spotInfoTableViewCell.swift */; };
+		D35E658B2036375800FBC5FD /* spotHistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35E658A2036375800FBC5FD /* spotHistoryTableViewController.swift */; };
 		D36896801DF170A200451587 /* aircraftTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D368967F1DF170A200451587 /* aircraftTableViewController.swift */; };
 		D36896821DF2A08800451587 /* infoAircraft.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36896811DF2A08800451587 /* infoAircraft.swift */; };
 		D36896831DF2A08800451587 /* infoAircraft.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36896811DF2A08800451587 /* infoAircraft.swift */; };
@@ -103,6 +104,7 @@
 		D34BA7942032F33A0049293C /* newAircraftTableViewController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = newAircraftTableViewController2.swift; sourceTree = "<group>"; };
 		D357AB151DFFF1E50046427C /* infoSpot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = infoSpot.swift; sourceTree = "<group>"; };
 		D357AB171DFFF8680046427C /* spotInfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = spotInfoTableViewCell.swift; sourceTree = "<group>"; };
+		D35E658A2036375800FBC5FD /* spotHistoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = spotHistoryTableViewController.swift; sourceTree = "<group>"; };
 		D368967F1DF170A200451587 /* aircraftTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = aircraftTableViewController.swift; sourceTree = "<group>"; };
 		D36896811DF2A08800451587 /* infoAircraft.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = infoAircraft.swift; sourceTree = "<group>"; };
 		D3A4A44A1E2408B9002583C8 /* ToDo.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = ToDo.rtf; sourceTree = "<group>"; };
@@ -214,6 +216,7 @@
 				D33855F22030C2A800CFF921 /* newAircraftTableViewCell.swift */,
 				D3D4913A1E05290100435E7C /* registrationValidate.swift */,
 				D33A36A11E1ADF4600CE7A37 /* SettingsTableViewController.swift */,
+				D35E658A2036375800FBC5FD /* spotHistoryTableViewController.swift */,
 				D357AB171DFFF8680046427C /* spotInfoTableViewCell.swift */,
 				D3AEBF241DF006C3004FB4A5 /* spotListTableViewController.swift */,
 				D3BBA208201B8D92002C0814 /* Settings.bundle */,
@@ -509,6 +512,7 @@
 				D33622CE202997C400232D83 /* cacheSyncAircraft.swift in Sources */,
 				D33855F52030C4BA00CFF921 /* cacheSyncNewAircraft.swift in Sources */,
 				D357AB161DFFF1E50046427C /* infoSpot.swift in Sources */,
+				D35E658B2036375800FBC5FD /* spotHistoryTableViewController.swift in Sources */,
 				D36896801DF170A200451587 /* aircraftTableViewController.swift in Sources */,
 				D3AEBF251DF006C3004FB4A5 /* spotListTableViewController.swift in Sources */,
 			);

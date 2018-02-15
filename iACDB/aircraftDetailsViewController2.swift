@@ -165,6 +165,8 @@ class aircraftDetailsViewController2: FormViewController{
                 
             }
             
+
+            
             // Delivery
             <<< DateRow() {
                 $0.title = "Delivery"
@@ -241,7 +243,9 @@ class aircraftDetailsViewController2: FormViewController{
         // Leaves 20pt of space between the keyboard and the highlighted row after scrolling to an off screen row
         rowKeyboardSpacing = 20
         
-        enableFormFields(inSetting: formDisabled)
+        // Enable or disable form fields depending on passed in value for read-only or edit mode
+        disableAllFormFields(inSetting: formDisabled)
+
     }
     
     // Function to add dash character to Registration field when accessoryView tapped
@@ -310,6 +314,20 @@ class aircraftDetailsViewController2: FormViewController{
          backItem.title = "Add"
          navigationItem.backBarButtonItem = backItem // This will show in the next view controller being pushed
          }
+        
+        if (segue.identifier == "showSpotHistorySegue")
+        {
+            // Set the class of the details View controller
+            let svc = segue.destination as! spotHistoryTableViewController
+            
+            // Pass the registration to the Add Spot view
+            svc.inRegistration = inRegistration
+            
+            // Set the custom value of the Back Item text to be shown in the Add Spot view
+            let backItem = UIBarButtonItem()
+            backItem.title = "Back"
+            navigationItem.backBarButtonItem = backItem // This will show in the next view controller being pushed
+        }
     }
     
     // MARK: - CoreData
@@ -482,12 +500,27 @@ class aircraftDetailsViewController2: FormViewController{
 
     }
     
-    // Enable/Disable Eureka form fields
-    func enableFormFields(inSetting: Condition)
+    // Enable/Disable All Eureka form fields
+    func disableAllFormFields(inSetting: Condition)
     {
         // Iterate through form rows setting disabled and forcing evaluation
         for row in self.form.rows {
-            row.disabled = inSetting
+            
+            switch (row.tag){
+            
+            // Registration enabled if Mode S passed in
+            case "frmRegistration"?:
+                if (inRegistration.contains("(Hex)")){
+                    
+                    row.disabled = false as Condition
+                }else{
+                    row.disabled = true as Condition
+                }
+                
+            default:
+                row.disabled = inSetting
+            }
+            
             row.evaluateDisabled()
         }
     }

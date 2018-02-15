@@ -160,6 +160,34 @@
             </objects>
             <point key="canvasLocation" x="6370.3999999999996" y="-952.17391304347836"/>
         </scene>
+        <!--Spot History-->
+        <scene sceneID="He0-0u-vaL">
+            <objects>
+                <tableViewController title="Spot History" id="Lvw-xP-hT8" customClass="spotHistoryTableViewController" customModule="iACDB" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="zaf-mM-HKe">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="spotHistoryCell" id="Y6c-Qk-bXZ">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Y6c-Qk-bXZ" id="1Zq-vv-CXJ">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Lvw-xP-hT8" id="F5t-v2-ecM"/>
+                            <outlet property="delegate" destination="Lvw-xP-hT8" id="VXP-X7-FKK"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Yyf-LK-h9q" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="345" y="91"/>
+        </scene>
         <!--Aircraft Details-->
         <scene sceneID="ecA-e2-bjG">
             <objects>
@@ -173,6 +201,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Title" id="Kr7-Yr-VZj">
+                        <barButtonItem key="rightBarButtonItem" title="Hist" id="VFj-FA-7hR">
+                            <connections>
+                                <segue destination="Lvw-xP-hT8" kind="show" identifier="showSpotHistorySegue" id="mo3-HA-k41"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sSN-LT-GMv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1028,6 +1063,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="NFT-QK-60t"/>
-        <segue reference="3St-YM-j4b"/>
+        <segue reference="siZ-7Y-PKc"/>
     </inferredMetricsTieBreakers>
 </document>
