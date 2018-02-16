@@ -30,6 +30,7 @@
 		D357AB161DFFF1E50046427C /* infoSpot.swift in Sources */ = {isa = PBXBuildFile; fileRef = D357AB151DFFF1E50046427C /* infoSpot.swift */; };
 		D357AB181DFFF8680046427C /* spotInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D357AB171DFFF8680046427C /* spotInfoTableViewCell.swift */; };
 		D35E658B2036375800FBC5FD /* spotHistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35E658A2036375800FBC5FD /* spotHistoryTableViewController.swift */; };
+		D35E658D2036D1FC00FBC5FD /* spotHistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35E658C2036D1FC00FBC5FD /* spotHistoryTableViewCell.swift */; };
 		D36896801DF170A200451587 /* aircraftTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D368967F1DF170A200451587 /* aircraftTableViewController.swift */; };
 		D36896821DF2A08800451587 /* infoAircraft.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36896811DF2A08800451587 /* infoAircraft.swift */; };
 		D36896831DF2A08800451587 /* infoAircraft.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36896811DF2A08800451587 /* infoAircraft.swift */; };
@@ -105,6 +106,7 @@
 		D357AB151DFFF1E50046427C /* infoSpot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = infoSpot.swift; sourceTree = "<group>"; };
 		D357AB171DFFF8680046427C /* spotInfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = spotInfoTableViewCell.swift; sourceTree = "<group>"; };
 		D35E658A2036375800FBC5FD /* spotHistoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = spotHistoryTableViewController.swift; sourceTree = "<group>"; };
+		D35E658C2036D1FC00FBC5FD /* spotHistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = spotHistoryTableViewCell.swift; sourceTree = "<group>"; };
 		D368967F1DF170A200451587 /* aircraftTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = aircraftTableViewController.swift; sourceTree = "<group>"; };
 		D36896811DF2A08800451587 /* infoAircraft.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = infoAircraft.swift; sourceTree = "<group>"; };
 		D3A4A44A1E2408B9002583C8 /* ToDo.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = ToDo.rtf; sourceTree = "<group>"; };
@@ -217,6 +219,7 @@
 				D3D4913A1E05290100435E7C /* registrationValidate.swift */,
 				D33A36A11E1ADF4600CE7A37 /* SettingsTableViewController.swift */,
 				D35E658A2036375800FBC5FD /* spotHistoryTableViewController.swift */,
+				D35E658C2036D1FC00FBC5FD /* spotHistoryTableViewCell.swift */,
 				D357AB171DFFF8680046427C /* spotInfoTableViewCell.swift */,
 				D3AEBF241DF006C3004FB4A5 /* spotListTableViewController.swift */,
 				D3BBA208201B8D92002C0814 /* Settings.bundle */,
@@ -500,6 +503,7 @@
 				D3D4913B1E05290100435E7C /* registrationValidate.swift in Sources */,
 				D33A369C1E16EC5D00CE7A37 /* iACDBFunctionLibrary.swift in Sources */,
 				D308647C1E1FCECF0021B6D2 /* locationsTableViewController.swift in Sources */,
+				D35E658D2036D1FC00FBC5FD /* spotHistoryTableViewCell.swift in Sources */,
 				D34BA7952032F33A0049293C /* newAircraftTableViewController2.swift in Sources */,
 				D320B2361F2492B7003CE8F5 /* addSpot_ToolbarSubClass.swift in Sources */,
 				D3AEBF231DF006C3004FB4A5 /* AppDelegate.swift in Sources */,

@@ -22,6 +22,8 @@ class newAircraftTableViewController2: UITableViewController, NSFetchedResultsCo
     // Setup controller to manage our data NSFetched results style
     var frc: NSFetchedResultsController<NSFetchRequestResult>!
     
+    var deleteNewAircraftIndexPath: IndexPath? = nil
+    
     // Get context for CoreData
     let moc = getContext()
     
@@ -248,8 +250,6 @@ class newAircraftTableViewController2: UITableViewController, NSFetchedResultsCo
         }
     }
     
-    
-    
     //Update the number of sections
     override func numberOfSections(in tableView: UITableView) -> Int {
         
@@ -284,7 +284,43 @@ class newAircraftTableViewController2: UITableViewController, NSFetchedResultsCo
         return cell
     }
     
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        tableView.beginUpdates()
+    }
     
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        tableView.endUpdates()
+    }
+
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        switch (type) {
+        case .insert:
+            if let indexPath = newIndexPath {
+                tableView.insertRows(at: [indexPath], with: .fade)
+            }
+            break;
+        case .delete:
+            if let indexPath = indexPath {
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            }
+            break;
+        case .update:
+            if let indexPath = indexPath, let cell = tableView.cellForRow(at: indexPath) {
+                //configureCell(cell, at: indexPath)
+            }
+            break;
+        case .move:
+            if let indexPath = indexPath {
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            }
+            
+            if let newIndexPath = newIndexPath {
+                tableView.insertRows(at: [newIndexPath], with: .fade)
+            }
+            break;
+        }
+    }
+
     /*
      // Override to support conditional editing of the table view.
      override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -293,34 +329,64 @@ class newAircraftTableViewController2: UITableViewController, NSFetchedResultsCo
      }
      */
     
-    /*
+    
      // Override to support editing the table view.
      override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
      if editingStyle == .delete {
-     // Delete the row from the data source
-     tableView.deleteRows(at: [indexPath], with: .fade)
+     
+        deleteNewAircraftIndexPath = indexPath
+        confirmDelete(delIndexPath: indexPath)
+        
      } else if editingStyle == .insert {
      // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
      }
      }
-     */
-    
-    /*
-     // Override to support rearranging the table view.
-     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-     
-     }
-     */
-    
-    /*
-     // Override to support conditional rearranging of the table view.
-     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-     // Return false if you do not want the item to be re-orderable.
-     return true
-     }
-     */
+ 
     
     // MARK: Functions
+    
+    // Function to confirm deletion of a reg/hex
+    func confirmDelete(delIndexPath: IndexPath) {
+        
+        // CoreData NSFetchedResults style
+        let nsfNewAircraft = frc.object(at: delIndexPath) as! EntNewAircraft
+        let registration: String = nsfNewAircraft.registration!
+        
+        let alert = UIAlertController(title: "Delete New Aircraft", message: "Are you sure you want to permanently delete \(registration)?", preferredStyle: .actionSheet)
+        
+        let DeleteAction = UIAlertAction(title: "Delete", style: .destructive, handler: handleDeleteNewAircraft)
+        let CancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: cancelDeleteNewAircraft)
+        
+        alert.addAction(DeleteAction)
+        alert.addAction(CancelAction)
+        
+        // Support display in iPad
+        alert.popoverPresentationController?.sourceView = self.view
+        //alert.popoverPresentationController?.sourceRect = CGRectMake(self.view.bounds.size.width / 2.0, self.view.bounds.size.height / 2.0, 1.0, 1.0)
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func handleDeleteNewAircraft(alertAction: UIAlertAction!) -> Void {
+        if let indexPath = deleteNewAircraftIndexPath {
+            
+            deleteNewAircraftIndexPath = nil
+            
+            // Fetch New Aircraft obj
+            let objNewAC = frc.object(at: indexPath)
+            
+            // Delete from fetched results
+            frc.managedObjectContext.delete(objNewAC as! NSManagedObject)
+            
+            // Delete from server DB
+            deleteNewAircraftCD()
+            
+        }
+    }
+    
+    func cancelDeleteNewAircraft(alertAction: UIAlertAction!) {
+        deleteNewAircraftIndexPath = nil
+    }
     
     // Do the preparation for showing the next view
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

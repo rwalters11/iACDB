@@ -169,7 +169,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="spotHistoryCell" id="Y6c-Qk-bXZ">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="spotHistoryCell" id="Y6c-Qk-bXZ" customClass="spotHistoryTableViewCell" customModule="iACDB" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Y6c-Qk-bXZ" id="1Zq-vv-CXJ">
@@ -202,7 +202,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="Kr7-Yr-VZj">
-                        <barButtonItem key="rightBarButtonItem" title="Hist" id="VFj-FA-7hR">
+                        <barButtonItem key="rightBarButtonItem" title="History" id="VFj-FA-7hR">
                             <connections>
                                 <segue destination="Lvw-xP-hT8" kind="show" identifier="showSpotHistorySegue" id="mo3-HA-k41"/>
                             </connections>

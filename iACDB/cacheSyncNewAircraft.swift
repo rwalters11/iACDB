@@ -268,3 +268,8 @@ func afPopulateNewAircraft(completionHandler:  @escaping (Bool, [[String: String
     }
 }
 
+func deleteNewAircraftCD()
+{
+    
+}
+
