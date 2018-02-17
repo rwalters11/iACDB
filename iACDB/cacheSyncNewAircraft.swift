@@ -268,8 +268,31 @@ func afPopulateNewAircraft(completionHandler:  @escaping (Bool, [[String: String
     }
 }
 
-func deleteNewAircraftCD()
+// Function to delete a New Aircraft from CoreData
+func deleteNewAircraftCD(item: EntNewAircraft)
+{
+    let moc = getContext()
+    
+    let registration = item.registration
+    
+    moc.delete(item)
+    
+    // Save the deletion
+    do {
+        // Do the save
+        try moc.save()
+        
+        rwPrint(inFunction: #function, inMessage: "New aircraft record: \(registration ?? "") deleted from CoreData")
+        
+        deleteNewAircraftFromRemoteDB(item: item)
+        
+    } catch let error as NSError {
+        rwPrint(inFunction: #function, inMessage:"Could not delete. \(error), \(error.userInfo)")
+    }
+}
+
+// Function to delete New Aircraft from Server DB
+func deleteNewAircraftFromRemoteDB(item: NSManagedObject)
 {
     
 }
-

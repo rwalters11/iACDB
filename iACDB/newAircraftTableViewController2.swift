@@ -378,8 +378,8 @@ class newAircraftTableViewController2: UITableViewController, NSFetchedResultsCo
             // Delete from fetched results
             frc.managedObjectContext.delete(objNewAC as! NSManagedObject)
             
-            // Delete from server DB
-            deleteNewAircraftCD()
+            // Delete from CoreData & server DB
+            deleteNewAircraftCD(item: objNewAC as! EntNewAircraft)
             
         }
     }
