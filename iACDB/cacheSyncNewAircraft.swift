@@ -354,7 +354,7 @@ func deleteNewAircraftFromRemoteDB(registration: String) -> Bool
             if remoteDeleteCount > 0
                 //if true
             {
-                rwPrint(inFunction: #function, inMessage: "New Aircraft server delete complete")
+                rwPrint(inFunction: #function, inMessage: "\(remoteDeleteCount) New Aircraft records deleted from server")
             }else{
                 rwPrint(inFunction: #function, inMessage: "New Aircraft server delete failed")
             }
