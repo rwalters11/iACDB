@@ -73,7 +73,7 @@ class newAircraftTableViewController2: UITableViewController, NSFetchedResultsCo
         self.resultSearchController.searchBar.scopeButtonTitles = ["All", "Reg", "Hex"]
         self.resultSearchController.searchBar.delegate = self
         
-        // Setup the initial sort
+        // Setup the initial fetched results controller
         sortFRC(searchPredicate: nil)
     }
     

@@ -307,7 +307,7 @@ func deleteNewAircraftFromRemoteDB(registration: String) -> Bool
         return false
     }
     
-    //**********   Get count of New Aircraft from remote DB
+    //**********   Delete New Aircraft from remote DB
     
     // Encode registration for passing to server
     let uriRegistration = registration.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)

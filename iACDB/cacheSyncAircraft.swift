@@ -405,3 +405,104 @@ func afPopulateAircraftCache(completionHandler:  @escaping (Bool, [[String: Stri
     }
 }
 
+// MARK: - Adding New Aircraft Record Functions
+
+// Function to handle adding Aircraft Record to CoreData & Server DB
+func addAircraft(inAircraft: EntAircraft) -> Bool
+{
+    var retValue: Bool = false
+    
+    // Stage 1 - Add record to Server
+    retValue = addAircraft2RemoteDB(inAircraft: inAircraft)
+    
+    
+    // Stage 2 - Add record to CoreData if success adding to server DB
+    if retValue{
+        
+        retValue = addAircraftRecord2CoreData(inAircraft: inAircraft)
+    }
+    
+    return retValue
+}
+
+// Function to add New Aircraft 2 Server DB
+func addAircraft2RemoteDB(inAircraft: EntAircraft) -> Bool
+{
+    //***********   Network connectivity checking
+    
+    // Check network connection
+    let netStatus = currentReachabilityStatus()
+    if netStatus == .notReachable
+    {
+        rwPrint(inFunction: #function, inMessage: "Network unavailable")
+        showNoNetworkAlert()
+        return false
+    }
+    
+    //**********   Add New Aircraft 2 remote DB
+    
+    // Encode registration for passing to server
+    let uriRegistration = inAircraft.acRegistration?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+    
+    // Display network activity indicator in status bar
+    UIApplication.shared.isNetworkActivityIndicatorVisible = true
+    
+    // Set destination url & value to send
+    let url: String = "https://tbgweb.dyndns.info/iacdb/submit_aircraft_data.php?Registration=" + uriRegistration!
+    
+    // Do asynchronous call to server using Alamofire library
+    Alamofire.request(url, method: .get)
+        .validate()
+        .responseJSON { response in
+            //.responseString { response in
+            
+            // check for errors
+            guard response.result.error == nil else {
+                
+                // got an error in getting the data, need to handle it
+                rwPrint(inFunction: #function, inMessage: "error calling POST on Aircraft add request")
+                rwPrint(inFunction: #function, inMessage: "Error: \(String(describing: response.result.error))")
+                
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                return
+            }
+            
+            // make sure we have got valid JSON as an array of key/value pairs of strings
+            guard let json = response.result.value as? Int! else {
+                
+                rwPrint(inFunction: #function, inMessage: "Didn't get valid JSON from server")
+                rwPrint(inFunction: #function, inMessage: "Error: \(String(describing: response.result.error))")
+                
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                return
+            }
+            
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
+            
+            var remoteAddCount: Int = 0
+            remoteAddCount = json
+            
+            //**********   Test for successful addition
+            if remoteAddCount > 0
+                //if true
+            {
+                rwPrint(inFunction: #function, inMessage: "\(remoteAddCount) New Aircraft records added to server")
+            }else{
+                rwPrint(inFunction: #function, inMessage: "New Aircraft server delete failed")
+            }
+    }
+    
+    return true
+}
+
+// Function to add new Aircraft to EntAircraft in CoreData
+func addAircraftRecord2CoreData(inAircraft: EntAircraft) -> Bool
+{
+    // Default return value
+    var retValue: Bool = false
+    
+    
+    
+    return retValue
+}
+

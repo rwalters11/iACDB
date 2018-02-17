@@ -43,6 +43,11 @@
         <fetchIndex name="registrationIndex">
             <fetchIndexElement property="registration" type="Binary" order="ascending"/>
         </fetchIndex>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="registration"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
     </entity>
     <entity name="EntOperators" representedClassName="EntOperators" syncable="YES" codeGenerationType="class">
         <attribute name="acOperator" optional="YES" attributeType="String" syncable="YES"/>
