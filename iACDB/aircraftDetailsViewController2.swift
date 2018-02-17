@@ -98,6 +98,30 @@ class aircraftDetailsViewController2: FormViewController{
                 // Populate registration if passed in
                 row.value = inRegistration
                 row.cell.textField.becomeFirstResponder()
+                
+                // Validation Rules
+                row.add(rule: RuleRequired())
+                row.add(rule: RuleMinLength(minLength: 1))
+                
+                // Createallowed character set for registrations
+                let charactersetRegistrations = CharacterSet(charactersIn: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+-")
+                
+                // Custom validation rule - if string contains 'Hex' or parentheses then not a valid registration
+                let ruleContainsHex = RuleClosure<String> { rowValue in
+                    
+                    return ((rowValue?.contains("Hex"))! || (rowValue?.contains("("))!) ? ValidationError(msg: "Invalid registration!") : nil
+                }
+                // Custom validation rule - if string contains other than allowed characters then not a valid registration
+                let ruleContainsValidCharacters = RuleClosure<String> { rowValue in
+                    
+                    return (rowValue?.rangeOfCharacter(from: charactersetRegistrations.inverted) != nil) ? ValidationError(msg: "Registration contains invalid charaters") : nil
+                }
+                // Add custom rules
+                row.add(rule: ruleContainsHex)
+                row.add(rule: ruleContainsValidCharacters)
+ 
+                row.validationOptions = .validatesOnChange
+                
                 }.onChange { row in
                     
                     // Get aircraft details if not empty
@@ -109,6 +133,13 @@ class aircraftDetailsViewController2: FormViewController{
                     }
                     
                 }.cellUpdate {cell, row in
+                    
+                    // Validation
+                    if !row.isValid {
+                        cell.titleLabel?.textColor = .red
+                    }else{
+                        
+                    }
                     
                     // Customise behaviour for the registration text box
                     cell.textField.autocapitalizationType = .allCharacters              // All capitals
