@@ -275,24 +275,90 @@ func deleteNewAircraftCD(item: EntNewAircraft)
     
     let registration = item.registration
     
-    moc.delete(item)
+    // Call delete on server - returns true on success
+    if deleteNewAircraftFromRemoteDB(registration: registration!)
+    {
+        moc.delete(item)
     
-    // Save the deletion
-    do {
-        // Do the save
-        try moc.save()
+        // Save the deletion
+        do {
+            // Do the save
+            try moc.save()
         
-        rwPrint(inFunction: #function, inMessage: "New aircraft record: \(registration ?? "") deleted from CoreData")
+            rwPrint(inFunction: #function, inMessage: "New aircraft record: \(registration ?? "") deleted from CoreData")
         
-        deleteNewAircraftFromRemoteDB(item: item)
-        
-    } catch let error as NSError {
-        rwPrint(inFunction: #function, inMessage:"Could not delete. \(error), \(error.userInfo)")
+        } catch let error as NSError {
+            rwPrint(inFunction: #function, inMessage:"Could not delete. \(error), \(error.userInfo)")
+        }
     }
 }
 
 // Function to delete New Aircraft from Server DB
-func deleteNewAircraftFromRemoteDB(item: NSManagedObject)
+func deleteNewAircraftFromRemoteDB(registration: String) -> Bool
 {
+    //***********   Network connectivity checking
     
+    // Check network connection
+    let netStatus = currentReachabilityStatus()
+    if netStatus == .notReachable
+    {
+        rwPrint(inFunction: #function, inMessage: "Network unavailable")
+        showNoNetworkAlert()
+        return false
+    }
+    
+    //**********   Get count of New Aircraft from remote DB
+    
+    // Encode registration for passing to server
+    let uriRegistration = registration.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+    
+    // Display network activity indicator in status bar
+    UIApplication.shared.isNetworkActivityIndicatorVisible = true
+    
+    // Set destination url & value to send
+    let url: String = "https://tbgweb.dyndns.info/iacdb/delete_from_history.php?reg2delete=" + uriRegistration!
+    
+    // Do asynchronous call to server using Alamofire library
+    Alamofire.request(url, method: .get)
+        .validate()
+        .responseJSON { response in
+            //.responseString { response in
+            
+            // check for errors
+            guard response.result.error == nil else {
+                
+                // got an error in getting the data, need to handle it
+                rwPrint(inFunction: #function, inMessage: "error calling POST on New Aircraft delete request")
+                rwPrint(inFunction: #function, inMessage: "Error: \(String(describing: response.result.error))")
+                
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                return
+            }
+            
+            // make sure we have got valid JSON as an array of key/value pairs of strings
+            guard let json = response.result.value as? Int! else {
+                
+                rwPrint(inFunction: #function, inMessage: "Didn't get valid JSON from server")
+                rwPrint(inFunction: #function, inMessage: "Error: \(String(describing: response.result.error))")
+                
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                return
+            }
+            
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
+            
+            var remoteDeleteCount: Int = 0
+            remoteDeleteCount = json
+            
+            //**********   Test for successful deletion
+            if remoteDeleteCount > 0
+                //if true
+            {
+                rwPrint(inFunction: #function, inMessage: "New Aircraft server delete complete")
+            }else{
+                rwPrint(inFunction: #function, inMessage: "New Aircraft server delete failed")
+            }
+    }
+    
+    return true
 }
