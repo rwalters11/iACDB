@@ -316,7 +316,7 @@ func deleteNewAircraftFromRemoteDB(registration: String) -> Bool
     UIApplication.shared.isNetworkActivityIndicatorVisible = true
     
     // Set destination url & value to send
-    let url: String = "https://tbgweb.dyndns.info/iacdb/delete_from_history.php?reg2delete=" + uriRegistration!
+    let url: String = "https://tbgweb.dyndns.info/iacdb/iosDelete_From_History.php?reg2delete=" + uriRegistration!
     
     // Do asynchronous call to server using Alamofire library
     Alamofire.request(url, method: .get)

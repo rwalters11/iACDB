@@ -103,7 +103,7 @@ class aircraftDetailsViewController2: FormViewController{
                 row.add(rule: RuleRequired())
                 row.add(rule: RuleMinLength(minLength: 1))
                 
-                // Createallowed character set for registrations
+                // Create allowed character set for registrations
                 let charactersetRegistrations = CharacterSet(charactersIn: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+-")
                 
                 // Custom validation rule - if string contains 'Hex' or parentheses then not a valid registration

@@ -7,7 +7,7 @@ PODS:
   - Eureka (4.0.1)
   - ImageRow (3.0.0):
     - Eureka (~> 4.0)
-  - Kingfisher (4.6.1)
+  - Kingfisher (4.6.2)
   - SwiftyJSON (4.0.0)
 
 DEPENDENCIES:
@@ -25,7 +25,7 @@ SPEC CHECKSUMS:
   AlamofireNetworkActivityIndicator: 81e1630e7cfed22a4e4e82a174c59e651dc4f8ca
   Eureka: c8bd5cc07143b6f66268c208d28a246c99b41955
   ImageRow: 048123c296de9a6ac3998c415a6706c45ce480af
-  Kingfisher: 1f9157d9c02b380cbd0b7cc890161195164eb634
+  Kingfisher: 55b9c395bf8d3949676ad3861111923990ab68cf
   SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
 
 PODFILE CHECKSUM: 7028f6f5aba419e7f77f269aa205728a563c7c8c

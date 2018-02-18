@@ -39,9 +39,6 @@ class newAircraftTableViewController2: UITableViewController, NSFetchedResultsCo
         //Load parent class - required
         super.viewDidLoad()
         
-        // Uncomment the following line to preserve selection between presentations
-        self.clearsSelectionOnViewWillAppear = false
-        
         // Preserve selection between presentations
         self.clearsSelectionOnViewWillAppear = false
         
