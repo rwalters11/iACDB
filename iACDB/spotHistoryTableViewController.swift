@@ -20,6 +20,9 @@ class spotHistoryTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
+        // Get the history data from the ACDB server
+        cacheSpotHistoryFromRemoteDB()
     }
 
     override func didReceiveMemoryWarning() {
@@ -93,5 +96,6 @@ class spotHistoryTableViewController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
+    
+    // Function to download Spot History data from ACDB server
 }
