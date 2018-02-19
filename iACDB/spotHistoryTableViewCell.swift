@@ -10,6 +10,10 @@ import UIKit
 
 class spotHistoryTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var lblLocation: UILabel!
+    @IBOutlet weak var lblDate: UILabel!
+    @IBOutlet weak var lblCount: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

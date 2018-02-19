@@ -8,10 +8,17 @@
 
 import UIKit
 
+// Import 3rd party frameworks
+import Alamofire
+import AlamofireImage
+import SwiftyJSON
+
 class spotHistoryTableViewController: UITableViewController {
     
     // Values passed in by segue
     var inRegistration: String!
+    
+    var arrayHistory = [spotHistory]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,8 +28,14 @@ class spotHistoryTableViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         
+        
+        
         // Get the history data from the ACDB server
-        cacheSpotHistoryFromRemoteDB()
+        getSpotHistoryFromRemoteDB(inRegistration: inRegistration)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        self.tableView.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -33,69 +46,188 @@ class spotHistoryTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        
+        return arrayHistory.count
     }
 
-    /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "spotHistoryCell", for: indexPath) as! spotHistoryTableViewCell
 
-        // Configure the cell...
+        cell.lblLocation.text = arrayHistory[indexPath.row].hLocation
+        cell.lblDate.text = arrayHistory[indexPath.row].hLatest
+        cell.lblCount.text = "(" + arrayHistory[indexPath.row].hCount + ")"
 
         return cell
     }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
     
-    // Function to download Spot History data from ACDB server
+    // MARK: Data Retrieval Functions
+    /*
+     *
+     * Function to control the fetching of Spot history from the TBGweb server
+     *
+     */
+    func getSpotHistoryFromRemoteDB(inRegistration: String) {
+        
+        // Get user defaults
+        let defaults = UserDefaults.standard
+        
+        //***********   Network connectivity checking
+        
+        // Check network connection
+        let netStatus = currentReachabilityStatus()
+        if netStatus == .notReachable
+        {
+            rwPrint(inFunction: #function, inMessage: "Network unavailable")
+            return
+        }
+        
+        // Check for WiFi connection
+        if netStatus != .reachableViaWiFi
+        {
+            // If user wants cache updates via Wifi only then exit
+            if defaults.bool(forKey: "cacheLoadWiFiOnly") {
+                
+                rwPrint(inFunction: #function, inMessage: "Spot History download aborted - WiFi connection required")
+                return
+            }
+            
+        }
+        
+        populateSpotHistoryTable(inRegistration: inRegistration)
+    }
+    
+    
+    // MARK: Helper Functions
+    
+    /*
+     *
+     *  Function to populate the Spot History tableView from the main DB
+     *
+     */
+    func populateSpotHistoryTable(inRegistration: String)
+    {
+        // Check network connection
+        let netStatus = currentReachabilityStatus()
+        if netStatus == .notReachable
+        {
+            rwPrint(inFunction: #function, inMessage: "Network unavailable")
+            return
+        }
+        
+        // Get an array of Spot History from the ACDB server passing in delegate completion handler
+        afPopulateSpotHistory(inRegistration: inRegistration, completionHandler: { success, json -> Void in
+            
+            if (success) {
+                
+                rwPrint(inFunction: #function, inMessage: "Spot History JSON data returned successfully from async call")
+                 
+                 // Assign returned data to SwiftyJSON object
+                 let data = JSON(json!)
+                
+                 // Iterate through array of Dictionary's
+                 for (_, object) in data {
+                 
+                 // Create a new Spot History item
+                 let sho = spotHistory(json: object)
+                 
+                    self.arrayHistory.append(sho)
+                 }
+                    rwPrint(inFunction: #function, inMessage: "\(self.arrayHistory.count) spot history records retrieved")
+                
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+                
+            } else
+            {
+                rwPrint(inFunction: #function, inMessage: "No data returned from async call")
+            }
+        })
+        
+        return
+    }
+    
+    // MARK: AlamoFire Server Requests
+    
+    /*
+     *
+     * Function to get the Spot History from the TBGweb server asynchronously using Alamofire
+     *
+     */
+    
+    func afPopulateSpotHistory(inRegistration: String, completionHandler:  @escaping (Bool, [[String: String]]?) -> ())
+    {
+        // Encode registration for passing to server
+        let uriRegistration = inRegistration.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+        
+        // Display network activity indicator in status bar
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        
+        // Set destination url & value to send
+        let url: String = "https://tbgweb.dyndns.info/iacdb/iosPopulateSpotHistory.php?registration=" + uriRegistration!
+        
+        // Do asynchronous call to server using Alamofire library
+        Alamofire.request(url, method: .post)
+            .validate()
+            .responseJSON { response in
+                
+                // check for errors
+                guard response.result.error == nil else {
+                    
+                    // got an error in getting the data, need to handle it
+                    rwPrint(inFunction: #function, inMessage: "error calling POST on Spot History data request")
+                    rwPrint(inFunction: #function, inMessage: "Error: \(String(describing: response.result.error))")
+                    
+                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                    return completionHandler(false, nil)
+                }
+                
+                // make sure we have got valid JSON as an array of key/value pairs of strings
+                guard let json = response.result.value as? [[String: String]]! else {
+                    
+                    rwPrint(inFunction: #function, inMessage: "Didn't get valid JSON from server")
+                    rwPrint(inFunction: #function, inMessage: "Error: \(String(describing: response.result.error))")
+                    
+                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                    return completionHandler(false, nil)
+                }
+                
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                return completionHandler(true, json)
+        }
+    }
 }
+
+// Custom class to hold info on an individual aircraft spot history
+class spotHistory {
+    
+    // MARK: Properties
+    
+    var hLocation:        String                    // Location
+    var hCount:           String                    // Number of times seen at Location
+    var hLatest:          String                    // Latest Date for Location
+    
+    // MARK: Initialisation
+    
+    // Constructor - All values
+    init(inLocation: String, inCount: String, inLatest: String ){
+
+        self.hLocation = inLocation
+        self.hCount = inCount
+        self.hLatest = inLatest
+    }
+    
+    // Constructor - From JSON object
+    init(json:JSON){
+        
+        self.hLocation = json["Location"].stringValue
+        self.hLatest = json["Latest"].stringValue
+        self.hCount = json["Count"].stringValue
+    }
+}
+
