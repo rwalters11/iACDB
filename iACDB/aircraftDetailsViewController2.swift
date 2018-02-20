@@ -35,8 +35,16 @@ class aircraftDetailsViewController2: FormViewController{
         
     }
     
+    @IBAction func btnBack(_ sender: UIBarButtonItem) {
+        
+        performSegue(withIdentifier: "unwindToNewAircraftVC", sender: self)
+    }
+    
+    @IBOutlet weak var btnBack: UIBarButtonItem!
+    
     // Values passed in by segue
     var inRegistration: String!
+    var inSource: String! = ""
     
     var formDisabled: Condition = true
     
@@ -56,6 +64,21 @@ class aircraftDetailsViewController2: FormViewController{
         
         // Set title
         self.navigationItem.title = inRegistration
+        
+        // Set left button depending on sending controller
+        switch (inSource) {
+            
+        case "New":
+            self.navigationItem.hidesBackButton = true
+            
+        case "Current":
+            self.navigationItem.hidesBackButton = false
+            self.navigationItem.leftBarButtonItem = nil
+            
+        default:
+            self.navigationItem.hidesBackButton = false
+            self.navigationItem.leftBarButtonItem = nil
+        }
         
         // MARK: - Custom Keyboard Bar
         
@@ -130,6 +153,7 @@ class aircraftDetailsViewController2: FormViewController{
                         self.getAircraftDetails(reg: reg)
                         
                         self.navigationItem.title = row.value
+                        self.navigationItem.leftBarButtonItem?.title = "Update"
                     }
                     
                 }.cellUpdate {cell, row in
@@ -137,8 +161,6 @@ class aircraftDetailsViewController2: FormViewController{
                     // Validation
                     if !row.isValid {
                         cell.titleLabel?.textColor = .red
-                    }else{
-                        
                     }
                     
                     // Customise behaviour for the registration text box
@@ -169,6 +191,10 @@ class aircraftDetailsViewController2: FormViewController{
                 row.value = aircraftDetails.acType
                 row.tag = "frmType"
                 row.reload()
+                
+                // Validation Rules
+                row.add(rule: RuleRequired())
+                row.validationOptions = .validatesOnChange
             }
             
             // Series
@@ -194,6 +220,9 @@ class aircraftDetailsViewController2: FormViewController{
                 $0.tag = "frmOperator"
                 $0.reload()
                 
+                // Validation Rules
+                $0.add(rule: RuleRequired())
+                $0.validationOptions = .validatesOnChange
             }
             
 
@@ -229,6 +258,11 @@ class aircraftDetailsViewController2: FormViewController{
                 $0.title = "Constructor"
                 $0.value = aircraftDetails.acConstructor
                 $0.tag = "frmConstructor"
+                
+                // Validation Rules
+                $0.add(rule: RuleRequired())
+                $0.validationOptions = .validatesOnChange
+                
                 }.cellUpdate {cell, row in
                     
                     // Customise behaviour for the registration text box
@@ -253,6 +287,22 @@ class aircraftDetailsViewController2: FormViewController{
                 $0.title = "Mode S"
                 $0.value = aircraftDetails.acModeS
                 $0.tag = "frmModeS"
+                
+                $0.add(rule: RuleMinLength(minLength: 6))
+                $0.add(rule: RuleMaxLength(maxLength: 6))
+                $0.validationOptions = .validatesOnChange
+                
+                // Create allowed character set for Mode S - Hexadecimal
+                let charactersetRegistrations = CharacterSet(charactersIn: "ABCDEF0123456789")
+                
+                // Custom validation rule - if string contains other than allowed characters then not a valid Mode S code
+                let ruleContainsValidCharacters = RuleClosure<String> { rowValue in
+                    
+                    return (rowValue?.rangeOfCharacter(from: charactersetRegistrations.inverted) != nil) ? ValidationError(msg: "Mode S contains invalid charaters") : nil
+                }
+                // Add custom rules
+                $0.add(rule: ruleContainsValidCharacters)
+                
                 }.cellUpdate {cell, row in
                     
                     // Customise behaviour for the registration text box
@@ -338,7 +388,6 @@ class aircraftDetailsViewController2: FormViewController{
          
          // Pass the registration to the Add Spot view
          svc.inRegistration = inRegistration
-         ////svc.inTypeSeries = self.lblTypeSeries.text
          
          // Set the custom value of the Back Item text to be shown in the Add Spot view
          let backItem = UIBarButtonItem()
@@ -359,7 +408,14 @@ class aircraftDetailsViewController2: FormViewController{
             backItem.title = "Back"
             navigationItem.backBarButtonItem = backItem // This will show in the next view controller being pushed
         }
+        
+        if (segue.identifier == "unwindToNewAircraftVC")
+        {
+            processForm()
+        }
     }
+    
+
     
     // MARK: - CoreData
     
@@ -388,7 +444,6 @@ class aircraftDetailsViewController2: FormViewController{
             for record in records {
                 
                 returnedOperators.append(record.acOperator!)
-                //print(record.acOperator!)
             }
             
         } catch {
@@ -398,7 +453,6 @@ class aircraftDetailsViewController2: FormViewController{
         rwPrint(inFunction: #function, inMessage: "\(String(describing: returnedOperators.count)) operators returned for picker")
         
         return returnedOperators
-        
     }
     
     // Function to get Types from CoreData and return an array
@@ -555,5 +609,8 @@ class aircraftDetailsViewController2: FormViewController{
             row.evaluateDisabled()
         }
     }
-
+    // MARK: - Form Processing
+    func processForm(){
+        
+    }
 }

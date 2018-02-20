@@ -140,6 +140,8 @@ class aircraftTableViewController: UITableViewController, NSFetchedResultsContro
             
             // Pass the registration to the details view
             svc.inRegistration = (cell.lblRegistration.text)!
+            svc.inSource = "Current"
+            svc.formDisabled = true
             
             // Set the custom value of the Back Item text to be shown in the details view
             let backItem = UIBarButtonItem()

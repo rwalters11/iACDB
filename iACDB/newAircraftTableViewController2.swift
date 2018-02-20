@@ -33,6 +33,10 @@ class newAircraftTableViewController2: UITableViewController, NSFetchedResultsCo
     // https Server communication
     let defaultSession = URLSession(configuration: URLSessionConfiguration.default)
     
+    @IBAction func unwindToNewAircraftVC(segue:UIStoryboardSegue) {
+        
+    }
+    
     // On successful load
     override func viewDidLoad() {
         
@@ -399,6 +403,7 @@ class newAircraftTableViewController2: UITableViewController, NSFetchedResultsCo
             // Pass the registration to the details view
             svc.inRegistration = (cell.lblRegHex.text)!
             svc.formDisabled = false
+            svc.inSource = "New"
             
             // Set the custom value of the Back Item text to be shown in the details view
             let backItem = UIBarButtonItem()
@@ -406,5 +411,5 @@ class newAircraftTableViewController2: UITableViewController, NSFetchedResultsCo
             navigationItem.backBarButtonItem = backItem // This will show in the next view controller being pushed
         }
     }
-    
+
 }

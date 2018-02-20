@@ -230,14 +230,24 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="Kr7-Yr-VZj">
+                        <barButtonItem key="leftBarButtonItem" title="Back" id="pI1-37-kPU">
+                            <connections>
+                                <action selector="btnBack:" destination="1Jq-FS-8o1" id="Srv-d5-VuA"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="History" id="VFj-FA-7hR">
                             <connections>
                                 <segue destination="Lvw-xP-hT8" kind="show" identifier="showSpotHistorySegue" id="mo3-HA-k41"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="btnBack" destination="pI1-37-kPU" id="Pfs-U6-aP2"/>
+                        <segue destination="u40-2Q-Otr" kind="unwind" identifier="unwindToNewAircraftVC" unwindAction="unwindToNewAircraftVCWithSegue:" id="dz3-rk-Cpy"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sSN-LT-GMv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="u40-2Q-Otr" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1215" y="92"/>
         </scene>
