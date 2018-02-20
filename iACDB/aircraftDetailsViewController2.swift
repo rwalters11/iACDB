@@ -37,14 +37,16 @@ class aircraftDetailsViewController2: FormViewController{
     
     @IBAction func btnBack(_ sender: UIBarButtonItem) {
         
+        // Back button changes title with form changes
+        // Send the form for processing (if required)
         performSegue(withIdentifier: "unwindToNewAircraftVC", sender: self)
     }
     
     @IBOutlet weak var btnBack: UIBarButtonItem!
     
     // Values passed in by segue
-    var inRegistration: String!
-    var inSource: String! = ""
+    var inRegistration = ""
+    var inSource = ""
     
     var formDisabled: Condition = true
     
@@ -56,6 +58,12 @@ class aircraftDetailsViewController2: FormViewController{
         
         // Get the details from the cache if exists
         let aircraftDetails = getAircraftDetailsFromCache(inRegistration: inRegistration)
+        
+        if inRegistration.contains("Hex")
+        {
+            let index: String.Index = inRegistration.index(inRegistration.startIndex, offsetBy: 6)
+            aircraftDetails.acModeS = String(inRegistration[...index])
+        }
 
         // Create form using Eureka
         setupForm(aircraftDetails: aircraftDetails)
@@ -411,11 +419,14 @@ class aircraftDetailsViewController2: FormViewController{
         
         if (segue.identifier == "unwindToNewAircraftVC")
         {
-            processForm()
+            let newAircraftCreated = processForm()
+            
+            // Set the class of the calling View controller
+            let svc = segue.destination as! newAircraftTableViewController2
+            
+            svc.returnValue = newAircraftCreated
         }
     }
-    
-
     
     // MARK: - CoreData
     
@@ -609,8 +620,26 @@ class aircraftDetailsViewController2: FormViewController{
             row.evaluateDisabled()
         }
     }
+    
     // MARK: - Form Processing
-    func processForm(){
+    
+    // Function to process the form (if required)
+    func processForm() -> Bool {
         
+        // Get any form validation errors
+        let result = form.validate()
+        
+        if result.count > 0 {
+            
+            // Form has errors so return without processing
+            return false
+        }else{
+            
+            // Get the value of all rows in the Eureka form which have a Tag assigned
+            // The dictionary contains the 'rowTag':value pairs.
+            let valuesDictionary = form.values()
+        }
+        
+        return true
     }
 }

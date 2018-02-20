@@ -24,6 +24,8 @@ class newAircraftTableViewController2: UITableViewController, NSFetchedResultsCo
     
     var deleteNewAircraftIndexPath: IndexPath? = nil
     
+    var returnValue: Bool = false
+    
     // Get context for CoreData
     let moc = getContext()
     
@@ -33,8 +35,16 @@ class newAircraftTableViewController2: UITableViewController, NSFetchedResultsCo
     // https Server communication
     let defaultSession = URLSession(configuration: URLSessionConfiguration.default)
     
+    // Return segue from Aircraft Details after processing
     @IBAction func unwindToNewAircraftVC(segue:UIStoryboardSegue) {
         
+        // True if Aircraft record created
+        if returnValue {
+            
+            // If new aircraft successfully converted to aircraft record then remove from CoreData & FRC
+            
+            // TODO
+        }
     }
     
     // On successful load
