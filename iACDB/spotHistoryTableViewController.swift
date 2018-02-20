@@ -28,14 +28,15 @@ class spotHistoryTableViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         
-        
+        // Set title
+        self.navigationItem.title = inRegistration
         
         // Get the history data from the ACDB server
         getSpotHistoryFromRemoteDB(inRegistration: inRegistration)
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        self.tableView.reloadData()
+        //self.tableView.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -43,7 +44,32 @@ class spotHistoryTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    // MARK: - Table view data source
+    // MARK: - Table view data source & delegate functions
+    
+    // Update the section titles
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        
+        return "Spot History"
+    }
+    
+    // Customise the section titles
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+            
+            // Create the custom header cell frame
+            let returnedView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 20))
+            returnedView.backgroundColor = .lightGray
+            
+            // Create the text label
+            let label = UILabel(frame: CGRect(x: 10, y: 3, width: view.frame.size.width, height: 20))
+            label.text = "Spot History"
+            label.textColor = .white
+            label.textAlignment = .center
+            
+            // Add the label to the view
+            returnedView.addSubview(label)
+            
+            return returnedView
+    }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         

@@ -37,7 +37,6 @@
 		D3A4A44B1E2408B9002583C8 /* ToDo.rtf in Resources */ = {isa = PBXBuildFile; fileRef = D3A4A44A1E2408B9002583C8 /* ToDo.rtf */; };
 		D3AEBF231DF006C3004FB4A5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3AEBF221DF006C3004FB4A5 /* AppDelegate.swift */; };
 		D3AEBF251DF006C3004FB4A5 /* spotListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3AEBF241DF006C3004FB4A5 /* spotListTableViewController.swift */; };
-		D3AEBF271DF006C3004FB4A5 /* aircraftDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3AEBF261DF006C3004FB4A5 /* aircraftDetailsViewController.swift */; };
 		D3AEBF2A1DF006C3004FB4A5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3AEBF281DF006C3004FB4A5 /* Main.storyboard */; };
 		D3AEBF2C1DF006C3004FB4A5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3AEBF2B1DF006C3004FB4A5 /* Assets.xcassets */; };
 		D3AEBF2F1DF006C3004FB4A5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3AEBF2D1DF006C3004FB4A5 /* LaunchScreen.storyboard */; };
@@ -113,7 +112,6 @@
 		D3AEBF1F1DF006C3004FB4A5 /* iACDB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iACDB.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3AEBF221DF006C3004FB4A5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D3AEBF241DF006C3004FB4A5 /* spotListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = spotListTableViewController.swift; sourceTree = "<group>"; };
-		D3AEBF261DF006C3004FB4A5 /* aircraftDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = aircraftDetailsViewController.swift; sourceTree = "<group>"; };
 		D3AEBF291DF006C3004FB4A5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D3AEBF2B1DF006C3004FB4A5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D3AEBF2E1DF006C3004FB4A5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -192,7 +190,6 @@
 				D30864951E20EA970021B6D2 /* addEditLocationViewController.swift */,
 				D3EC2EA6201FC7BE0075EB03 /* addSpotViewController2.swift */,
 				D320B2351F2492B7003CE8F5 /* addSpot_ToolbarSubClass.swift */,
-				D3AEBF261DF006C3004FB4A5 /* aircraftDetailsViewController.swift */,
 				D32DFD682027366400BA3CD4 /* aircraftDetailsViewController2.swift */,
 				D309C01D1DFA9EAC00CC9C59 /* AircraftInfoTableViewCell.swift */,
 				D368967F1DF170A200451587 /* aircraftTableViewController.swift */,
@@ -497,7 +494,6 @@
 				D36896821DF2A08800451587 /* infoAircraft.swift in Sources */,
 				D33622D420299B2900232D83 /* cacheSyncTypes.swift in Sources */,
 				D30864961E20EA970021B6D2 /* addEditLocationViewController.swift in Sources */,
-				D3AEBF271DF006C3004FB4A5 /* aircraftDetailsViewController.swift in Sources */,
 				D33622D220299A0D00232D83 /* cacheSyncOperators.swift in Sources */,
 				D3EC2EA7201FC7BE0075EB03 /* addSpotViewController2.swift in Sources */,
 				D3D4913B1E05290100435E7C /* registrationValidate.swift in Sources */,
