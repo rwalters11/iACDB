@@ -408,7 +408,7 @@ func afPopulateAircraftCache(completionHandler:  @escaping (Bool, [[String: Stri
 // MARK: - Adding New Aircraft Record Functions
 
 // Function to handle adding Aircraft Record to CoreData & Server DB
-func addAircraft(inAircraft: EntAircraft) -> Bool
+func addAircraft(inAircraft: infoAircraft) -> Bool
 {
     var retValue: Bool = false
     
@@ -426,7 +426,7 @@ func addAircraft(inAircraft: EntAircraft) -> Bool
 }
 
 // Function to add New Aircraft 2 Server DB
-func addAircraft2RemoteDB(inAircraft: EntAircraft) -> Bool
+func addAircraft2RemoteDB(inAircraft: infoAircraft) -> Bool
 {
     //***********   Network connectivity checking
     
@@ -442,13 +442,16 @@ func addAircraft2RemoteDB(inAircraft: EntAircraft) -> Bool
     //**********   Add New Aircraft 2 remote DB
     
     // Encode registration for passing to server
-    let uriRegistration = inAircraft.acRegistration?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+    let uriRegistration = inAircraft.acRegistration.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
     
     // Display network activity indicator in status bar
     UIApplication.shared.isNetworkActivityIndicatorVisible = true
     
     // Set destination url & value to send
-    let url: String = "https://tbgweb.dyndns.info/iacdb/submit_aircraft_data.php?Registration=" + uriRegistration!
+    var url: String = "https://tbgweb.dyndns.info/iacdb/iosSubmitAircraftData.php?Registration=" + uriRegistration!
+    
+    // ****** For Testing (adds record to test DB)
+    url += "&test=true"
     
     // Do asynchronous call to server using Alamofire library
     Alamofire.request(url, method: .get)
@@ -496,7 +499,7 @@ func addAircraft2RemoteDB(inAircraft: EntAircraft) -> Bool
 }
 
 // Function to add new Aircraft to EntAircraft in CoreData
-func addAircraftRecord2CoreData(inAircraft: EntAircraft) -> Bool
+func addAircraftRecord2CoreData(inAircraft: infoAircraft) -> Bool
 {
     // Default return value
     var retValue: Bool = false

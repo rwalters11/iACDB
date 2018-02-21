@@ -627,19 +627,29 @@ class aircraftDetailsViewController2: FormViewController{
     func processForm() -> Bool {
         
         // Get any form validation errors
-        let result = form.validate()
+        let validationErrors = form.validate()
         
-        if result.count > 0 {
+        if validationErrors.count > 0 {
             
             // Form has errors so return without processing
             return false
-        }else{
-            
-            // Get the value of all rows in the Eureka form which have a Tag assigned
-            // The dictionary contains the 'rowTag':value pairs.
-            let valuesDictionary = form.values()
         }
+            
+        // Get the value of all rows in the Eureka form which have a Tag assigned
+        // The dictionary contains the 'rowTag':value pairs.
+        let fValues = form.values()
         
-        return true
+        // Create an Aircraft object for passing to function(s)
+        let Aircraft = infoAircraft(inRegistration: fValues["frmRegistration"] as! String)
+        Aircraft.acType = fValues["frmType"] as! String
+        Aircraft.acSeries = fValues["frmSeries"] as! String
+        Aircraft.acOperator = fValues["frmOperator"] as! String
+        Aircraft.acConstructor = fValues["frmConstructor"] as! String
+        Aircraft.acFuselage = fValues["frmFuselage"] as! String
+        Aircraft.acDelivery = fValues["frmDelivery"] as! String
+        Aircraft.acModeS = fValues["frmModeS"] as! String
+        
+        // Send aircraft obj for adding to DB & CoreData and return true/false result
+        return addAircraft(inAircraft: Aircraft)
     }
 }
