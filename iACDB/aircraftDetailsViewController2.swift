@@ -61,7 +61,7 @@ class aircraftDetailsViewController2: FormViewController{
         
         if inRegistration.contains("Hex")
         {
-            let index: String.Index = inRegistration.index(inRegistration.startIndex, offsetBy: 6)
+            let index: String.Index = inRegistration.index(inRegistration.startIndex, offsetBy: 5)
             aircraftDetails.acModeS = String(inRegistration[...index])
         }
 
@@ -73,7 +73,8 @@ class aircraftDetailsViewController2: FormViewController{
         // Set title
         self.navigationItem.title = inRegistration
         
-        // Set left button depending on sending controller
+        // Hide nav left button depending on sending controller
+        // Text is set in Eureka form
         switch (inSource) {
             
         case "New":
@@ -140,7 +141,11 @@ class aircraftDetailsViewController2: FormViewController{
                 // Custom validation rule - if string contains 'Hex' or parentheses then not a valid registration
                 let ruleContainsHex = RuleClosure<String> { rowValue in
                     
-                    return ((rowValue?.contains("Hex"))! || (rowValue?.contains("("))!) ? ValidationError(msg: "Invalid registration!") : nil
+                    if let _ = rowValue {
+                        
+                        return ((rowValue?.contains("Hex"))! || (rowValue?.contains("("))!) ? ValidationError(msg: "Invalid registration!") : nil
+                    }
+                    return nil
                 }
                 // Custom validation rule - if string contains other than allowed characters then not a valid registration
                 let ruleContainsValidCharacters = RuleClosure<String> { rowValue in
@@ -155,10 +160,13 @@ class aircraftDetailsViewController2: FormViewController{
                 
                 }.onChange { row in
                     
-                    // Get aircraft details if not empty
+                    // Get aircraft details for registration if not empty
                     if let reg = row.value {
                         
-                        self.getAircraftDetails(reg: reg)
+                        // New aircraft have no cached details
+                        if (self.inSource != "New") {
+                            self.getAircraftDetails(reg: reg)
+                        }
                         
                         self.navigationItem.title = row.value
                         self.navigationItem.leftBarButtonItem?.title = "Update"
@@ -171,7 +179,7 @@ class aircraftDetailsViewController2: FormViewController{
                         cell.titleLabel?.textColor = .red
                     }
                     
-                    // Customise behaviour for the registration text box
+                    // Customise behaviour for the text box
                     cell.textField.autocapitalizationType = .allCharacters              // All capitals
                     cell.textField.autocorrectionType = UITextAutocorrectionType.no     // No predictive text
                     cell.textField.inputAccessoryView = self.toolbar                    // Custom keyboard accessory bar for registrations
@@ -180,6 +188,11 @@ class aircraftDetailsViewController2: FormViewController{
             // Image
             <<< ImageRow() { row in
                 row.tag = "frmImage"
+                
+                // Hide Image row for new aircraft
+                if inSource == "New" {
+                    row.hidden = true
+                }
                 }.cellUpdate { cell, row in
                     //cell.accessoryView?.frame = CGRect(x: 0, y: 0, width: cell.frame.width, height: cell.frame.height)
                     
@@ -190,7 +203,7 @@ class aircraftDetailsViewController2: FormViewController{
                 })
             
             // Type
-            <<< PickerInputRow<String>(){ row in
+            <<< PickerInlineRow<String>(){ row in
                 row.title = "Type"
                 
                 // Load picker with Types
@@ -208,7 +221,7 @@ class aircraftDetailsViewController2: FormViewController{
                     // Validation
                     if !row.isValid {
                         
-                        //cell.title.textColor = .red
+                        cell.textLabel?.textColor = .red
                     }
                 }
             
@@ -217,9 +230,23 @@ class aircraftDetailsViewController2: FormViewController{
                 $0.title = "Series"
                 $0.value = aircraftDetails.acSeries
                 $0.tag = "frmSeries"
+                
+                // Create allowed character set for registrations
+                let charactersetSeries = CharacterSet(charactersIn: "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-")
+                
+                // Custom validation rule - if string contains other than allowed characters then not a valid registration
+                let ruleContainsValidCharacters = RuleClosure<String> { rowValue in
+                    
+                    return (rowValue?.rangeOfCharacter(from: charactersetSeries.inverted) != nil) ? ValidationError(msg: "Series contains invalid charaters") : nil
+                }
+                // Add custom rules
+                $0.add(rule: ruleContainsValidCharacters)
+                
+                $0.validationOptions = .validatesOnChange
+                
                 }.cellUpdate {cell, row in
                     
-                    // Customise behaviour for the registration text box
+                    // Customise behaviour for the text box
                     cell.textField.autocapitalizationType = .allCharacters              // All capitals
                     cell.textField.autocorrectionType = UITextAutocorrectionType.no     // No predictive text
                 }.cellUpdate {cell, row in
@@ -244,12 +271,12 @@ class aircraftDetailsViewController2: FormViewController{
                 // Validation Rules
                 $0.add(rule: RuleRequired())
                 $0.validationOptions = .validatesOnChange
+                
                 }.cellUpdate {cell, row in
                     
                     // Validation
                     if !row.isValid {
-                        //cell.titleLabel?.textColor = .red
-                        cell.detailTextLabel?.textColor = .red
+                        cell.textLabel?.textColor = .red
                     }
             }
 
@@ -266,11 +293,13 @@ class aircraftDetailsViewController2: FormViewController{
                 
                 $0.maximumDate = Date()
                 $0.tag = "frmDelivery"
+                
                 }.cellUpdate {cell, row in
                     
                     // Validation
                     if !row.isValid {
-                        //cell.titleLabel?.textColor = .red
+                        
+                        cell.textLabel?.textColor = .red
                     }
                     
                     // Set style of date display after any updates
@@ -302,7 +331,7 @@ class aircraftDetailsViewController2: FormViewController{
                         cell.titleLabel?.textColor = .red
                     }
                     
-                    // Customise behaviour for the registration text box
+                    // Customise behaviour for the text box
                     cell.textField.autocapitalizationType = .allCharacters              // All capitals
                     cell.textField.autocorrectionType = UITextAutocorrectionType.no     // No predictive text
             }
@@ -314,7 +343,7 @@ class aircraftDetailsViewController2: FormViewController{
                 $0.tag = "frmFuselage"
                 }.cellUpdate {cell, row in
                     
-                    // Customise behaviour for the registration text box
+                    // Customise behaviour for the text box
                     cell.textField.autocapitalizationType = .allCharacters              // All capitals
                     cell.textField.autocorrectionType = UITextAutocorrectionType.no     // No predictive text
             }
@@ -326,7 +355,7 @@ class aircraftDetailsViewController2: FormViewController{
                 $0.tag = "frmModeS"
                 
                 $0.add(rule: RuleMinLength(minLength: 6))
-                $0.add(rule: RuleMaxLength(maxLength: 6))
+                $0.add(rule: RuleMaxLength(maxLength: 7))
                 $0.validationOptions = .validatesOnChange
                 
                 // Create allowed character set for Mode S - Hexadecimal
@@ -365,6 +394,8 @@ class aircraftDetailsViewController2: FormViewController{
         animateScroll = true
         // Leaves 20pt of space between the keyboard and the highlighted row after scrolling to an off screen row
         rowKeyboardSpacing = 20
+        
+        let validationErrors = form.validate()
         
         // Enable or disable form fields depending on passed in value for read-only or edit mode
         disableAllFormFields(inSetting: formDisabled)
@@ -647,6 +678,12 @@ class aircraftDetailsViewController2: FormViewController{
                     row.disabled = true as Condition
                 }
                 
+            // Manual Mode S entry disabled for Hex codes
+            case "frmModeS"?:
+                if (inRegistration.contains("(Hex)")){
+                    row.disabled = true as Condition
+                }
+                
             default:
                 row.disabled = inSetting
             }
@@ -673,7 +710,7 @@ class aircraftDetailsViewController2: FormViewController{
         // The dictionary contains the 'rowTag':value pairs.
         let fValues = form.values()
         
-        // Create an Aircraft object for passing to function(s)
+        // Create an Aircraft object for passing to function(s) & populate
         let Aircraft = infoAircraft(inRegistration: fValues["frmRegistration"] as! String)
         Aircraft.acType = fValues["frmType"] as! String
         Aircraft.acSeries = fValues["frmSeries"] as! String
