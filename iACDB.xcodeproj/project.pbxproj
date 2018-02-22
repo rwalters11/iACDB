@@ -26,6 +26,7 @@
 		D33A369E1E1701AE00CE7A37 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D33A369D1E1701AE00CE7A37 /* CoreLocation.framework */; };
 		D33A36A01E1701C000CE7A37 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D33A369F1E1701C000CE7A37 /* CoreData.framework */; };
 		D33A36A21E1ADF4600CE7A37 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33A36A11E1ADF4600CE7A37 /* SettingsTableViewController.swift */; };
+		D34148A8203EBB9800109FAB /* Bugs.rtf in Resources */ = {isa = PBXBuildFile; fileRef = D34148A7203EBB9800109FAB /* Bugs.rtf */; };
 		D34BA7952032F33A0049293C /* newAircraftTableViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34BA7942032F33A0049293C /* newAircraftTableViewController2.swift */; };
 		D357AB161DFFF1E50046427C /* infoSpot.swift in Sources */ = {isa = PBXBuildFile; fileRef = D357AB151DFFF1E50046427C /* infoSpot.swift */; };
 		D357AB181DFFF8680046427C /* spotInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D357AB171DFFF8680046427C /* spotInfoTableViewCell.swift */; };
@@ -101,6 +102,7 @@
 		D33A369D1E1701AE00CE7A37 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		D33A369F1E1701C000CE7A37 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		D33A36A11E1ADF4600CE7A37 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
+		D34148A7203EBB9800109FAB /* Bugs.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Bugs.rtf; sourceTree = "<group>"; };
 		D34BA7942032F33A0049293C /* newAircraftTableViewController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = newAircraftTableViewController2.swift; sourceTree = "<group>"; };
 		D357AB151DFFF1E50046427C /* infoSpot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = infoSpot.swift; sourceTree = "<group>"; };
 		D357AB171DFFF8680046427C /* spotInfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = spotInfoTableViewCell.swift; sourceTree = "<group>"; };
@@ -239,6 +241,7 @@
 				D3AEBF471DF01F8B004FB4A5 /* Build Notes.rtf */,
 				D3D491501E067C8B00435E7C /* ChangeLog.rtf */,
 				D3A4A44A1E2408B9002583C8 /* ToDo.rtf */,
+				D34148A7203EBB9800109FAB /* Bugs.rtf */,
 			);
 			name = Notes;
 			sourceTree = "<group>";
@@ -351,6 +354,7 @@
 				D3A4A44B1E2408B9002583C8 /* ToDo.rtf in Resources */,
 				D3AEBF2F1DF006C3004FB4A5 /* LaunchScreen.storyboard in Resources */,
 				D3AEBF2C1DF006C3004FB4A5 /* Assets.xcassets in Resources */,
+				D34148A8203EBB9800109FAB /* Bugs.rtf in Resources */,
 				D3AEBF481DF01F8B004FB4A5 /* Build Notes.rtf in Resources */,
 				D3AEBF2A1DF006C3004FB4A5 /* Main.storyboard in Resources */,
 				D3D491511E067C8B00435E7C /* ChangeLog.rtf in Resources */,

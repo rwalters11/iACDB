@@ -203,7 +203,14 @@ class aircraftDetailsViewController2: FormViewController{
                 // Validation Rules
                 row.add(rule: RuleRequired())
                 row.validationOptions = .validatesOnChange
-            }
+                }.cellUpdate {cell, row in
+    
+                    // Validation
+                    if !row.isValid {
+                        
+                        //cell.title.textColor = .red
+                    }
+                }
             
             // Series
             <<< TextRow() {
@@ -215,6 +222,12 @@ class aircraftDetailsViewController2: FormViewController{
                     // Customise behaviour for the registration text box
                     cell.textField.autocapitalizationType = .allCharacters              // All capitals
                     cell.textField.autocorrectionType = UITextAutocorrectionType.no     // No predictive text
+                }.cellUpdate {cell, row in
+                    
+                    // Validation
+                    if !row.isValid {
+                        cell.titleLabel?.textColor = .red
+                    }
             }
             
             // Operators
@@ -231,8 +244,14 @@ class aircraftDetailsViewController2: FormViewController{
                 // Validation Rules
                 $0.add(rule: RuleRequired())
                 $0.validationOptions = .validatesOnChange
+                }.cellUpdate {cell, row in
+                    
+                    // Validation
+                    if !row.isValid {
+                        //cell.titleLabel?.textColor = .red
+                        cell.detailTextLabel?.textColor = .red
+                    }
             }
-            
 
             
             // Delivery
@@ -248,6 +267,11 @@ class aircraftDetailsViewController2: FormViewController{
                 $0.maximumDate = Date()
                 $0.tag = "frmDelivery"
                 }.cellUpdate {cell, row in
+                    
+                    // Validation
+                    if !row.isValid {
+                        //cell.titleLabel?.textColor = .red
+                    }
                     
                     // Set style of date display after any updates
                     row.dateFormatter?.locale = Locale(identifier: "en_GB")
@@ -272,6 +296,11 @@ class aircraftDetailsViewController2: FormViewController{
                 $0.validationOptions = .validatesOnChange
                 
                 }.cellUpdate {cell, row in
+                    
+                    // Validation
+                    if !row.isValid {
+                        cell.titleLabel?.textColor = .red
+                    }
                     
                     // Customise behaviour for the registration text box
                     cell.textField.autocapitalizationType = .allCharacters              // All capitals
@@ -312,6 +341,11 @@ class aircraftDetailsViewController2: FormViewController{
                 $0.add(rule: ruleContainsValidCharacters)
                 
                 }.cellUpdate {cell, row in
+                    
+                    // Validation
+                    if !row.isValid {
+                        cell.titleLabel?.textColor = .red
+                    }
                     
                     // Customise behaviour for the registration text box
                     cell.textField.autocapitalizationType = .allCharacters              // All capitals
