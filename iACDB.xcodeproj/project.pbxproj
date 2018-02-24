@@ -36,6 +36,13 @@
 		D36896821DF2A08800451587 /* infoAircraft.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36896811DF2A08800451587 /* infoAircraft.swift */; };
 		D36896831DF2A08800451587 /* infoAircraft.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36896811DF2A08800451587 /* infoAircraft.swift */; };
 		D3A4A44B1E2408B9002583C8 /* ToDo.rtf in Resources */ = {isa = PBXBuildFile; fileRef = D3A4A44A1E2408B9002583C8 /* ToDo.rtf */; };
+		D3A9EDCF204167AB005E8793 /* SuggestionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A9EDC8204167AB005E8793 /* SuggestionCell.swift */; };
+		D3A9EDD0204167AB005E8793 /* SuggestionTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A9EDC9204167AB005E8793 /* SuggestionTableCell.swift */; };
+		D3A9EDD1204167AB005E8793 /* SuggestionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A9EDCA204167AB005E8793 /* SuggestionTableViewCell.swift */; };
+		D3A9EDD2204167AB005E8793 /* SuggestionCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A9EDCB204167AB005E8793 /* SuggestionCollectionCell.swift */; };
+		D3A9EDD3204167AB005E8793 /* SuggestionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A9EDCC204167AB005E8793 /* SuggestionCollectionViewCell.swift */; };
+		D3A9EDD4204167AB005E8793 /* SuggestionRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A9EDCD204167AB005E8793 /* SuggestionRow.swift */; };
+		D3A9EDD5204167AB005E8793 /* String+SuggestionValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A9EDCE204167AB005E8793 /* String+SuggestionValue.swift */; };
 		D3AEBF231DF006C3004FB4A5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3AEBF221DF006C3004FB4A5 /* AppDelegate.swift */; };
 		D3AEBF251DF006C3004FB4A5 /* spotListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3AEBF241DF006C3004FB4A5 /* spotListTableViewController.swift */; };
 		D3AEBF2A1DF006C3004FB4A5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3AEBF281DF006C3004FB4A5 /* Main.storyboard */; };
@@ -111,6 +118,13 @@
 		D368967F1DF170A200451587 /* aircraftTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = aircraftTableViewController.swift; sourceTree = "<group>"; };
 		D36896811DF2A08800451587 /* infoAircraft.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = infoAircraft.swift; sourceTree = "<group>"; };
 		D3A4A44A1E2408B9002583C8 /* ToDo.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = ToDo.rtf; sourceTree = "<group>"; };
+		D3A9EDC8204167AB005E8793 /* SuggestionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuggestionCell.swift; sourceTree = "<group>"; };
+		D3A9EDC9204167AB005E8793 /* SuggestionTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuggestionTableCell.swift; sourceTree = "<group>"; };
+		D3A9EDCA204167AB005E8793 /* SuggestionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuggestionTableViewCell.swift; sourceTree = "<group>"; };
+		D3A9EDCB204167AB005E8793 /* SuggestionCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuggestionCollectionCell.swift; sourceTree = "<group>"; };
+		D3A9EDCC204167AB005E8793 /* SuggestionCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuggestionCollectionViewCell.swift; sourceTree = "<group>"; };
+		D3A9EDCD204167AB005E8793 /* SuggestionRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuggestionRow.swift; sourceTree = "<group>"; };
+		D3A9EDCE204167AB005E8793 /* String+SuggestionValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+SuggestionValue.swift"; sourceTree = "<group>"; };
 		D3AEBF1F1DF006C3004FB4A5 /* iACDB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iACDB.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3AEBF221DF006C3004FB4A5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D3AEBF241DF006C3004FB4A5 /* spotListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = spotListTableViewController.swift; sourceTree = "<group>"; };
@@ -164,9 +178,24 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		D3A9EDB9204166ED005E8793 /* SuggestionRow */ = {
+			isa = PBXGroup;
+			children = (
+				D3A9EDCE204167AB005E8793 /* String+SuggestionValue.swift */,
+				D3A9EDC8204167AB005E8793 /* SuggestionCell.swift */,
+				D3A9EDCB204167AB005E8793 /* SuggestionCollectionCell.swift */,
+				D3A9EDCC204167AB005E8793 /* SuggestionCollectionViewCell.swift */,
+				D3A9EDCD204167AB005E8793 /* SuggestionRow.swift */,
+				D3A9EDC9204167AB005E8793 /* SuggestionTableCell.swift */,
+				D3A9EDCA204167AB005E8793 /* SuggestionTableViewCell.swift */,
+			);
+			path = SuggestionRow;
+			sourceTree = "<group>";
+		};
 		D3AEBF161DF006C3004FB4A5 = {
 			isa = PBXGroup;
 			children = (
+				D3A9EDB9204166ED005E8793 /* SuggestionRow */,
 				D3E101111E11C9C60019707C /* iACDB.xcdatamodeld */,
 				D3AEBF461DF01F46004FB4A5 /* Notes */,
 				D3AEBF211DF006C3004FB4A5 /* iACDB */,
@@ -493,11 +522,14 @@
 				D33622D0202998C000232D83 /* cacheSyncLocations.swift in Sources */,
 				D30864921E1FCF460021B6D2 /* locationsTableViewCell.swift in Sources */,
 				D3FFEE881DF39180003472AC /* functionLibrary.swift in Sources */,
+				D3A9EDD1204167AB005E8793 /* SuggestionTableViewCell.swift in Sources */,
+				D3A9EDCF204167AB005E8793 /* SuggestionCell.swift in Sources */,
 				D33855F32030C2A800CFF921 /* newAircraftTableViewCell.swift in Sources */,
 				D3E101131E11C9C60019707C /* iACDB.xcdatamodeld in Sources */,
 				D36896821DF2A08800451587 /* infoAircraft.swift in Sources */,
 				D33622D420299B2900232D83 /* cacheSyncTypes.swift in Sources */,
 				D30864961E20EA970021B6D2 /* addEditLocationViewController.swift in Sources */,
+				D3A9EDD3204167AB005E8793 /* SuggestionCollectionViewCell.swift in Sources */,
 				D33622D220299A0D00232D83 /* cacheSyncOperators.swift in Sources */,
 				D3EC2EA7201FC7BE0075EB03 /* addSpotViewController2.swift in Sources */,
 				D3D4913B1E05290100435E7C /* registrationValidate.swift in Sources */,
@@ -506,18 +538,22 @@
 				D35E658D2036D1FC00FBC5FD /* spotHistoryTableViewCell.swift in Sources */,
 				D34BA7952032F33A0049293C /* newAircraftTableViewController2.swift in Sources */,
 				D320B2361F2492B7003CE8F5 /* addSpot_ToolbarSubClass.swift in Sources */,
+				D3A9EDD2204167AB005E8793 /* SuggestionCollectionCell.swift in Sources */,
 				D3AEBF231DF006C3004FB4A5 /* AppDelegate.swift in Sources */,
 				D357AB181DFFF8680046427C /* spotInfoTableViewCell.swift in Sources */,
 				D33A369A1E1658F500CE7A37 /* CoreDataLibrary.swift in Sources */,
 				D309C01E1DFA9EAC00CC9C59 /* AircraftInfoTableViewCell.swift in Sources */,
+				D3A9EDD0204167AB005E8793 /* SuggestionTableCell.swift in Sources */,
 				D33A36A21E1ADF4600CE7A37 /* SettingsTableViewController.swift in Sources */,
 				D30864941E1FDB560021B6D2 /* locationDetailViewController.swift in Sources */,
+				D3A9EDD4204167AB005E8793 /* SuggestionRow.swift in Sources */,
 				D32DFD692027366400BA3CD4 /* aircraftDetailsViewController2.swift in Sources */,
 				D33622CE202997C400232D83 /* cacheSyncAircraft.swift in Sources */,
 				D33855F52030C4BA00CFF921 /* cacheSyncNewAircraft.swift in Sources */,
 				D357AB161DFFF1E50046427C /* infoSpot.swift in Sources */,
 				D35E658B2036375800FBC5FD /* spotHistoryTableViewController.swift in Sources */,
 				D36896801DF170A200451587 /* aircraftTableViewController.swift in Sources */,
+				D3A9EDD5204167AB005E8793 /* String+SuggestionValue.swift in Sources */,
 				D3AEBF251DF006C3004FB4A5 /* spotListTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -105,7 +105,10 @@ class aircraftDetailsViewController2: FormViewController{
         let gDashButton = UIBarButtonItem(title: "\"G-\"", style: UIBarButtonItemStyle.plain, target: self, action: #selector(self.gDashButtonTapped(button:)))
         gDashButton.width = 75
         
-        toolbar.setItems([dashButton, plusButton, gDashButton], animated: true)
+        let clearButton = UIBarButtonItem(title: "Clear", style: UIBarButtonItemStyle.done, target: self, action: #selector(self.clearButtonTapped(button:)))
+        clearButton.width = 75
+        
+        toolbar.setItems([dashButton, plusButton, gDashButton, clearButton], animated: true)
         
     }
 
@@ -202,34 +205,41 @@ class aircraftDetailsViewController2: FormViewController{
                     }
                 })
             
-            // Type
-            <<< PickerInlineRow<String>(){ row in
-                row.title = "Type"
+            // Type - Evaluation of SuggestionRow
+            <<< SuggestionTableRow<String>() {
                 
-                // Load picker with Types
-                row.options = getTypesPickerData()
+                // Get options for Types
+                let typeOptions = getTypesPickerData()
                 
-                row.value = aircraftDetails.acType
-                row.tag = "frmType"
-                row.reload()
+                $0.title = "Type"
+                $0.value = aircraftDetails.acType
+                $0.tag = "frmType"
+                $0.placeholder = "eg A320"
                 
+                $0.filterFunction = { text in
+                    
+                    // Filter types to return a string array containing those types which start with the field contents
+                    typeOptions.filter( {$0.uppercased().hasPrefix(text.uppercased())})
+                    }
+        
                 // Validation Rules
-                row.add(rule: RuleRequired())
-                row.validationOptions = .validatesOnChange
+                $0.add(rule: RuleRequired())
+                $0.validationOptions = .validatesOnChange
                 }.cellUpdate {cell, row in
     
                     // Validation
                     if !row.isValid {
-                        
+    
                         cell.textLabel?.textColor = .red
                     }
-                }
+            }
             
             // Series
             <<< TextRow() {
                 $0.title = "Series"
                 $0.value = aircraftDetails.acSeries
                 $0.tag = "frmSeries"
+                $0.placeholder = "eg 232"
                 
                 // Create allowed character set for registrations
                 let charactersetSeries = CharacterSet(charactersIn: "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-")
@@ -256,30 +266,35 @@ class aircraftDetailsViewController2: FormViewController{
                         cell.titleLabel?.textColor = .red
                     }
             }
-            
-            // Operators
-            <<< PickerInputRow<String>(){
+
+
+            // Operator - Evaluation of SuggestionRow
+            <<< SuggestionTableRow<String>() {
+                
+                // Get options for Operators
+                let operatorOptions = getOperatorPickerData()
+                
                 $0.title = "Operator"
-                
-                // Load picker with locations
-                $0.options = getOperatorPickerData()
-                
-                $0.value = aircraftDetails.acOperator
                 $0.tag = "frmOperator"
-                $0.reload()
+                $0.placeholder = "eg British Airways"
+                
+                $0.filterFunction = { text in
+                    
+                    // Filter operators to return a string array containing those operators which start with the field contents
+                    operatorOptions.filter( {$0.uppercased().hasPrefix(text.uppercased())})
+                }
                 
                 // Validation Rules
                 $0.add(rule: RuleRequired())
                 $0.validationOptions = .validatesOnChange
-                
                 }.cellUpdate {cell, row in
                     
                     // Validation
                     if !row.isValid {
+                        
                         cell.textLabel?.textColor = .red
                     }
             }
-
             
             // Delivery
             <<< DateRow() {
@@ -319,6 +334,7 @@ class aircraftDetailsViewController2: FormViewController{
                 $0.title = "Constructor"
                 $0.value = aircraftDetails.acConstructor
                 $0.tag = "frmConstructor"
+                $0.placeholder = "eg 29232"
                 
                 // Validation Rules
                 $0.add(rule: RuleRequired())
@@ -353,6 +369,7 @@ class aircraftDetailsViewController2: FormViewController{
                 $0.title = "Mode S"
                 $0.value = aircraftDetails.acModeS
                 $0.tag = "frmModeS"
+                $0.placeholder = "eg 406CE1"
                 
                 $0.add(rule: RuleMinLength(minLength: 6))
                 $0.add(rule: RuleMaxLength(maxLength: 7))
@@ -422,6 +439,12 @@ class aircraftDetailsViewController2: FormViewController{
         editFrmRegistration(newValue: "G-")
     }
     
+    // Function to clear Registration field when accessoryView tapped
+    @objc func clearButtonTapped(button:UIBarButtonItem) {
+        
+        clearFrmRegistration()
+    }
+    
     // Function to update form registration value
     func editFrmRegistration(newValue: String)
     {
@@ -435,6 +458,19 @@ class aircraftDetailsViewController2: FormViewController{
         }else{
             
             row.cell.textField.text = newValue
+            
+        }
+    }
+    
+    //Function to clear the registration form field
+    func clearFrmRegistration()
+    {
+        // Get row
+        let row = self.form.rowBy(tag: "frmRegistration") as! TextRow
+        
+        if let _ = row.cell.textField.text {
+            
+            row.cell.textField.text? = ""
             
         }
     }
