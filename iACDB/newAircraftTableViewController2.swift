@@ -24,7 +24,7 @@ class newAircraftTableViewController2: UITableViewController, NSFetchedResultsCo
     
     var deleteNewAircraftIndexPath: IndexPath? = nil
     
-    var returnValue: Bool = false
+    var returnedAircraft = infoAircraft(inRegistration: "")
     
     // Get context for CoreData
     let moc = getContext()
@@ -39,7 +39,7 @@ class newAircraftTableViewController2: UITableViewController, NSFetchedResultsCo
     @IBAction func unwindToNewAircraftVC(segue:UIStoryboardSegue) {
         
         // True if Aircraft record created
-        if returnValue {
+        if (returnedAircraft != nil) {
             
             // If new aircraft successfully converted to aircraft record then remove from CoreData & FRC
             
@@ -316,9 +316,11 @@ class newAircraftTableViewController2: UITableViewController, NSFetchedResultsCo
             }
             break;
         case .update:
+            /*
             if let indexPath = indexPath, let cell = tableView.cellForRow(at: indexPath) {
-                //configureCell(cell, at: indexPath)
+                configureCell(cell, at: indexPath)
             }
+             */
             break;
         case .move:
             if let indexPath = indexPath {

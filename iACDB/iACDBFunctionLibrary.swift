@@ -17,28 +17,7 @@ import Alamofire
 import AlamofireImage
 import SwiftyJSON
 
-// Function to convert ACDB style date (mm/yy) to standard date for setting DatePicker value
-// Returns converted date or nil
-func ConvertACDB_Date(inDate: String) -> Date?
-{
-    //var returnDate = Date()
-    
-    // Extract month & year from ACDB string
-    let dateString = "01/" + inDate
-    
-    // Calculate date
-    let dateFormatter = DateFormatter()
-    dateFormatter.dateFormat = "dd/MM/yy"
-    dateFormatter.locale = Locale(identifier: "en_GB")
-    guard let returnDate = dateFormatter.date(from: dateString) else
-    {
-        // Return gregorian date
-        return nil
-    }
-    
-    // Return gregorian date
-    return returnDate
-}
+
 
 /*
  * Function to switch to iOS Settings App page for this App

@@ -139,7 +139,7 @@ class aircraftDetailsViewController2: FormViewController{
                 row.add(rule: RuleMinLength(minLength: 1))
                 
                 // Create allowed character set for registrations
-                let charactersetRegistrations = CharacterSet(charactersIn: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+-")
+                let charactersetRegistrations = CharacterSet(charactersIn: "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+-")
                 
                 // Custom validation rule - if string contains 'Hex' or parentheses then not a valid registration
                 let ruleContainsHex = RuleClosure<String> { rowValue in
@@ -232,6 +232,10 @@ class aircraftDetailsViewController2: FormViewController{
     
                         cell.textLabel?.textColor = .red
                     }
+                    
+                    // Customise behaviour for the text box
+                    cell.textField.autocapitalizationType = .allCharacters              // All capitals
+                    cell.textField.autocorrectionType = UITextAutocorrectionType.no     // No predictive text
             }
             
             // Series
@@ -253,18 +257,17 @@ class aircraftDetailsViewController2: FormViewController{
                 $0.add(rule: ruleContainsValidCharacters)
                 
                 $0.validationOptions = .validatesOnChange
-                
-                }.cellUpdate {cell, row in
                     
-                    // Customise behaviour for the text box
-                    cell.textField.autocapitalizationType = .allCharacters              // All capitals
-                    cell.textField.autocorrectionType = UITextAutocorrectionType.no     // No predictive text
                 }.cellUpdate {cell, row in
                     
                     // Validation
                     if !row.isValid {
                         cell.titleLabel?.textColor = .red
                     }
+                    
+                    // Customise behaviour for the text box
+                    cell.textField.autocapitalizationType = .allCharacters              // All capitals
+                    cell.textField.autocorrectionType = UITextAutocorrectionType.no     // No predictive text
             }
 
 
@@ -277,6 +280,7 @@ class aircraftDetailsViewController2: FormViewController{
                 $0.title = "Operator"
                 $0.tag = "frmOperator"
                 $0.placeholder = "eg British Airways"
+                $0.value = aircraftDetails.acOperator
                 
                 $0.filterFunction = { text in
                     
@@ -301,7 +305,7 @@ class aircraftDetailsViewController2: FormViewController{
                 $0.title = "Delivery"
                 
                 // Test for nil return from conversion
-                if let deliveryDate = ConvertACDB_Date(inDate: aircraftDetails.acDelivery)
+                if let deliveryDate = aircraftDetails.getDeliveryDate()
                 {
                     $0.value = deliveryDate
                 }
@@ -412,7 +416,7 @@ class aircraftDetailsViewController2: FormViewController{
         // Leaves 20pt of space between the keyboard and the highlighted row after scrolling to an off screen row
         rowKeyboardSpacing = 20
         
-        let validationErrors = form.validate()
+        let _ = form.validate()
         
         // Enable or disable form fields depending on passed in value for read-only or edit mode
         disableAllFormFields(inSetting: formDisabled)
@@ -525,7 +529,7 @@ class aircraftDetailsViewController2: FormViewController{
             // Set the class of the calling View controller
             let svc = segue.destination as! newAircraftTableViewController2
             
-            svc.returnValue = newAircraftCreated
+            svc.returnedAircraft = newAircraftCreated
         }
     }
     
@@ -731,7 +735,7 @@ class aircraftDetailsViewController2: FormViewController{
     // MARK: - Form Processing
     
     // Function to process the form (if required)
-    func processForm() -> Bool {
+    func processForm() -> infoAircraft? {
         
         // Get any form validation errors
         let validationErrors = form.validate()
@@ -739,7 +743,7 @@ class aircraftDetailsViewController2: FormViewController{
         if validationErrors.count > 0 {
             
             // Form has errors so return without processing
-            return false
+            return nil
         }
             
         // Get the value of all rows in the Eureka form which have a Tag assigned
@@ -748,15 +752,15 @@ class aircraftDetailsViewController2: FormViewController{
         
         // Create an Aircraft object for passing to function(s) & populate
         let Aircraft = infoAircraft(inRegistration: fValues["frmRegistration"] as! String)
-        Aircraft.acType = fValues["frmType"] as! String
-        Aircraft.acSeries = fValues["frmSeries"] as! String
-        Aircraft.acOperator = fValues["frmOperator"] as! String
-        Aircraft.acConstructor = fValues["frmConstructor"] as! String
-        Aircraft.acFuselage = fValues["frmFuselage"] as! String
-        Aircraft.acDelivery = fValues["frmDelivery"] as! String
-        Aircraft.acModeS = fValues["frmModeS"] as! String
+        Aircraft?.acType = fValues["frmType"] as! String
+        Aircraft?.acSeries = fValues["frmSeries"] as! String
+        Aircraft?.acOperator = fValues["frmOperator"] as! String
+        Aircraft?.acConstructor = fValues["frmConstructor"] as! String
+        Aircraft?.acFuselage = fValues["frmFuselage"] as! String
+        Aircraft?.setDeliveryDate(inDate: fValues["frmDelivery"] as! Date)
+        Aircraft?.acModeS = fValues["frmModeS"] as! String
         
         // Send aircraft obj for adding to DB & CoreData and return true/false result
-        return addAircraft(inAircraft: Aircraft)
+        return Aircraft
     }
 }

@@ -22,7 +22,7 @@ class infoAircraft {
     var acFuselage:       String                    // Fuselage
     var acModeS:          String                    // Mode S
     var recordNum:        Int16                     // Record Number
-    var acDelivery:       String                    // Delivery Date
+    var acDelivery:       String                    // Delivery Date as string in format "mm/YY" as held in ACDB on server
     
     var acImageAvailable: Bool                      // True if image available
     var acImage:          UIImage?                  // Latest image (if exists)
@@ -30,7 +30,9 @@ class infoAircraft {
     // MARK: Initialisation
     
     // Constructor - Registration only
-    init(inRegistration: String) {
+    init?(inRegistration: String) {
+        
+        if inRegistration.isEmpty { return nil }
         
         self.acRegistration = inRegistration        // Assign registration
         
@@ -70,4 +72,34 @@ class infoAircraft {
         self.acImage = inImage
     }
     
+    // Function to recieve a Date type and assign it converted to a string as mm/YY as held in ACDB server
+    func setDeliveryDate(inDate: Date)
+    {
+        let dFormatter = DateFormatter()
+        dFormatter.locale = Locale(identifier: "en_GB")
+        dFormatter.dateFormat = "MM/yy"
+        
+        self.acDelivery = dFormatter.string(from: inDate)
+    }
+    
+    // Function to convert ACDB style date (mm/yy) to standard date for setting DatePicker value
+    // Returns converted date or nil
+    func getDeliveryDate() -> Date?
+    {
+        // Extract month & year from ACDB string
+        let dateString = "01/" + self.acDelivery
+        
+        // Calculate date
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/yy"
+        dateFormatter.locale = Locale(identifier: "en_GB")
+        guard let returnDate = dateFormatter.date(from: dateString) else
+        {
+            // Return gregorian date
+            return nil
+        }
+        
+        // Return gregorian date
+        return returnDate
+    }
 }
