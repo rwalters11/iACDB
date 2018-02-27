@@ -542,9 +542,11 @@ func addAircraft2RemoteDB(inAircraft: infoAircraft) -> Bool
                 
             case .newFailed?:
                 rwPrint(inFunction: #function, inMessage: "New Aircraft server add - failed")
+                showAlert(inTitle: "Failed", inMessage: "Aircraft not uploaded\n\nServer error")
                 
             case .duplicate?:
                 rwPrint(inFunction: #function, inMessage: "New Aircraft server add - duplicate")
+                showAlert(inTitle: "Duplicate", inMessage: "Aircraft not uploaded\n\nAlready exists")
                 
             default:
                 break

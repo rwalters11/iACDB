@@ -82,7 +82,7 @@ class addSpotViewController2: FormViewController, CLLocationManagerDelegate{
             
         case .restricted, .denied:
             
-            showAlert(inTitle: "iACDB", inMessage: "Turn on Location Services to match nearest airfield", inViewController: self)
+            showAlert(inTitle: "iACDB", inMessage: "Turn on Location Services to match nearest airfield")
         default:
             break
             
@@ -166,7 +166,7 @@ class addSpotViewController2: FormViewController, CLLocationManagerDelegate{
                 {
                     errorCheck = true
                     
-                    showAlert(inTitle: "iACDB Error", inMessage: "Invalid registration", inViewController: self)
+                    showAlert(inTitle: "iACDB Error", inMessage: "Invalid registration")
                 }
                 
             }else{

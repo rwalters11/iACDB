@@ -288,7 +288,7 @@ class addEditLocationViewController: UIViewController, UITextFieldDelegate {
             let message = "No data connection"
             
             // Tell user
-            showAlert(inTitle: "iACDB", inMessage: message, inViewController: self)
+            showAlert(inTitle: "iACDB", inMessage: message)
             
             return
         }
@@ -424,7 +424,7 @@ class addEditLocationViewController: UIViewController, UITextFieldDelegate {
             if !result {
                 
                 // Tell the user
-                showAlert(inTitle: "iACDB", inMessage: "Invalid latitude", inViewController: self)
+                showAlert(inTitle: "iACDB", inMessage: "Invalid latitude")
                 
                 // Change font colour to red
                 textField.textColor = UIColor.red
@@ -441,7 +441,7 @@ class addEditLocationViewController: UIViewController, UITextFieldDelegate {
             if !result {
                 
                 // Tell the user
-                showAlert(inTitle: "iACDB", inMessage: "Invalid longitude", inViewController: self)
+                showAlert(inTitle: "iACDB", inMessage: "Invalid longitude")
                 
                 // Change font colour to red
                 textField.textColor = UIColor.red
@@ -458,7 +458,7 @@ class addEditLocationViewController: UIViewController, UITextFieldDelegate {
             if !result {
                 
                 // Tell the user
-                showAlert(inTitle: "iACDB", inMessage: "Invalid frequency", inViewController: self)
+                showAlert(inTitle: "iACDB", inMessage: "Invalid frequency")
                 
                 // Change font colour to red
                 textField.textColor = UIColor.red
