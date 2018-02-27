@@ -41,9 +41,13 @@ class newAircraftTableViewController2: UITableViewController, NSFetchedResultsCo
         // True if Aircraft record created
         if (returnedAircraft != nil) {
             
+            // Send aircraft to server
+            if addAircraft(inAircraft: returnedAircraft!)
+            {
             // If new aircraft successfully converted to aircraft record then remove from CoreData & FRC
             
             // TODO
+            }
         }
     }
     

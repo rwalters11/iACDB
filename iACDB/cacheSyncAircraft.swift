@@ -16,6 +16,51 @@ import Alamofire
 import AlamofireImage
 import SwiftyJSON
 
+// Structures to hold GET/POST field names for server calls
+struct MainDataTableFields
+{
+    let mdtRecordNum    : String = "RecordNumber"
+    let mdtRegistration : String = "Registration"
+    let mdtType         : String = "Type"
+    let mdtSeries       : String = "Series"
+    let mdtOperator     : String = "Operator"
+    let mdtDeliveryDate : String = "DeliveryDate"
+    let mdtName         : String = "AircraftName"
+    let mdtConstructor  : String = "ConstructorsNumber"
+    let mdtFuselage     : String = "FuselageNumber"
+    let mdtFleetNum     : String = "FleetNumber"
+    let mdtSoldAs       : String = "SoldAs"
+    let mdtModeS        : String = "ModeS"
+    let mdtRemarks      : String = "Remarks"
+    let mdtImage        : String = "image"
+    let mdtPrevReg1     : String = "PReg1"
+    let mdtPrevReg2     : String = "PReg2"
+    let mdtPrevReg3     : String = "PReg3"
+    let mdtPrevReg4     : String = "PReg4"
+    let mdtPrevReg5     : String = "PReg5"
+    let mdtPrevReg6     : String = "PReg6"
+    let mdtPrevReg7     : String = "PReg7"
+    let mdtPrevReg8     : String = "PReg8"
+}
+
+struct HistoryTableFields
+{
+    let htRegistration  : String = "registration"
+    let htLocation      : String = "location"
+    let htDate          : String = "date"
+    let htSeenBy        : String = "seenby"
+    
+}
+
+enum NewAircraftReturnValues: String
+{
+    case new = "new_success"
+    case newFailed = "new_failed"
+    case duplicate = "duplicate"
+    case updated = "update_success"
+    case updateFailed = "update_failed"
+}
+
 // MARK: Cache Sync Functions
 
 /*
@@ -338,22 +383,22 @@ func getAircraftDetailsFromCache(inRegistration: String) -> infoAircraft {
             
             rwPrint(inFunction: #function, inMessage:"Fetched aircraft: \(String(describing: fetchedAircraft.acRegistration)).")
             
-            aircraftDetails.acType = fetchedAircraft.acType!
-            aircraftDetails.acSeries = fetchedAircraft.acSeries!
-            aircraftDetails.acOperator = fetchedAircraft.acOperator!
-            aircraftDetails.acConstructor = fetchedAircraft.acConstructor!
-            aircraftDetails.acFuselage = fetchedAircraft.acFuselage!
-            aircraftDetails.acModeS = fetchedAircraft.acModeS!
-            aircraftDetails.acDelivery = fetchedAircraft.acDelivery!
-            aircraftDetails.recordNum = fetchedAircraft.dbRecordNum
-            aircraftDetails.acImageAvailable = fetchedAircraft.acImageAvailable
+            aircraftDetails?.acType = fetchedAircraft.acType!
+            aircraftDetails?.acSeries = fetchedAircraft.acSeries!
+            aircraftDetails?.acOperator = fetchedAircraft.acOperator!
+            aircraftDetails?.acConstructor = fetchedAircraft.acConstructor!
+            aircraftDetails?.acFuselage = fetchedAircraft.acFuselage!
+            aircraftDetails?.acModeS = fetchedAircraft.acModeS!
+            aircraftDetails?.acDelivery = fetchedAircraft.acDelivery!
+            aircraftDetails?.recordNum = fetchedAircraft.dbRecordNum
+            aircraftDetails?.acImageAvailable = fetchedAircraft.acImageAvailable
         }
         
     } catch {
         rwPrint(inFunction: #function, inMessage:"Unable to fetch managed objects for entity \(entity).")
     }
     
-    return aircraftDetails
+    return aircraftDetails!
     
 }
 
@@ -442,13 +487,15 @@ func addAircraft2RemoteDB(inAircraft: infoAircraft) -> Bool
     //**********   Add New Aircraft 2 remote DB
     
     // Encode registration for passing to server
-    let uriRegistration = inAircraft.acRegistration.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+    //let uriRegistration = inAircraft.acRegistration.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
     
     // Display network activity indicator in status bar
     UIApplication.shared.isNetworkActivityIndicatorVisible = true
     
+    let parameters = inAircraft.getURLParameterString()
+    
     // Set destination url & value to send
-    var url: String = "https://tbgweb.dyndns.info/iacdb/iosSubmitAircraftData.php?Registration=" + uriRegistration!
+    var url: String = "https://tbgweb.dyndns.info/iacdb/iosSubmitAircraftData.php" + parameters
     
     // ****** For Testing (adds record to test DB)
     url += "&test=true"
@@ -471,7 +518,7 @@ func addAircraft2RemoteDB(inAircraft: infoAircraft) -> Bool
             }
             
             // make sure we have got valid JSON as an array of key/value pairs of strings
-            guard let json = response.result.value as? Int! else {
+            guard let json = response.result.value as? Dictionary<String, Any> else {
                 
                 rwPrint(inFunction: #function, inMessage: "Didn't get valid JSON from server")
                 rwPrint(inFunction: #function, inMessage: "Error: \(String(describing: response.result.error))")
@@ -482,16 +529,25 @@ func addAircraft2RemoteDB(inAircraft: infoAircraft) -> Bool
             
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
             
-            var remoteAddCount: Int = 0
-            remoteAddCount = json
+            // Assign returned data to SwiftyJSON object
+            let data = JSON(json)
             
-            //**********   Test for successful addition
-            if remoteAddCount > 0
-                //if true
-            {
-                rwPrint(inFunction: #function, inMessage: "\(remoteAddCount) New Aircraft records added to server")
-            }else{
-                rwPrint(inFunction: #function, inMessage: "New Aircraft server delete failed")
+            let status = data["status"].stringValue
+            let eStatus = NewAircraftReturnValues(rawValue: status)
+            
+            switch eStatus {
+                
+            case .new?:
+                rwPrint(inFunction: #function, inMessage: "Record #\(status) New Aircraft added to server")
+                
+            case .newFailed?:
+                rwPrint(inFunction: #function, inMessage: "New Aircraft server add - failed")
+                
+            case .duplicate?:
+                rwPrint(inFunction: #function, inMessage: "New Aircraft server add - duplicate")
+                
+            default:
+                break
             }
     }
     

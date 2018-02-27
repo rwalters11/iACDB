@@ -751,14 +751,17 @@ class aircraftDetailsViewController2: FormViewController{
         let fValues = form.values()
         
         // Create an Aircraft object for passing to function(s) & populate
+        // Required fields
         let Aircraft = infoAircraft(inRegistration: fValues["frmRegistration"] as! String)
         Aircraft?.acType = fValues["frmType"] as! String
-        Aircraft?.acSeries = fValues["frmSeries"] as! String
         Aircraft?.acOperator = fValues["frmOperator"] as! String
         Aircraft?.acConstructor = fValues["frmConstructor"] as! String
-        Aircraft?.acFuselage = fValues["frmFuselage"] as! String
-        Aircraft?.setDeliveryDate(inDate: fValues["frmDelivery"] as! Date)
         Aircraft?.acModeS = fValues["frmModeS"] as! String
+        
+        // Optional fields
+        Aircraft?.acSeries = fValues["frmSeries"] as! String
+        Aircraft?.acFuselage = fValues["frmFuselage"] as! String
+        if let fDate = fValues["frmDelivery"] as? Date { Aircraft?.setDeliveryDate(inDate: fDate) }
         
         // Send aircraft obj for adding to DB & CoreData and return true/false result
         return Aircraft

@@ -72,6 +72,30 @@ class infoAircraft {
         self.acImage = inImage
     }
     
+    // Function to compose a URL parameter string for an Aircraft
+    func getURLParameterString() -> String
+    {
+        // Init empty parameter string
+        var parameterString: String = ""
+        // Holder for url field names
+        let urlFields = MainDataTableFields()
+        
+        // Construct the parameter string
+        parameterString += "?"
+        parameterString += urlFields.mdtRecordNum + "=" + String(self.recordNum)
+        parameterString += "&" + urlFields.mdtRegistration + "=" + self.acRegistration
+        parameterString += "&" + urlFields.mdtType + "=" + self.acType
+        parameterString += "&" + urlFields.mdtSeries + "=" + self.acSeries
+        parameterString += "&" + urlFields.mdtOperator + "=" + self.acOperator
+        parameterString += "&" + urlFields.mdtConstructor + "=" + self.acConstructor
+        parameterString += "&" + urlFields.mdtFuselage + "=" + self.acFuselage
+        parameterString += "&" + urlFields.mdtDeliveryDate + "=" + self.acDelivery
+        parameterString += "&" + urlFields.mdtModeS + "=" + self.acModeS
+        
+        // Return encoded parameter string
+        return parameterString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+    }
+    
     // Function to recieve a Date type and assign it converted to a string as mm/YY as held in ACDB server
     func setDeliveryDate(inDate: Date)
     {
