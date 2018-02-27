@@ -44,9 +44,15 @@ class newAircraftTableViewController2: UITableViewController, NSFetchedResultsCo
             // Send aircraft to server
             if addAircraft(inAircraft: returnedAircraft!)
             {
-            // If new aircraft successfully converted to aircraft record then remove from CoreData & FRC
+            // If new aircraft successfully converted to aircraft record then remove new aircraft from CoreData & FRC
             
             // TODO
+                // Create a New Aircraft entry
+                let delNewAircraft = EntNewAircraft(context: moc)
+                // Assign registration
+                delNewAircraft.registration = returnedAircraft?.acRegistration
+                // Delete from CoreData
+                deleteNewAircraftCD(item: delNewAircraft)
             }
         }
     }

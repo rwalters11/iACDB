@@ -465,6 +465,7 @@ func addAircraft(inAircraft: infoAircraft) -> Bool
     if retValue{
         
         retValue = addAircraftRecord2CoreData(inAircraft: inAircraft)
+        
     }
     
     return retValue
@@ -562,7 +563,38 @@ func addAircraftRecord2CoreData(inAircraft: infoAircraft) -> Bool
     // Default return value
     var retValue: Bool = false
     
+    let moc = getContext()
+        
+        // Create a new aircraft obj
+        let addAircraft = EntAircraft(context: moc)
+        
+        // Get the aircraft information
+        addAircraft.acRegistration = inAircraft.acRegistration
+        
+        addAircraft.acType = inAircraft.acType
+        addAircraft.acSeries = inAircraft.acSeries
+        addAircraft.acOperator = inAircraft.acOperator
+        addAircraft.acConstructor = inAircraft.acConstructor
+        addAircraft.acFuselage = inAircraft.acFuselage
+        addAircraft.acDelivery = inAircraft.acDelivery
+        addAircraft.acModeS = inAircraft.acModeS
+        
+        addAircraft.dbRecordNum = inAircraft.recordNum
+        
+        addAircraft.acImageAvailable = inAircraft.acImageAvailable
     
+    // Save the aircraft added
+    do {
+        // Do the save
+        try moc.save()
+        
+        rwPrint(inFunction: #function, inMessage: "New aircraft saved to CoreData")
+        
+        retValue = true
+        
+    } catch let error as NSError {
+        rwPrint(inFunction: #function, inMessage:"Could not save. \(error), \(error.userInfo)")
+    }
     
     return retValue
 }
