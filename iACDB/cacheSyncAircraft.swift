@@ -178,7 +178,7 @@ func syncAircraft2RemoteDB(inController: spotListTableViewController) {
                 // Populate the Aircraft cache from the TBGweb server
                 _ = populateAircraftCache(inLocalCacheCount: cachedAircraftCount, inController: inController)
                 
-                rwPrint(inFunction: #function, inMessage: "Aircraft sync complete")
+                
             }else{
                 rwPrint(inFunction: #function, inMessage: "Aircraft in sync")
             }
@@ -331,6 +331,7 @@ func populateAircraftCacheStage2(inController: spotListTableViewController?) {
                 cacheCount = data.count
                 
                 rwPrint(inFunction: #function, inMessage: "\(cacheCount) aircraft saved to CoreData")
+                rwPrint(inFunction: #function, inMessage: "Aircraft sync complete")
                 
                 // Dismiss the loading screen once complete
                 inController?.removeLoadingScreen()
@@ -486,9 +487,6 @@ func addAircraft2RemoteDB(inAircraft: infoAircraft) -> Bool
     }
     
     //**********   Add New Aircraft 2 remote DB
-    
-    // Encode registration for passing to server
-    //let uriRegistration = inAircraft.acRegistration.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
     
     // Display network activity indicator in status bar
     UIApplication.shared.isNetworkActivityIndicatorVisible = true

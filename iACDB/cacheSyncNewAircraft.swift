@@ -191,8 +191,8 @@ func populateNewAircraftCache(inLocalCacheCount: Int) -> Int
                 
                 result = resData as! [[String: Any]]
             }
-            // Initialise count of returned New Aircraft with a nil value - Bug Fix 11/02/2018
-            //var nilCountInJSON = 0
+            // Count data errors
+            var dudCount = 0
             
                 // Iterate through array of Dictionary's
                 for object in result {
@@ -200,9 +200,16 @@ func populateNewAircraftCache(inLocalCacheCount: Int) -> Int
                     // Create a New Aircraft entry
                     let addNewAircraft = EntNewAircraft(context: moc)
                     
+                    //Debugging ********
+                    guard let _ = object["Registration"] as? String else {
+                        dudCount += 1
+                        return
+                    }
+                    // End of debugging ********
+                    
                     // Get the New Aircraft information from json
                    
-                    addNewAircraft.registration = object["Registration"] as? String
+                    addNewAircraft.registration = object["Registration"] as? String ?? ""
                     
                     addNewAircraft.count = Int16((object["Count"] as? String)!)!
                 }
@@ -217,6 +224,11 @@ func populateNewAircraftCache(inLocalCacheCount: Int) -> Int
                 
                 rwPrint(inFunction: #function, inMessage: "\(cacheCount) New Aircraft saved to CoreData")
                 rwPrint(inFunction: #function, inMessage: "New Aircraft sync complete")
+                
+                // Debugging ********
+                if dudCount > 0 {
+                    rwPrint(inFunction: #function, inMessage: "\(dudCount) data errors")
+                }
                 
             } catch let error as NSError {
                 rwPrint(inFunction: #function, inMessage:"Could not save. \(error), \(error.userInfo)")

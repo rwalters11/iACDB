@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13772" systemVersion="17D47" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13772" systemVersion="17D102" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="EntAircraft" representedClassName="EntAircraft" versionHashModifier="added index" syncable="YES" codeGenerationType="class">
         <attribute name="acConstructor" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="acDelivery" optional="YES" attributeType="String" syncable="YES"/>
@@ -43,11 +43,6 @@
         <fetchIndex name="registrationIndex">
             <fetchIndexElement property="registration" type="Binary" order="ascending"/>
         </fetchIndex>
-        <uniquenessConstraints>
-            <uniquenessConstraint>
-                <constraint value="registration"/>
-            </uniquenessConstraint>
-        </uniquenessConstraints>
     </entity>
     <entity name="EntOperators" representedClassName="EntOperators" syncable="YES" codeGenerationType="class">
         <attribute name="acOperator" optional="YES" attributeType="String" syncable="YES"/>
