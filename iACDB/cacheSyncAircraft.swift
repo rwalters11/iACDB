@@ -496,10 +496,10 @@ func addAircraft2RemoteDB(inAircraft: infoAircraft) -> Bool
     let parameters = inAircraft.getURLParameterString()
     
     // Set destination url & value to send
-    var url: String = "https://tbgweb.dyndns.info/iacdb/iosSubmitAircraftData.php" + parameters
+    let url: String = "https://tbgweb.dyndns.info/iacdb/iosSubmitAircraftData.php" + parameters
     
     // ****** For Testing (adds record to test DB)
-    url += "&test=true"
+    //url += "&test=true"
     
     // Do asynchronous call to server using Alamofire library
     Alamofire.request(url, method: .get)

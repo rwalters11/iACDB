@@ -52,7 +52,13 @@ class newAircraftTableViewController2: UITableViewController, NSFetchedResultsCo
                 // Assign registration
                 delNewAircraft.registration = returnedAircraft?.acRegistration
                 // Delete from CoreData
-                deleteNewAircraftCD(item: delNewAircraft)
+                let retValue = deleteNewAircraftCD(item: delNewAircraft)
+                
+                // Reload the data if deleted ok
+                if retValue!
+                {
+                    self.tableView.reloadData()
+                }
             }
         }
     }

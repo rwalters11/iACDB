@@ -133,7 +133,7 @@ func syncNewAircraft2RemoteDB() {
                 // Populate the New Aircraft cache from the TBGweb server
                 _ = populateNewAircraftCache(inLocalCacheCount: cachedAircraftCount)
                 
-                rwPrint(inFunction: #function, inMessage: "New Aircraft sync complete")
+                //rwPrint(inFunction: #function, inMessage: "New Aircraft sync complete")
             }else{
                 rwPrint(inFunction: #function, inMessage: "New Aircraft in sync")
             }
@@ -173,6 +173,8 @@ func populateNewAircraftCache(inLocalCacheCount: Int) -> Int
             
             rwPrint(inFunction: #function, inMessage: "New Aircraft data returned successfully from async call")
             
+            var result = [[String: Any]]()
+            
             // Clear the Locations cache after download of new data
             _ = entityDeleteAllData(inEntity: "EntNewAircraft")
             
@@ -181,20 +183,29 @@ func populateNewAircraftCache(inLocalCacheCount: Int) -> Int
             // Assign returned data to SwiftyJSON object
             let data = JSON(json!)
             
+            // Bug Fix: 28/02/2018 - App crash on processing new aircraft data from server at this point with NSInvalidArgumentException
+            // Test & conversion of data to standard dictionary prior to adding to core data
+            
+            // Test validity and convert to dictionary
+            if let resData = data[].arrayObject {
+                
+                result = resData as! [[String: Any]]
+            }
             // Initialise count of returned New Aircraft with a nil value - Bug Fix 11/02/2018
             //var nilCountInJSON = 0
             
-            // Iterate through array of Dictionary's
-            for (_, object) in data {
-                
-                // Create a New Aircraft entry
-                let addNewAircraft = EntNewAircraft(context: moc)
-                
-                // Get the New Aircraft information from json
-                addNewAircraft.registration = object["Registration"].stringValue
-                
-                addNewAircraft.count = Int16(object["Count"].stringValue)!
-            }
+                // Iterate through array of Dictionary's
+                for object in result {
+                    
+                    // Create a New Aircraft entry
+                    let addNewAircraft = EntNewAircraft(context: moc)
+                    
+                    // Get the New Aircraft information from json
+                   
+                    addNewAircraft.registration = object["Registration"] as? String
+                    
+                    addNewAircraft.count = Int16((object["Count"] as? String)!)!
+                }
             
             // Save the locations added
             do {
@@ -205,6 +216,7 @@ func populateNewAircraftCache(inLocalCacheCount: Int) -> Int
                 cacheCount = data.count
                 
                 rwPrint(inFunction: #function, inMessage: "\(cacheCount) New Aircraft saved to CoreData")
+                rwPrint(inFunction: #function, inMessage: "New Aircraft sync complete")
                 
             } catch let error as NSError {
                 rwPrint(inFunction: #function, inMessage:"Could not save. \(error), \(error.userInfo)")
@@ -268,9 +280,13 @@ func afPopulateNewAircraft(completionHandler:  @escaping (Bool, [[String: String
     }
 }
 
+//MARK: - Deletions
+
 // Function to delete a New Aircraft from CoreData
-func deleteNewAircraftCD(item: EntNewAircraft)
+func deleteNewAircraftCD(item: EntNewAircraft) -> Bool?
 {
+    var retValue = false
+    
     let moc = getContext()
     
     let registration = item.registration
@@ -286,11 +302,14 @@ func deleteNewAircraftCD(item: EntNewAircraft)
             try moc.save()
         
             rwPrint(inFunction: #function, inMessage: "New aircraft record: \(registration ?? "") deleted from CoreData")
+            retValue = true
         
         } catch let error as NSError {
             rwPrint(inFunction: #function, inMessage:"Could not delete. \(error), \(error.userInfo)")
         }
     }
+    
+    return retValue
 }
 
 // Function to delete New Aircraft from Server DB
