@@ -677,8 +677,11 @@ class spotListTableViewController: UITableViewController, NSFetchedResultsContro
     func removeLoadingScreen() {
         
         // Hides and stops the text and the spinner
-        self.spinner.stopAnimating()
-        self.loadingLabel.isHidden = true
+        DispatchQueue.main.async {
+            
+            self.spinner.stopAnimating()
+            self.loadingLabel.isHidden = true
+        }
         
     }
     

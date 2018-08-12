@@ -111,7 +111,7 @@ func syncLocations2RemoteDB() {
             }
             
             // make sure we have got valid JSON as an array of key/value pairs of strings
-            guard let json = response.result.value as? Int! else {
+            guard let json = response.result.value as? Int else {
                 
                 rwPrint(inFunction: #function, inMessage: "Didn't get valid JSON from server")
                 rwPrint(inFunction: #function, inMessage: "Error: \(String(describing: response.result.error))")

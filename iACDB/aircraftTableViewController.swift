@@ -213,13 +213,13 @@ class aircraftTableViewController: UITableViewController, NSFetchedResultsContro
                     let searchTerm = aircraft.acRegistration?.addingPercentEncoding(withAllowedCharacters: expectedCharSet)
                     
                     // Set destination url & value to send including requested image width
-                    let url = URL(string: "https://tbgweb.dyndns.info/iacdb/iosGetLatestImage.php?registration=" + searchTerm! + "&w=100")!
+                    let url = URL(string: "https://tbgweb.dyndns.info/iacdb/iosGetLatestImage.php?registration=" + searchTerm! + "&w=250")!
                     
                     // Setup Kingfisher Image Cacheing & retrieval resource using aircraft registration as the cache key
-                    let resource = ImageResource(downloadURL: url, cacheKey: aircraft.acRegistration! + "w100")
+                    let resource = ImageResource(downloadURL: url, cacheKey: aircraft.acRegistration! + "w250")
                     
                     // Display the image with loading indicator and corner radius
-                    let processor = RoundCornerImageProcessor(cornerRadius: 5)
+                    let processor = RoundCornerImageProcessor(cornerRadius: 5) >> ResizingImageProcessor(referenceSize: CGSize(width: 300, height: 200), mode: ContentMode.aspectFit)
                     
                     cell.imgAircraft?.kf.indicatorType = .activity
                     cell.imgAircraft?.kf.setImage(with: resource, placeholder: nil, options: [.processor(processor)])

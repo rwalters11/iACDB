@@ -275,74 +275,77 @@ func populateAircraftCacheStage2(inController: spotListTableViewController?) {
             // Clear the Locations cache after download of new data
             _ = entityDeleteAllData(inEntity: "EntAircraft")
             
-            let moc = getContext()
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            //let moc = getContext()
             
             // Assign returned data to SwiftyJSON object
             let data = JSON(json!)
             
-            // Iterate through array of Dictionary objects
-            for (_, object) in data {
-                
-                //recordCounter += 1
-                
-                // Create a new aircraft obj
-                let addAircraft = EntAircraft(context: moc)
-                
-                // Get the registration information from json
-                addAircraft.acRegistration = object["Registration"].stringValue
-                
-                //print(String(recordCounter))
-                
-                addAircraft.acType = object["Type"].stringValue
-                addAircraft.acSeries = object["Series"].stringValue
-                
-                addAircraft.acOperator = object["Operator"].stringValue
-                
-                addAircraft.acConstructor = object["Constructors Number"].stringValue
-                addAircraft.acFuselage = object["Fuselage Number"].stringValue
-                addAircraft.acDelivery = object["Delivery Date"].stringValue
-                
-                addAircraft.acModeS = object["ModeS"].stringValue
-                
-                addAircraft.dbRecordNum = object["RecordNumber"].int16Value
-                
-                let acImageMarkerInt: Int = Int(object["Image"].stringValue)!
-                
-                // Convert mySQL value of 0 or 1 to true/false
-                var acImageMarker: Bool
-                
-                // Set image marker
-                if acImageMarkerInt == 0
-                {
-                    acImageMarker = false
-                }else{
-                    acImageMarker = true
+            // Perform lengthy data operation on background thread
+            let container = appDelegate.persistentContainer
+            container.performBackgroundTask() { (context) in
+            
+                // Iterate through array of Dictionary objects
+                for (_, object) in data {
+                    
+                    // Create a new aircraft obj
+                    let addAircraft = EntAircraft(context: context)
+                    
+                    // Get the registration information from json
+                    addAircraft.acRegistration = object["Registration"].stringValue
+                    
+                    //print(String(recordCounter))
+                    
+                    addAircraft.acType = object["Type"].stringValue
+                    addAircraft.acSeries = object["Series"].stringValue
+                    
+                    addAircraft.acOperator = object["Operator"].stringValue
+                    
+                    addAircraft.acConstructor = object["Constructors Number"].stringValue
+                    addAircraft.acFuselage = object["Fuselage Number"].stringValue
+                    addAircraft.acDelivery = object["Delivery Date"].stringValue
+                    
+                    addAircraft.acModeS = object["ModeS"].stringValue
+                    
+                    addAircraft.dbRecordNum = object["RecordNumber"].int16Value
+                    
+                    let acImageMarkerInt: Int = Int(object["Image"].stringValue)!
+                    
+                    // Convert mySQL value of 0 or 1 to true/false
+                    var acImageMarker: Bool
+                    
+                    // Set image marker
+                    if acImageMarkerInt == 0
+                    {
+                        acImageMarker = false
+                    }else{
+                        acImageMarker = true
+                    }
+                    // Set the Image available marker
+                    addAircraft.acImageAvailable = acImageMarker
                 }
-                // Set the Image available marker
-                addAircraft.acImageAvailable = acImageMarker
+                
+                // Save the aircraft added
+                do {
+                    // Do the save
+                    try context.save()
+                    
+                    // Set the value of the number of records downloaded
+                    cacheCount = data.count
+                    
+                    rwPrint(inFunction: #function, inMessage: "\(cacheCount) aircraft saved to CoreData")
+                    rwPrint(inFunction: #function, inMessage: "Aircraft sync complete")
+                    
+                    // Dismiss the loading screen once complete on main thread
+                    DispatchQueue.main.async { inController?.removeLoadingScreen() }
+                    
+                    // Reload the tableview after the cache is loaded to correctly display aircraft details
+                    DispatchQueue.main.async { inController?.tableView.reloadData() }
+                    
+                } catch let error as NSError {
+                    rwPrint(inFunction: #function, inMessage:"Could not save. \(error), \(error.userInfo)")
+                }
             }
-            
-            // Save the aircraft added
-            do {
-                // Do the save
-                try moc.save()
-                
-                // Set the value of the number of records downloaded
-                cacheCount = data.count
-                
-                rwPrint(inFunction: #function, inMessage: "\(cacheCount) aircraft saved to CoreData")
-                rwPrint(inFunction: #function, inMessage: "Aircraft sync complete")
-                
-                // Dismiss the loading screen once complete
-                inController?.removeLoadingScreen()
-                
-                // Reload the tableview after the cache is loaded to correctly display aircraft details
-                inController?.tableView.reloadData()
-                
-            } catch let error as NSError {
-                rwPrint(inFunction: #function, inMessage:"Could not save. \(error), \(error.userInfo)")
-            }
-            
         } else
         {
             rwPrint(inFunction: #function, inMessage: "No data returned from async call")

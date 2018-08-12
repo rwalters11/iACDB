@@ -8,6 +8,7 @@
 
 import UIKit
 import SafariServices
+import Kingfisher
 
 class SettingsTableViewController: UITableViewController, UITextFieldDelegate {
     
@@ -20,6 +21,8 @@ class SettingsTableViewController: UITableViewController, UITextFieldDelegate {
     @IBOutlet weak var btnClearSpotData:        UIButton!
     @IBOutlet weak var btnUpdate:               UIButton!
     @IBOutlet weak var lblAboutApp:             UILabel!
+    @IBOutlet weak var btnClearImageCache:      UIButton!
+    @IBOutlet weak var lblKfDiskSpace:          UILabel!
     
     // Actions
     @IBAction func btnUpdate(_ sender: UIButton) {
@@ -74,6 +77,12 @@ class SettingsTableViewController: UITableViewController, UITextFieldDelegate {
         
     }
     
+    @IBAction func btnClearImageCache(_ sender: Any) {
+        
+        clearKingfisherCache()
+    }
+    
+    
     @IBAction func btnMainSettings(_ sender: UIBarButtonItem) {
         
         go2iOSSettings()
@@ -91,6 +100,8 @@ class SettingsTableViewController: UITableViewController, UITextFieldDelegate {
         // Activate Return key on keyboard
         userName.returnKeyType = .done
         userName.delegate = self
+        
+        displayKingfisherCache()
 
     }
     
@@ -250,5 +261,22 @@ class SettingsTableViewController: UITableViewController, UITextFieldDelegate {
         }))
         
         present(refreshAlert, animated: true, completion: nil)
+    }
+    
+    // Function to display disk space used ly Kingfisher
+    func displayKingfisherCache()
+    {
+        ImageCache.default.calculateDiskCacheSize { (size) in
+            
+            self.lblKfDiskSpace.text = "Using " + String(size/1000000) + "MB of disk space"
+        }
+    }
+    
+    // Function to clear the Kingfisher Image cache
+    func clearKingfisherCache()
+    {
+        ImageCache.default.clearDiskCache()
+        ImageCache.default.clearMemoryCache()
+        displayKingfisherCache()
     }
 }
